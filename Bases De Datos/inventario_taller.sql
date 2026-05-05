@@ -22,10 +22,21 @@ id_ubi int not null,
 nombre varchar(50) not null,
 
 PRIMARY KEY (id_armario),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
-
-CHECK (num_balda > 0)
+FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
 );
+
+
+DROP TABLE if exists balda;
+CREATE TABLE if not exists balda(
+id_balda int not null auto_increment,
+id_ubi int not null,
+nombre varchar(50) not null,
+
+PRIMARY KEY (id_balda),
+FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
+);
+
+
 
 DROP TABLE if exists estacion;
 CREATE TABLE if not exists estacion (
@@ -48,8 +59,8 @@ descripcion varchar(150) not null,
 categoria enum('portatil', 'sobremesa') not null,
 estado enum('operativo','averiado','en reparación', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
-id_ubi int not null ,
-fecha_alta DATETIME DEFAULT (current_date),
+id_estacion int not null,
+fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150) null,
 
 PRIMARY KEY (id_pc),
@@ -64,13 +75,13 @@ nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparación', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
-id_ubi int not null,
+id_armario int,
 id_pc int,
-fecha_alta DATETIME DEFAULT (current_date),
+fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150),
 
 PRIMARY KEY (id_comp),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+FOREIGN KEY (id_armario) REFERENCES armario(id_armario),
 FOREIGN KEY (id_pc) REFERENCES pcs(id_pc),
 CHECK (cantidad >= 0)
 
@@ -84,18 +95,38 @@ nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparación', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
-id_ubi int not null,
+id_estacion int,
 id_pc int not null,
-fecha_alta DATETIME DEFAULT (current_date),
+fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150),
 
 PRIMARY KEY (id_peri),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+FOREIGN KEY (id_estacion) REFERENCES estacion(id_estacion),
 FOREIGN KEY (id_pc) REFERENCES pcs(id_pc),
 
 CHECK (cantidad >= 0)
 
 );
+
+DROP TABLE if exists equipos_red;
+CREATE TABLE if not exists equipos_red(
+id_red int not null auto_increment,
+nombre varchar(50) not null,
+descripcion varchar(150) not null,
+estado enum('operativo','averiado','en reparación', 'obsoleto') not null DEFAULT 'operativo',
+cantidad int not null,
+id_estacion int,
+id_armario int,
+fecha_alta DATE DEFAULT (current_date),
+observaciones varchar(150),
+
+PRIMARY KEY (id_red),
+FOREIGN KEY (id_estacion) REFERENCES estacion(id_estacion),
+FOREIGN KEY (id_armario) REFERENCES armario(id_armario),
+
+CHECK (cantidad > 0)
+);
+
 
 
 
