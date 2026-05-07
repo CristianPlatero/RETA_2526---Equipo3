@@ -28,7 +28,7 @@ También haremos una página web en la cual se muestre de forma gráfica la dist
  
 En cuanto a las máquinas virtuales, se utilizarán dos. En una se alojará la base de datos y solo se podrá acceder a ella a través de la otra máquina virtual.  Y en la otra se alojará la página web y se podrá acceder a ella a través de los ordenadores del laboratorio.
 
-Nuestra aplicación cuenta con una página web dinámica que muestra toda la información de forma moderna y visual.
+
 
 
 
