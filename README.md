@@ -9,6 +9,24 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 ---
+## 🗂️ Índice
+
+1. [📖 Descripción](#-descripción)
+   - [🏗️ Arquitectura del sistema](#️-arquitectura-del-sistema)
+   - [🌟 ¿Por qué este proyecto?](#-por-qué-este-proyecto)
+   - [🔁 Metodología de trabajo](#-metodología-de-trabajo)
+   - [✨ Características principales](#-características-principales)
+   - [🖼️ Capturas de pantalla / Demo](#️-capturas-de-pantalla--demo)
+2. [⚙️ Instalación](#️-instalación)
+3. [🛠️ Uso](#️-uso)
+4. [🗺️ Roadmap](#️-roadmap)
+5. [🆘 Soporte](#-soporte)
+6. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
+7. [📄 Licencia](#-licencia)
+8. [📊 Estado del proyecto](#-estado-del-proyecto)
+
+
+---
 
 ## 📖 Descripción
 
