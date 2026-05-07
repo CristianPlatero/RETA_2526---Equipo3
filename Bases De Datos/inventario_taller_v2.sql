@@ -65,9 +65,9 @@ fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150),
 
 PRIMARY KEY (id_matTa),
-FOREIGN KEY (id_armario) REFERENCES armario(id_armario),
-FOREIGN KEY (id_estacion) REFERENCES estacion(id_estacion),
-FOREIGN KEY (id_balda) REFERENCES balda(id_balda),
+FOREIGN KEY (id_armario) REFERENCES armario(id_ubi),
+FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi),
+FOREIGN KEY (id_balda) REFERENCES balda(id_ubi),
 
 CHECK (cantidad >= 0)
 );
