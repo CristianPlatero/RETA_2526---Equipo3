@@ -12,33 +12,46 @@
 
 ## 📖 Descripción
 
-Este proyecto es la culminación del primer curso del C.F.G.S de Desarrollo de Aplicaciones Web, en el que el Equipo3 ha diseñado y construido una Base de Datos y su correspondiente Aplicación en Java para la gestión y locallización del material electrónico del taller de Informática. 
+Este proyecto es la **culminación del primer curso del C.F.G.S. de Desarrollo de Aplicaciones Web**. El **Equipo 3** ha diseñado y construido una base de datos y su correspondiente aplicación en Java para la **gestión y localización del material electrónico** del Taller de Informática.
 
-Se trata de una aplicación dirigida a los usuarios (Profesorado) del Taller de Informática, con una interfaz sencilla y funcional que muestre la información que necesiten en cada momento: Ubicación de los componentes, Stock restante, y mucho más.
+Está dirigida al **profesorado** del taller, con una interfaz sencilla y funcional que ofrece en todo momento la información que necesitan:
 
-Deseamos que nuestro producto acabe siendo una aplicación en java, con la cual podamos inventariar, clasificar y localizar cada elemento del taller. 
- 
-Para ello utilizaremos una **aplicación de escritorio en java**. Para la interfaz utilizaremos java swing y dentro del programa lo enlazaremos con la base de datos. 
- 
-Para ello el MySQL se alojará en la primera máquina virtual. 
- 
-El programa se conectará a la base de datos mediante JDBC y se espera que esté tenga varios módulos. Módulo de gestión del inventario (Administrador), módulo de consulta y localización (Profesor) y módulo de informes (Exportación a PDF O Excel).  
- 
-También haremos una página web en la cual se muestre de forma gráfica la distribución física del taller. Para ello se utilizará HTML, css y JavaScript. 
- 
-En cuanto a las máquinas virtuales, se utilizarán dos. En una se alojará la base de datos y solo se podrá acceder a ella a través de la otra máquina virtual.  Y en la otra se alojará la página web y se podrá acceder a ella a través de los ordenadores del laboratorio.
+- 📍 Ubicación de cada componente
+- 📦 Control de stock en tiempo real
+- 📊 Informes exportables a PDF y Excel
+- 🗺️ Plano interactivo de la distribución física del taller
 
+---
 
+### 🏗️ Arquitectura del sistema
 
+**🖥️ Aplicación de escritorio Java**
+Interfaz construida con **Java Swing**, conectada a la base de datos mediante **JDBC**. Incluye tres módulos:
+- 🔐 **Módulo de inventario** — gestión completa (Administrador)
+- 🔍 **Módulo de consulta** — localización de componentes (Profesor)
+- 📄 **Módulo de informes** — exportación a PDF / Excel
 
+**🌐 Página web del taller**
+Muestra de forma gráfica la **distribución física del taller**, accesible desde los ordenadores del laboratorio. Desarrollada con `HTML`, `CSS` y `JavaScript`.
 
-**¿Por qué este proyecto y no otro?** 
+**🛠️ Infraestructura virtualizada**
+El sistema se despliega sobre dos máquinas virtuales con separación de responsabilidades:
+- **MV 1** — Aloja la base de datos MySQL. Solo accesible desde la MV 2.
+- **MV 2** — Aloja la aplicación web. Accesible desde los equipos del laboratorio.
 
-Una parte clave de este proyecto es fomentar el trabajo en equipo y la colaboración entre los estudiantes. Por eso creemos que junto con el programa como producto, somos nosotros mismos como equipo de desarrolladores los que debemos mostrarnos como el verdadero producto final, aunando resultados con las metodologías de trabajo que hemos aplicado.
+> **Stack tecnológico:** `Java` · `MySQL` · `JDBC` · `Java Swing` · `HTML/CSS/JS`
 
-Como elemento diferenciador, y dentro del requisito de trabajar según el **método SCRUM**, hemos decidido aplicar el sistema de **Pair Programming**. Se trata de una técnica de trabajo donde dos programadores trabajan en un mismo ordenador. 
+---
 
-Si existen alternativas, menciona brevemente qué diferencia a este proyecto (velocidad, simplicidad, integración específica, licencia, etc.).
+### 🌟 ¿Por qué este proyecto?
+
+Más allá del producto final, este proyecto tiene un objetivo clave: **demostrar que somos capaces de trabajar como un equipo de desarrolladores real**. El proceso, la metodología y la colaboración son tan importantes como el software entregado.
+
+> 💡 El verdadero producto final no es solo la aplicación — somos nosotros como equipo, y la forma en que hemos aprendido a trabajar juntos.
+
+### 🔁 Metodología de trabajo
+
+Trabajamos siguiendo el marco ágil **SCRUM** e incorporamos **Pair Programming** como técnica diferenciadora: dos programadores comparten un mismo equipo, lo que fomenta la revisión continua del código, reduce errores y acelera el aprendizaje colectivo.
 
 ### ✨ Características principales
 
@@ -54,7 +67,7 @@ Si existen alternativas, menciona brevemente qué diferencia a este proyecto (ve
 
 ```
 <!-- Ejemplo -->
-![Demo](docs/assets/demo.gif)
+![Demo](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2xsMHA4ZnQ2aWM2cWMxcWhlZGVzNHBlYzVsamJuazRxeGticDNxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/78XCFBGOlS6keY1Bil/giphy.gif)
 ```
 
 [![Demo en vivo](https://img.shields.io/badge/Demo-Ver%20en%20vivo-blue?style=flat-square)](https://RETA_2526---Equipo3/releases.example.com)
