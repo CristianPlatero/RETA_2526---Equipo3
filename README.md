@@ -16,7 +16,17 @@ Este proyecto es la culminación del primer curso del C.F.G.S de Desarrollo de A
 
 Se trata de una aplicación dirigida a los usuarios (Profesorado) del Taller de Informática, con una interfaz sencilla y funcional que muestre la información que necesiten en cada momento: Ubicación de los componentes, Stock restante, y mucho más.
 
-El proyecto se va a desplegar en 2 Máquinas virtuales, una para alojar la base de datos y protegerla del exterior y otra con los servicios web y de aplicación.
+Deseamos que nuestro producto acabe siendo una aplicación en java, con la cual podamos inventariar, clasificar y localizar cada elemento del taller. 
+ 
+Para ello utilizaremos una **aplicación de escritorio en java**. Para la interfaz utilizaremos java swing y dentro del programa lo enlazaremos con la base de datos. 
+ 
+Para ello el MySQL se alojará en la primera máquina virtual. 
+ 
+El programa se conectará a la base de datos mediante JDBC y se espera que esté tenga varios módulos. Módulo de gestión del inventario (Administrador), módulo de consulta y localización (Profesor) y módulo de informes (Exportación a PDF O Excel).  
+ 
+También haremos una página web en la cual se muestre de forma gráfica la distribución física del taller. Para ello se utilizará HTML, css y JavaScript. 
+ 
+En cuanto a las máquinas virtuales, se utilizarán dos. En una se alojará la base de datos y solo se podrá acceder a ella a través de la otra máquina virtual.  Y en la otra se alojará la página web y se podrá acceder a ella a través de los ordenadores del laboratorio.
 
 Nuestra aplicación cuenta con una página web dinámica que muestra toda la información de forma moderna y visual.
 
