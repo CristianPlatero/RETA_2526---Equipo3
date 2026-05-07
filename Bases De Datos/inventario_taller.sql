@@ -6,6 +6,8 @@ USE inventario_taller;
 
 /* CREACIÓN DE TABLAS */
 
+-- TABLAS DE UBICACION
+
 DROP TABLE if exists ubicacion;
 CREATE TABLE if not exists ubicacion(
 id_ubi int not null auto_increment,
@@ -51,6 +53,9 @@ FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
 );
 
 
+-- ==========================================
+
+
 DROP TABLE if exists pcs;
 CREATE TABLE if not exists pcs (
 id_pc int not null auto_increment,
@@ -73,6 +78,14 @@ FOREIGN KEY (id_balda) REFERENCES balda(id_balda),
 CHECK (cantidad >= 0)
 
 );
+
+-- =====================================
+
+-- TABLAS MATERIALES
+
+
+
+
 
 DROP TABLE if exists componentes;
 CREATE TABLE if not exists componentes(
