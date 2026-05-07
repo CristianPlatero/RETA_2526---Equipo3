@@ -226,7 +226,7 @@ Un agradecimiento especial a los profesores de DAW1 y los compañeros de los dem
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la **ELEGIR LICENCIA**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo Licencia **[GPLv3](https://www.gnu.org/licenses/gplv3-the-program.es.html#mission-statement)**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
