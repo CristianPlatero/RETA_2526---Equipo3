@@ -4,7 +4,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/CristianPlatero/RETA_2526---Equipo3/ci.yml?branch=main&style=flat-square)](https://github.com/CristianPlatero/RETA_2526---Equipo3)
 [![Coverage](https://img.shields.io/codecov/c/github/CristianPlatero/RETA_2526---Equipo3?style=flat-square)](https://codecov.io/gh/CristianPlatero/RETA_2526---Equipo3)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![License: GLPv3](https://img.shields.io/badge/Licensce-_GLPv3-blue??style=flat-square)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![Version](https://img.shields.io/github/v/release/CristianPlatero/RETA_2526---Equipo3?style=flat-square)](https://github.com/CristianPlatero/RETA_2526---Equipo3/releases)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
