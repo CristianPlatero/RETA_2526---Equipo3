@@ -1,6 +1,9 @@
 # 🚀 HISTORIAS DEL HARDWARE - RETA CANTABRIA 2526
 
 > Gestión y Localización del Material del Taller de Informática
+> 
+> ![image](docs/assets/img/Equipo3logo.png)
+
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/CristianPlatero/RETA_2526---Equipo3/ci.yml?branch=main&style=flat-square)](https://github.com/CristianPlatero/RETA_2526---Equipo3)
 [![Metodología](https://img.shields.io/badge/Metodolog%C3%ADa-Pair_Programming-green)](docs/Metodologia.md)
