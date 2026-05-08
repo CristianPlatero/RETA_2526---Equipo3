@@ -3,7 +3,7 @@ name: Cuaderno de trabajo
 about: Registro diario de la jornada de trabajo del equipo.
 title: ''
 labels: ''
-assignees: ''
+assignees: CristianPlatero, lina-educantabria, Ossel18, RFCDAW1, tiimurr
 
 ---
 

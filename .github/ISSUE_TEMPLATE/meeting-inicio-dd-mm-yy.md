@@ -3,7 +3,7 @@ name: Meeting inicio DD/MM/YY
 about: 'Meeting incio dia '
 title: ''
 labels: ''
-assignees: tiimurr, CristianPlatero, Ossel18, lina-educantabria, RFCDAW1
+assignees: CristianPlatero, lina-educantabria, Ossel18, RFCDAW1, tiimurr
 
 ---
 
