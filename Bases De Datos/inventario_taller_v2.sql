@@ -11,7 +11,8 @@ USE inventario_taller;
 DROP TABLE if exists ubicacion;
 CREATE TABLE if not exists ubicacion(
 id_ubi VARCHAR(25) not null,
-
+nombre VARCHAR(30) not null,
+descripcion varchar(100) null,
 
 PRIMARY KEY (id_ubi)
 
@@ -33,7 +34,7 @@ CREATE TABLE if not exists balda(
 id_armario VARCHAR(25) not null,
 id_balda int,
 
-PRIMARY KEY (id_balda, id_armario),
+PRIMARY KEY (id_armario, id_balda),
 FOREIGN KEY (id_armario) REFERENCES armario(id_ubi)
 );
 
@@ -61,6 +62,9 @@ cantidad int not null,
 
 id_ubi VARCHAR(25) not null,
 
+-- id_armario VARCHAR(25) null,
+id_balda int null,
+
 
 
 fecha_alta DATE DEFAULT (current_date),
@@ -68,6 +72,9 @@ observaciones varchar(150),
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+
+-- FOREIGN KEY (id_armario) REFERENCES armario(id_ubi),
+FOREIGN KEY (id_ubi,id_balda) REFERENCES balda(id_armario,id_balda),
 
 
 CHECK (cantidad >= 0)

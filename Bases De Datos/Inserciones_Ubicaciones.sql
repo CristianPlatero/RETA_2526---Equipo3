@@ -1,21 +1,21 @@
 
 USE inventario_taller;
 
-INSERT INTO ubicacion(id_ubi)
+INSERT INTO ubicacion(id_ubi,nombre,descripcion)
 VALUES
-	('arm01'),
-    ('arm02'),
-    ('arm03'),
-    ('arm04'),
-    ('arm05'),
-    ('est01'),
-    ('est02'),
-    ('est03'),
-    ('est04'),
-    ('est05'),
-    ('est06'),
-    ('est07'),
-    ('est08');
+	('arm01','armario01','Almacena cables'),
+    ('arm02','armario02','Almacena tornillos'),
+    ('arm03','armario03','Almacena cables'),
+    ('arm04','armario04','Almacena '),
+    ('arm05','armario05','Almacena'),
+    ('est01','estacion01','Se encuentran'),
+    ('est02','estacion02','Se encuentran'),
+    ('est03','estacion03','Se encuentran'),
+    ('est04','estacion04','Se encuentran'),
+    ('est05','estacion05','Se encuentran'),
+    ('est06','estacion06','Se encuentran'),
+    ('est07','estacion07','Se encuentran'),
+    ('est08','estacion08','Se encuentran');
     
     
 INSERT INTO armario(id_ubi)
