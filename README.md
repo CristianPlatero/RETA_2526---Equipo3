@@ -1,7 +1,7 @@
 # 🚀 HISTORIAS DEL HARDWARE - RETA CANTABRIA 2526
 
 > Gestión y Localización del Material del Taller de Informática
-> 
+> ![image](docs/assets/img/RETAMH.png)
 > ![image](docs/assets/img/Equipo3logo.png)
 
 
