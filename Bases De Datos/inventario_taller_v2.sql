@@ -86,6 +86,9 @@ categoria enum('portatil', 'sobremesa') not null,
 
 id_estacion VARCHAR(25) not null,
 
+fecha_alta DATE DEFAULT (current_date),
+observaciones varchar(150),
+
 PRIMARY KEY (id_pc),
 FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi) ON DELETE CASCADE
 
