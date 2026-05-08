@@ -1,17 +1,19 @@
 # 🚀 HISTORIAS DEL HARDWARE - RETA CANTABRIA 2526
-
-> Gestión y Localización del Material del Taller de Informática
-> ![image](docs/assets/img/RETAMH.png)
-> ![image](docs/assets/img/Equipo3logo.png)
-
-
 [![Build Status](https://img.shields.io/github/actions/workflow/status/CristianPlatero/RETA_2526---Equipo3/ci.yml?branch=main&style=flat-square)](https://github.com/CristianPlatero/RETA_2526---Equipo3)
 [![Metodología](https://img.shields.io/badge/Metodolog%C3%ADa-Pair_Programming-green)](docs/Metodologia.md)
 [![License: GLPv3](https://img.shields.io/badge/Licensce-_GLPv3-blue??style=flat-square)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![Version](https://img.shields.io/github/v/release/CristianPlatero/RETA_2526---Equipo3?style=flat-square)](https://github.com/CristianPlatero/RETA_2526---Equipo3/releases)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
+
+> ![image](docs/assets/img/RETAMH.png)
+> ![image](docs/assets/img/Equipo3logo.png)
+
+
+
+
 ---
+#Gestión y Localización del Material del Taller de Informática
 ## 🗂️ Índice
 
 1. [📖 Descripción](#-descripción)
