@@ -194,12 +194,35 @@ npm run build
 
 ## 🗺️ Roadmap
 
-- [x] Funcionalidad base
-- [x] Creación e instalación de BBDD relacional
-- [ ] Compilación de programa Java
-- [ ] Diseño de GUI
-- [ ] Funcionalidades extra
-- 
+- [x] Repositorio GitHub público: Wiki con páginas «Contrato de equipo» y «Roles»; Issues con el cuaderno de 
+      trabajo diario (etiqueta cuaderno-trabajo); tablero GitHub Projects con asignación y seguimiento de tareas; 
+      commits y push diarios. 
+- [x] Cuaderno de trabajo diario del equipo en GitHub Issues: un Issue por jornada usando la plantilla «Cuaderno 
+      de trabajo» (etiqueta cuaderno-trabajo), asignado a todos los miembros del equipo y creado el mismo día 
+      de la jornada. 
+- [ ] Documentación del reto en Markdown en el repositorio GitHub (README): índice, descripción, miembros, 
+      resultados, tecnologías, valoración y webgrafía. 
+- [x] Diagrama E/R y diagrama relacional de la base de datos (en repositorio y documentación). 
+- [x] Script SQL de creación de la base de datos con datos ficticios de prueba, en repositorio GitHub. 
+- [ ] Script con disparadores de la base de datos, en repositorio GitHub. 
+- [ ] Diagrama de clases completo (en repositorio y documentación). 
+- [ ] Diagrama de casos de uso (en repositorio y documentación). 
+- [ ] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
+- [ ] Ejecutable de la aplicación de escritorio Java (.jar). 
+- [ ] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
+- [ ] (Opcional) Código de las hojas de estilos XSLT en repositorio GitHub. 
+- [ ] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
+      diagrama de arquitectura de red, comparativa de tecnologías, configuración ufw, conexión SSH, 
+      transferencia SFTP y webgrafía. Enlazada al repositorio GitHub. 
+- [x] MV1 exportada en formato .ova con el servidor de base de datos montado, configurado y con la BD 
+      cargada. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
+- [x] MV2 exportada en formato .ova con el servidor web, SFTP y SSH montados, configurados y con el sitio 
+      web desplegado. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
+- [ ] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
+   comparación de ≥ 3 licencias y archivo LICENSE en GitHub, guía de uso por perfil y webgrafía. Enlazado 
+   al repositorio GitHub. 
+- [ ] Tareas entregadas por Teams para el módulo de IPEI. 
+- [ ] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
 
 ¿Tienes ideas? Abre un [issue](https://github.com/CristianPlatero/RETA_2526---Equipo3/issues) con la etiqueta `mejoras`.
 
