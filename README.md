@@ -13,7 +13,7 @@
 
 
 ---
-#Gestión y Localización del Material del Taller de Informática
+## PROYECTO DE GESTIÓN Y LOCALIZACIÓN DEl MATERIAL DEL TALLER DE INFORMÁTICA
 ## 🗂️ Índice
 
 1. [📖 Descripción](#-descripción)
