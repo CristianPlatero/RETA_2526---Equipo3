@@ -1,0 +1,82 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.reta2526_equipo_3;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+/**
+ *
+ * @author Pedro Aguirre
+ */
+public class AccesoBaseDatos {
+     private static final String BD = "inventario_taller";
+    private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
+
+    // Mejor dejar estos datos en constantes separadas y claras
+    private static final String USUARIO = "root";
+    private static final String CLAVE = "mysql";
+
+    private Connection conn;
+
+    private AccesoBaseDatos() {
+        abrirConexion();
+    }
+
+    private void abrirConexion() {
+        try {
+            Properties properties = new Properties();
+            properties.setProperty("user", USUARIO);
+            properties.setProperty("password", CLAVE);
+            properties.setProperty("useSSL", "false");
+            properties.setProperty("serverTimezone", "Europe/Madrid");
+
+            conn = DriverManager.getConnection(URL, properties);
+            System.out.println("Conexión correcta a la base de datos.");
+
+        } catch (SQLException ex) {
+            System.out.println("Error al conectar con la base de datos.");
+            System.out.println("Mensaje: " + ex.getMessage());
+            conn = null;
+        }
+    }
+
+    public static AccesoBaseDatos getInstance() {
+        return AccesoBaseDatosHolder.INSTANCE;
+    }
+
+    private static class AccesoBaseDatosHolder {
+        private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
+    }
+
+    public Connection getConn() {
+        try {
+            if (conn == null || conn.isClosed()) {
+                abrirConexion();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al comprobar el estado de la conexión.");
+            System.out.println("Mensaje: " + ex.getMessage());
+        }
+        return conn;
+    }
+
+    public boolean cerrar() {
+        if (conn == null) {
+            return true;
+        }
+
+        try {
+            conn.close();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("Error al cerrar la conexión.");
+            System.out.println("Mensaje: " + ex.getMessage());
+            return false;
+        }
+    }
+}
