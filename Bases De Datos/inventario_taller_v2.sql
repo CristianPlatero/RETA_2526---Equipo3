@@ -20,7 +20,7 @@ PRIMARY KEY (id_ubi)
 DROP TABLE if exists armario;
 CREATE TABLE if not exists armario(
 id_ubi VARCHAR(25) not null,
-num_baldas int not null DEFAULT 6,
+
 
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
@@ -29,8 +29,9 @@ FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
 
 DROP TABLE if exists balda;
 CREATE TABLE if not exists balda(
-id_balda int,
+
 id_armario VARCHAR(25) not null,
+id_balda int,
 
 PRIMARY KEY (id_balda, id_armario),
 FOREIGN KEY (id_armario) REFERENCES armario(id_ubi)
@@ -92,6 +93,32 @@ FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi) ON DELETE CASCADE
 
 -- =====================================
 
+
+DROP TABLE if exists perifericos;
+CREATE TABLE if not exists perifericos(
+id_matTa INT,
+
+PRIMARY KEY (id_matTa),
+
+FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
+);
+
+
+
+
+DROP TABLE if exists perifericos_pcs;
+CREATE TABLE if not exists perifericos_pcs(
+id_periferico INT,
+id_pc int,
+
+PRIMARY KEY (id_periferico,id_pc),
+
+FOREIGN KEY (id_periferico) REFERENCES perifericos(id_matTa) ON DELETE CASCADE,
+FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
+);
+
+
+-- ================================
 -- TABLAS MATERIALES
 
 
@@ -108,16 +135,7 @@ FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
 );
 
 
-DROP TABLE if exists perifericos;
-CREATE TABLE if not exists perifericos(
-id_matTa INT,
-id_pc int null,
 
-PRIMARY KEY (id_matTa),
-
-FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE,
-FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
-);
 
 DROP TABLE if exists equipos_red;
 CREATE TABLE if not exists equipos_red(
