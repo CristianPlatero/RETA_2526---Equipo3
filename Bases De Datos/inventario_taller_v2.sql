@@ -10,8 +10,8 @@ USE inventario_taller;
 
 DROP TABLE if exists ubicacion;
 CREATE TABLE if not exists ubicacion(
-id_ubi int not null auto_increment,
-nombre varchar(50) not null,
+id_ubi VARCHAR(25) not null,
+
 
 PRIMARY KEY (id_ubi)
 
@@ -19,7 +19,8 @@ PRIMARY KEY (id_ubi)
 
 DROP TABLE if exists armario;
 CREATE TABLE if not exists armario(
-id_ubi int not null,
+id_ubi VARCHAR(25) not null,
+num_baldas int not null DEFAULT 6,
 
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
@@ -28,18 +29,19 @@ FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
 
 DROP TABLE if exists balda;
 CREATE TABLE if not exists balda(
-id_ubi int not null,
+id_balda int,
+id_armario VARCHAR(25) not null,
 
-PRIMARY KEY (id_ubi),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
+PRIMARY KEY (id_balda, id_armario),
+FOREIGN KEY (id_armario) REFERENCES armario(id_ubi)
 );
 
 
 
 DROP TABLE if exists estacion;
 CREATE TABLE if not exists estacion (
-id_ubi int not null,
-tipo enum('operativo', 'reparación') not null,
+id_ubi VARCHAR(25) not null,
+tipo enum('operativo', 'reparacion') not null DEFAULT 'operativo',
 
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
@@ -53,21 +55,19 @@ CREATE TABLE if not exists materialesTaller(
 id_matTa int not null auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(150) not null,
-estado enum('operativo','averiado','en reparación', 'obsoleto') not null DEFAULT 'operativo',
+estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
 
-id_armario int null,
-id_estacion int null,
-id_balda int null,
+id_ubi VARCHAR(25) not null,
+
 
 
 fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150),
 
 PRIMARY KEY (id_matTa),
-FOREIGN KEY (id_armario) REFERENCES armario(id_ubi),
-FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi),
-FOREIGN KEY (id_balda) REFERENCES balda(id_ubi),
+FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+
 
 CHECK (cantidad >= 0)
 );
@@ -76,11 +76,17 @@ CHECK (cantidad >= 0)
 
 DROP TABLE if exists pcs;
 CREATE TABLE if not exists pcs (
-id_matTa int,
+id_pc int not null auto_increment,
+nombre varchar(50) not null,
+descripcion varchar(150) not null,
+estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
+cantidad int not null,
 categoria enum('portatil', 'sobremesa') not null,
 
-PRIMARY KEY (id_matTa),
-FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
+id_estacion VARCHAR(25) not null,
+
+PRIMARY KEY (id_pc),
+FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi) ON DELETE CASCADE
 
 );
 
@@ -97,7 +103,7 @@ id_pc int NULL,
 PRIMARY KEY (id_matTa),
 
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE,
-FOREIGN KEY (id_pc) REFERENCES pcs(id_matTa) ON DELETE CASCADE
+FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
 
 );
 
@@ -110,7 +116,7 @@ id_pc int null,
 PRIMARY KEY (id_matTa),
 
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE,
-FOREIGN KEY (id_pc) REFERENCES pcs(id_matTa) ON DELETE CASCADE
+FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
 );
 
 DROP TABLE if exists equipos_red;
@@ -141,6 +147,7 @@ FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
 DROP TABLE if exists herramientas;
 CREATE TABLE if not exists herramientas(
 id_matTa INT,
+tipo enum('soldadura','generales') not null,
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
