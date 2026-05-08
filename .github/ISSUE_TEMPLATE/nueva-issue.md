@@ -15,16 +15,6 @@ assignees: ''
 - 
 # Resumen
 
-- Qué se hace
-- Sobre qué
-- Con qué objetivo
-
-
-Título:
-- 
-Descripción:
-- 
-Resumen:
-- Qué se hace
-- Sobre qué
-- Con qué objetivo
+- Qué se hace:
+- Área o entorno: 
+- Objetivo:
