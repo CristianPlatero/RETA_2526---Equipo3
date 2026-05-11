@@ -21,6 +21,7 @@ PRIMARY KEY (id_ubi)
 DROP TABLE if exists armario;
 CREATE TABLE if not exists armario(
 id_ubi VARCHAR(25) not null,
+movilidad enum('movil','fija') not null DEFAULT 'fija', -- !
 
 
 PRIMARY KEY (id_ubi),
@@ -30,7 +31,6 @@ FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
 
 DROP TABLE if exists balda;
 CREATE TABLE if not exists balda(
-
 id_armario VARCHAR(25) not null,
 id_balda int,
 
@@ -59,6 +59,7 @@ nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
+categoria enum('cableado','equipo de red','herramientas','perifericos','componentes','consumibles') not null,
 
 id_ubi VARCHAR(25) not null,
 
@@ -72,9 +73,14 @@ observaciones varchar(150),
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+-- id_ubi viene de ubicacion
 
 -- FOREIGN KEY (id_armario) REFERENCES armario(id_ubi),
 FOREIGN KEY (id_ubi,id_balda) REFERENCES balda(id_armario,id_balda),
+/**
+el id_balda viene de balda,
+pero comprueba si el id_ubi coincide con el id_armario de la tabla balda
+*/
 
 
 CHECK (cantidad >= 0)
@@ -107,6 +113,7 @@ FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi) ON DELETE CASCADE
 DROP TABLE if exists perifericos;
 CREATE TABLE if not exists perifericos(
 id_matTa INT,
+conexion enum('inalambrica','fisica') not null,-- !
 
 PRIMARY KEY (id_matTa),
 
@@ -175,7 +182,7 @@ FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
 DROP TABLE if exists herramientas;
 CREATE TABLE if not exists herramientas(
 id_matTa INT,
-tipo enum('soldadura','generales') not null,
+tipo enum('soldadura','generales') not null, -- !
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
@@ -185,6 +192,7 @@ FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
 DROP TABLE if exists material_fungible;
 CREATE TABLE if not exists material_fungible(
 id_matTa INT,
+estado enum('lleno','vacio','por la mitad') not null, -- !
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE

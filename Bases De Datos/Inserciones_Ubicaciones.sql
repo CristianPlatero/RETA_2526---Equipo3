@@ -18,13 +18,13 @@ VALUES
     ('est08','estacion08','Se encuentran');
     
     
-INSERT INTO armario(id_ubi)
+INSERT INTO armario(id_ubi,movilidad)
 VALUES 
-	('arm01'),
-    ('arm02'),
-    ('arm03'),
-    ('arm04'),
-    ('arm05');
+	('arm01','movil'),
+    ('arm02','movil'),
+    ('arm03','fija'),
+    ('arm04','movil'),
+    ('arm05','fija');
 
 INSERT INTO estacion(id_ubi)
 VALUES 
