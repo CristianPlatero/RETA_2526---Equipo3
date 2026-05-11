@@ -85,6 +85,17 @@ pero comprueba si el id_ubi coincide con el id_armario de la tabla balda
 
 CHECK (cantidad >= 0)
 );
+-- ==============================================
+/*
+CREATE TRIGGER est_nbalda BEFORE INSERT ON materialesTaller
+FOR EACH ROW
+BEGIN
+	IF NEW.id_ubi LIKE('est%') THEN
+		SET NEW.id_balda IS NULL;
+	END IF;
+END;
+*/
+
 
 -- ==============================================
 
@@ -94,7 +105,7 @@ id_pc int not null auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
-cantidad int not null,
+cantidad int not null, -- !
 categoria enum('portatil', 'sobremesa') not null,
 
 id_estacion VARCHAR(25) not null,
@@ -157,9 +168,12 @@ FOREIGN KEY (id_pc) REFERENCES pcs(id_pc) ON DELETE CASCADE
 DROP TABLE if exists equipos_red;
 CREATE TABLE if not exists equipos_red(
 id_matTa INT,
+num_puertos int null,
 
 PRIMARY KEY (id_matTa),
-FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
+FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE,
+
+check (num_puertos>=0)
 );
 
 
