@@ -1,0 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.reta2526_equipo_3;
+
+import com.mycompany.reta2526_equipo_3.Excepciones.DescripcionInvalidaException;
+import com.mycompany.reta2526_equipo_3.Excepciones.TipoInvalidoException;
+
+/**
+ *
+ * @author DAW120
+ */
+public class Estacion extends Ubicacion {
+
+    private Tipos tipo;
+
+    public Estacion(String id_ubi, String nombre, String descripcion, String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
+        super(id_ubi, nombre, descripcion);
+        setTipo(tipo);
+    }
+
+    public Tipos getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
+        Validador.validaTipo(tipo);
+        this.tipo = Tipos.valueOf(tipo);
+    }
+
+}

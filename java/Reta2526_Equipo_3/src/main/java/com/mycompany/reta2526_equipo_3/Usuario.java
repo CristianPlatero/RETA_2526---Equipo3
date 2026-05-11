@@ -4,11 +4,13 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DAW120
  */
-public abstract class Usuario {
+public abstract class Usuario implements Serializable{
     
     private String nombre;
     private String contrasena;

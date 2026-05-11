@@ -17,5 +17,4 @@ public class Perifericos extends Componentes{
     }
     
     
-    
 }

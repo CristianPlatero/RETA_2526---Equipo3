@@ -5,6 +5,7 @@
 package com.mycompany.reta2526_equipo_3;
 
 import com.mycompany.reta2526_equipo_3.Excepciones.CantidadInvalidaException;
+import com.mycompany.reta2526_equipo_3.Excepciones.CategoriaInvalidaException;
 import com.mycompany.reta2526_equipo_3.Excepciones.ConectorInvalidoException;
 import com.mycompany.reta2526_equipo_3.Excepciones.DescripcionInvalidaException;
 import com.mycompany.reta2526_equipo_3.Excepciones.EstadoInvalidoException;
@@ -12,6 +13,7 @@ import com.mycompany.reta2526_equipo_3.Excepciones.FechaInvalidaException;
 import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
 import com.mycompany.reta2526_equipo_3.Excepciones.LongitudInvalidaException;
 import com.mycompany.reta2526_equipo_3.Excepciones.NombreInvalidoException;
+import com.mycompany.reta2526_equipo_3.Excepciones.TipoInvalidoException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -76,6 +78,50 @@ public class Validador {
             default -> {
 
                 throw new EstadoInvalidoException("El estado debe ser OBSOLETO, OPERATIVO O REPARACION");
+            }
+        }
+
+    }
+
+    public static void validaTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
+        tipo = tipo.toUpperCase().trim();
+        if (tipo == null || tipo.isBlank()) {
+            throw new DescripcionInvalidaException("El estado no puede estar vacía.");
+        }
+        switch (tipo) {
+            case "PRUEBAS" -> {
+
+            }
+            case "EN_USO" -> {
+
+            }
+            case "REPARACION" -> {
+
+            }
+            default -> {
+
+                throw new TipoInvalidoException("El estado debe ser EN_USO, PRUEBAS O REPARACION");
+            }
+        }
+
+    }
+
+    public static void validaCategoria(String categoria) throws CategoriaInvalidaException, DescripcionInvalidaException {
+        categoria = categoria.toUpperCase().trim();
+        if (categoria == null || categoria.isBlank()) {
+            throw new DescripcionInvalidaException("La categoría no puede estar vacía.");
+        }
+        switch (categoria) {
+            case "PORTATIL" -> {
+
+            }
+            case "SOBREMESA" -> {
+
+            }
+
+            default -> {
+
+                throw new CategoriaInvalidaException("La categoría debe ser PORTATIL O SOBREMESA");
             }
         }
 
@@ -151,9 +197,7 @@ public class Validador {
         }
     }
 
-    
-    
-    public static void validaLongitud(String longitud) throws LongitudInvalidaException{
+    public static void validaLongitud(String longitud) throws LongitudInvalidaException {
         if (longitud == null || longitud.isBlank()) {
             throw new LongitudInvalidaException("Debe introducir una longitud.");
         }
@@ -166,8 +210,8 @@ public class Validador {
             throw new LongitudInvalidaException("La longitud debe ser un número decimal válido.");
         }
     }
-    
-    public static void validaConector(String conector) throws ConectorInvalidoException{
+
+    public static void validaConector(String conector) throws ConectorInvalidoException {
         if (conector == null || conector.isBlank()) {
             throw new ConectorInvalidoException("El conector no puede estar vacío.");
         }
