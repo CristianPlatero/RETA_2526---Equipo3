@@ -4,7 +4,12 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
+import Excepciones.CantidadInvalidaException;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.EstadoInvalidoException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.NombreInvalidoException;
 
 /**
  *
@@ -12,8 +17,22 @@ import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
  */
 public class Equipos_en_red extends MaterialInventario{
     
-    public Equipos_en_red(String id_inv, String nombre, String descripcion, String estado, String cantidad, String id_estacion, String id_armario, String id_balda, String fecha_alta, String observaciones) throws IdInvalidoException {
-        super(id_inv, nombre, descripcion, estado, cantidad, id_estacion, id_armario, id_balda, fecha_alta, observaciones);
+    private  int numPuertos;
+
+    public Equipos_en_red(int numPuertos, String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
+        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setNumPuertos(nombre);
     }
+
+    public int getNumPuertos() {
+        return numPuertos;
+    }
+
+    public void setNumPuertos(String numPuertos) throws CantidadInvalidaException {
+        Validador.validaNumPuertos(numPuertos);
+        this.numPuertos = Integer.parseInt(numPuertos);
+    }
+    
+    
     
 }

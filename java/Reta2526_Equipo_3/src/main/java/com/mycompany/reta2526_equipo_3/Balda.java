@@ -4,20 +4,22 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
+import Excepciones.IdInvalidoException;
 
 /**
  *
  * @author DAW120
  */
-public class Balda extends Ubicacion {
+public class Balda extends Armario {
 
     private int id_balda;
 
-    public Balda(int id_balda, String id_ubi, String nombre, String descripcion) {
-        super(id_ubi, nombre, descripcion);
-        this.id_balda = id_balda;
+    public Balda(String id_ubi, String nombre, String descripcion, String movilidad, String id_balda) throws IdInvalidoException {
+        super(id_ubi, nombre, descripcion, movilidad);
+        setId_balda(id_balda);
     }
+
+   
 
     public int getId_balda() {
         return id_balda;

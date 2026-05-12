@@ -4,14 +4,16 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
+import Excepciones.CantidadInvalidaException;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.EstadoInvalidoException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.NombreInvalidoException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,61 +21,122 @@ import java.util.List;
  *
  * @author DAW120
  */
-public class AdministradorDAO {
+public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
 
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
-    
-  
-    public List<MaterialInventario> listar() throws IdInvalidoException {
-    List<MaterialInventario> materiales = new ArrayList<>();
-        String sql = "SELECT id_inv, nombre, descripcion, estado, cantidad, id_estacion, id_armario, id_balda, fecha_alta, observaciones FROM materialesTaller";
+
+    @Override
+    public List<MaterialInventario> listarMaterial() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public MaterialInventario porIdMaterial(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void guardarMaterial(MaterialInventario t) {
+ String sql = "INSERT INTO materialesTaller (nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones) VALUES (?,?,?,?,?,?,?,?)";
  
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getNombre());
+           ps.setString(2, t.getDescripcion());
+           ps.setString(3, t.getEstado().toString());
+           ps.setInt(4, t.getCantidad());
+           ps.setString(5, t.getId_ubi());
+           ps.setInt(6, t.getId_balda());
+           
+           ps.setString(7, t.getFecha_alta().toString());
+           
+           ps.setString(8, t.getObservaciones());
+           
+           
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
 
-            while (rs.next()) {
-                materiales.add(crearMaterial(rs));
-            }
 
-        } catch (SQLException ex) {
-            System.out.println("Error al listar usuarios: " + ex.getMessage());
-        }
-
-        return materiales;    
-    }
-
-   
-    public List<MaterialInventario> ordenarAsc(String id) {
-    List<MaterialInventario> materiales = new ArrayList<>();
-        String sql = "SELECT id_inv, nombre, descripcion, estado, cantidad, id_estacion, id_armario, id_balda, fecha_alta, observaciones FROM materialesTaller order by ?";
-        return null;
-     }
-
-  
-    public void guardar(Administrador t) {
+    @Override
+    public void eliminarMaterial(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-   
-    public void eliminar(int id) {
+    @Override
+    public List<Pc> listarPc() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-   
-    private MaterialInventario crearMaterial(ResultSet rs) throws SQLException, IdInvalidoException{
+
+    @Override
+    public Pc porIdPc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void guardarPc(Pc t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void eliminarPc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    // =========================================================================
+    
+    private MaterialInventario crearMaterialBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, EstadoInvalidoException, FechaInvalidaException {
 //        Estados estado = Estados.valueOf(rs.getString("estado"));
-      
-        return new MaterialInventario(rs.getString("id_inv"), 
-                rs.getString("nombre"), 
-                rs.getString("descripcion"), 
-                rs.getString("estado"), 
-                rs.getString("cantidad"), 
-                rs.getString("id_estacion"), 
-                rs.getString("id_armario"), 
-                rs.getString("id_balda"), 
-                rs.getString("fecha_alta"), 
+ 
+        return new MaterialInventario(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado"),
+                rs.getString("cantidad"),
+                rs.getString("id_armario"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
                 rs.getString("observaciones"));
     }
+    
+    public void guardarPeriferico(Perifericos t) throws SQLException {
+    String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getConexion().toString());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+           
+           String sql2 = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps2 = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getConexion().toString());
+           
+           int filas2 = ps2.executeUpdate();
+            if (filas != 1) {
+                System.out.println("No se ha insertado correctamente");
+            }
+           
+           
+         } catch (SQLException ex) {
+             System.out.println("ERROR: " + ex.getMessage());
+           }    }catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    
+           
+       } 
+    
+    
+    
+    
     
 }

@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.reta2526_equipo_3.Excepciones;
+package Excepciones;
 
 /**
  *
- * @author DAW120
+ * @author DAW127
  */
-public class CantidadInvalidaException extends Exception {
+public class MovilidadInvalidaException extends Exception {
 
-    public CantidadInvalidaException(String message) {
+    public MovilidadInvalidaException(String message) {
         super(message);
     }
 

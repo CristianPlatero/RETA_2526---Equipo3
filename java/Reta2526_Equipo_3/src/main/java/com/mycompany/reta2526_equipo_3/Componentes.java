@@ -4,7 +4,12 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
+import Excepciones.CantidadInvalidaException;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.EstadoInvalidoException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.NombreInvalidoException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,9 +21,12 @@ public class Componentes extends MaterialInventario {
 
     private int id_pc;
 
-    public Componentes(String id_inv, String nombre, String descripcion, String estado, String cantidad, String id_estacion, String id_armario, String id_balda, String fecha_alta, String observaciones, String id_pc) throws IdInvalidoException {
-        super(id_inv, nombre, descripcion, estado, cantidad, id_estacion, id_armario, id_balda, fecha_alta, observaciones);
+    public Componentes( String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones,String id_pc) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
+        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setId_pc(id_pc);
     }
+
+    
 
     public int getId_pc() {
         return id_pc;

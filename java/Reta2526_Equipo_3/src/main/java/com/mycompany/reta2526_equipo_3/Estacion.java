@@ -4,8 +4,10 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.DescripcionInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.TipoInvalidoException;
+import Enum.Tipos;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.TipoInvalidoException;
 
 /**
  *
@@ -15,7 +17,7 @@ public class Estacion extends Ubicacion {
 
     private Tipos tipo;
 
-    public Estacion(String id_ubi, String nombre, String descripcion, String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
+    public Estacion(String id_ubi, String nombre, String descripcion, String tipo) throws TipoInvalidoException, DescripcionInvalidaException, IdInvalidoException {
         super(id_ubi, nombre, descripcion);
         setTipo(tipo);
     }

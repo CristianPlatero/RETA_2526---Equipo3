@@ -4,6 +4,8 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
+import Excepciones.IdInvalidoException;
+
 /**
  *
  * @author DAW120
@@ -14,7 +16,7 @@ public abstract class Ubicacion {
     private String nombre;
     private String descripcion;
 
-    public Ubicacion(String id_ubi, String nombre, String descripcion) {
+    public Ubicacion(String id_ubi, String nombre, String descripcion) throws IdInvalidoException {
         setId_ubi(id_ubi);
         setNombre(nombre);
         setDescripcion(descripcion);
@@ -26,7 +28,8 @@ public abstract class Ubicacion {
         return id_ubi;
     }
 
-    public void setId_ubi(String id_ubi) {
+    public void setId_ubi(String id_ubi) throws IdInvalidoException {
+        Validador.validaUbi(id_ubi);
         this.id_ubi = id_ubi;
     }
 

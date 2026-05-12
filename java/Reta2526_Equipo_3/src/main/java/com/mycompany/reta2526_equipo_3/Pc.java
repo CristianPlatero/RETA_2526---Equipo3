@@ -4,12 +4,15 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.CantidadInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.CategoriaInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.DescripcionInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.EstadoInvalidoException;
-import com.mycompany.reta2526_equipo_3.Excepciones.FechaInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.NombreInvalidoException;
+import Enum.Estados;
+import Enum.Categorias;
+import Excepciones.CantidadInvalidaException;
+import Excepciones.CategoriaInvalidaException;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.EstadoInvalidoException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.NombreInvalidoException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -24,22 +27,30 @@ public class Pc {
     private String nombre;
     private String descripcion;
     private Estados estado;
-    private int cantidad;
+    
     private Categorias categoria;
     private String id_estacion;
     private LocalDate fecha_alta;
     private String observaciones;
 
-    public Pc(String id_pc, String nombre, String descripcion, String estado, String cantidad, String categoria, String id_estacion, String fecha_alta, String observaciones) {
-
+    public Pc(String id_pc, String nombre, String descripcion, String estado, String categoria, String id_estacion, String fecha_alta, String observaciones) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CategoriaInvalidaException, FechaInvalidaException {
+        setId_pc(id_pc);
+        setNombre(nombre);
+        setDescripcion(descripcion);
+        setEstado(estado);
+        setCategoria(categoria);
+        setId_estacion(id_estacion);
+        setFecha_alta(fecha_alta);
+        setObservaciones(observaciones);
     }
 
     public int getId_pc() {
         return id_pc;
     }
 
-    public void setId_pc(int id_pc) {
-        this.id_pc = id_pc;
+    public void setId_pc(String id_pc) throws IdInvalidoException {
+        Validador.validaPc(id_pc);
+        this.id_pc = Integer.parseInt(id_pc);
     }
 
     public String getNombre() {
@@ -69,14 +80,7 @@ public class Pc {
         this.estado = Estados.valueOf(estado);
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(String cantidad) throws CantidadInvalidaException {
-        Validador.validaCantidad(cantidad);
-        this.cantidad = Integer.parseInt(cantidad);
-    }
+    
 
     public Categorias getCategoria() {
         return categoria;
@@ -91,7 +95,8 @@ public class Pc {
         return id_estacion;
     }
 
-    public void setId_estacion(String id_estacion) {
+    public void setId_estacion(String id_estacion) throws IdInvalidoException {
+        Validador.validaEstacion(id_estacion);
         this.id_estacion = id_estacion;
     }
 

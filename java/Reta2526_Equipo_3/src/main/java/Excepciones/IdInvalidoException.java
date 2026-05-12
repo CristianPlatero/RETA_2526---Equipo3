@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.reta2526_equipo_3.Excepciones;
+package Excepciones;
 
 /**
  *
  * @author DAW120
  */
-public class NombreInvalidoException extends Exception {
+public class IdInvalidoException extends Exception {
 
-    public NombreInvalidoException(String message) {
+    public IdInvalidoException(String message) {
         super(message);
     }
 

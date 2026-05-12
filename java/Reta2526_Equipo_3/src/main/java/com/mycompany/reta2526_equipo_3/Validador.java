@@ -4,16 +4,17 @@
  */
 package com.mycompany.reta2526_equipo_3;
 
-import com.mycompany.reta2526_equipo_3.Excepciones.CantidadInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.CategoriaInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.ConectorInvalidoException;
-import com.mycompany.reta2526_equipo_3.Excepciones.DescripcionInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.EstadoInvalidoException;
-import com.mycompany.reta2526_equipo_3.Excepciones.FechaInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.IdInvalidoException;
-import com.mycompany.reta2526_equipo_3.Excepciones.LongitudInvalidaException;
-import com.mycompany.reta2526_equipo_3.Excepciones.NombreInvalidoException;
-import com.mycompany.reta2526_equipo_3.Excepciones.TipoInvalidoException;
+import Excepciones.CantidadInvalidaException;
+import Excepciones.CategoriaInvalidaException;
+import Excepciones.ConectorInvalidoException;
+import Excepciones.DescripcionInvalidaException;
+import Excepciones.EstadoInvalidoException;
+import Excepciones.FechaInvalidaException;
+import Excepciones.IdInvalidoException;
+import Excepciones.LongitudInvalidaException;
+import Excepciones.MovilidadInvalidaException;
+import Excepciones.NombreInvalidoException;
+import Excepciones.TipoInvalidoException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -86,7 +87,7 @@ public class Validador {
     public static void validaTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
         tipo = tipo.toUpperCase().trim();
         if (tipo == null || tipo.isBlank()) {
-            throw new DescripcionInvalidaException("El estado no puede estar vacía.");
+            throw new DescripcionInvalidaException("El estado no puede estar vacio.");
         }
         switch (tipo) {
             case "PRUEBAS" -> {
@@ -127,6 +128,93 @@ public class Validador {
 
     }
 
+    public static void validaMovilidad(String movilidad) throws MovilidadInvalidaException, DescripcionInvalidaException {
+        movilidad = movilidad.toUpperCase().trim();
+        if (movilidad == null || movilidad.isBlank()) {
+            throw new DescripcionInvalidaException("La movilidad no puede estar vacía.");
+        }
+        switch (movilidad) {
+            case "FIJA" -> {
+
+            }
+            case "MOVIL" -> {
+
+            }
+
+            default -> {
+
+                throw new MovilidadInvalidaException("La movilidad debe ser MOVIL O FIJA");
+            }
+        }
+
+    }
+
+    public static void validaEstadoFungible(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
+        estado = estado.toUpperCase().trim();
+        if (estado == null || estado.isBlank()) {
+            throw new DescripcionInvalidaException("El estado no puede estar vacio.");
+        }
+        switch (estado) {
+            case "LLENO" -> {
+
+            }
+            case "VACIO" -> {
+
+            }
+            case "MEDIO" -> {
+
+            }
+            default -> {
+
+                throw new EstadoInvalidoException("El estado debe ser LLENO, VACIO O MEDIO");
+            }
+        }
+
+    }
+    
+       public static void validaTipoHerramienta(String tipoHerramienta) throws CategoriaInvalidaException, DescripcionInvalidaException {
+        tipoHerramienta = tipoHerramienta.toUpperCase().trim();
+        if (tipoHerramienta == null || tipoHerramienta.isBlank()) {
+            throw new DescripcionInvalidaException("El tipo de herramienta no puede estar vacio.");
+        }
+        switch (tipoHerramienta) {
+            case "SOLDADURA" -> {
+
+            }
+            case "GENERALES" -> {
+
+            }
+
+            default -> {
+
+                throw new CategoriaInvalidaException("El tipo de herramienta debe ser SOLDADURA O GENERALES");
+            }
+        }
+
+    }
+       
+       public static void validaTipoConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
+        conexion = conexion.toUpperCase().trim();
+        if (conexion == null || conexion.isBlank()) {
+            throw new DescripcionInvalidaException("El tipo de conexion no puede estar vacio.");
+        }
+        switch (conexion) {
+            case "INALAMBRICA" -> {
+
+            }
+            case "CABLE" -> {
+
+            }
+
+            default -> {
+
+                throw new CategoriaInvalidaException("El tipo de conexion debe ser INALAMBRICA O CABLE");
+            }
+        }
+
+    }
+       
+
     public static void validaCantidad(String cantidad) throws CantidadInvalidaException {
         if (cantidad == null || cantidad.isBlank()) {
             throw new CantidadInvalidaException("Debe introducir una cantidad.");
@@ -140,6 +228,25 @@ public class Validador {
             throw new CantidadInvalidaException("La cantidad debe ser un número entero válido.");
         }
     }
+    
+    
+    public static void validaNumPuertos(String numPuertos) throws CantidadInvalidaException {
+        if (numPuertos == null || numPuertos.isBlank()) {
+            throw new CantidadInvalidaException("Debe introducir un numero de puertos.");
+        }
+        try {
+            int valor = Integer.parseInt(numPuertos.trim());
+            if (valor < 0 || valor > 24) {
+                throw new CantidadInvalidaException("El numero de puertos debe ser entre 0 y 24.");
+            }
+        } catch (NumberFormatException e) {
+            throw new CantidadInvalidaException("El numero de puertos debe ser un número entero válido.");
+        }
+    }
+    
+    
+    
+    
 
     public static void validaEstacion(String estacion) throws IdInvalidoException {
         if (estacion == null || estacion.isBlank()) {
@@ -155,7 +262,7 @@ public class Validador {
         if (armario == null || armario.isBlank()) {
             throw new IdInvalidoException("El ID del armario no puede estar vacío.");
         }
-
+// ! CAMBIAR CHECK A MAYUSCULAS EN BASE DE DATOS MYSQL
         if (!armario.matches("^[ARM]0[1-6]$")) {
             throw new IdInvalidoException("El ID del armario debe tener el siguiente formato: ARM01 hasta ARM06.");
         }
@@ -168,6 +275,16 @@ public class Validador {
 
         if (!balda.matches("^[1-6]")) {
             throw new IdInvalidoException("El ID de la balda debe tener el siguiente formato: 1 hasta 6");
+        }
+    }
+
+    public static void validaUbi(String ubi) throws IdInvalidoException {
+        if (ubi == null || ubi.isBlank()) {
+            throw new IdInvalidoException("El ID de la balda no puede estar vacío.");
+        }
+
+        if (!ubi.matches("^[ARM]0[1-6]$") && !ubi.matches("^[EST]0[1-8]$")) {
+            throw new IdInvalidoException("El ID de la ubicacion debe tener el siguiente formato: ARM01 hasta ARM06 o EST01 hasta EST08");
         }
     }
 
