@@ -5,13 +5,13 @@ begin;
 
 -- INSERTs PCs
 
-insert into pcs (nombre,descripcion,estado,cantidad,categoria,id_estacion,observaciones)
-values  ('pc01', 'ninguno','operativo',1,'sobremesa','est01', 'Op'),
-		('pc02', 'ninguno','operativo',1,'sobremesa','est01', 'Op'),
-		('pc03', 'ninguno','en reparacion',1,'portatil','est03', 'ER'),
-		('pc04', 'ninguno','obsoleto',1,'sobremesa','est04', 'Ob'),
-     --   ('pc06', 'ninguno','obsoleto',1,'sobremesa','arm04', 'Ob'), -- arm04 no existe en la tabla estacion
-		('pc05', 'ninguno','averiado',1,'portatil','est02', 'Ob');
+insert into pcs (nombre,descripcion,estado,categoria,id_estacion,observaciones)
+values  ('pc01', 'ninguno','operativo','sobremesa','est01', 'Op'),
+		('pc02', 'ninguno','operativo','sobremesa','est01', 'Op'),
+		('pc03', 'ninguno','en reparacion','portatil','est03', 'ER'),
+		('pc04', 'ninguno','obsoleto','sobremesa','est04', 'Ob'),
+     --   ('pc06', 'ninguno','obsoleto','sobremesa','arm04', 'Ob'), -- arm04 no existe en la tabla estacion
+		('pc05', 'ninguno','averiado','portatil','est02', 'Ob');
         
 commit;
 
@@ -121,14 +121,7 @@ values(last_insert_id(), 'vacio');
 commit;
 
 
--- insert into de PC
-insert into pcs (nombre,descripcion,estado,cantidad,categoria,id_estacion,fecha_alta,observaciones)
-values ('pc01', 'ninguno','operativo',1,'sobremesa','est01', default, ''),
-		('pc02', 'ninguno','operativo',1,'sobremesa','est01', default, ''),
-		('pc03', 'ninguno','en reparacion',1,'portatil','est01', default, ''),
-		('pc04', 'ninguno','obsoleto',1,'sobremesa','est01', default, ''),
-		('pc05', 'ninguno','averiado',1,'portatil','est01', default, '');
-commit;
+
 
 -- INSERTs PERIFERICOS
 

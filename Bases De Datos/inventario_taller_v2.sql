@@ -107,7 +107,7 @@ id_pc int not null auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
-cantidad int not null, -- !
+
 categoria enum('portatil', 'sobremesa') not null,
 
 id_estacion VARCHAR(25) not null,
