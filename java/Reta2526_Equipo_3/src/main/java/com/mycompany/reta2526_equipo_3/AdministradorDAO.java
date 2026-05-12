@@ -129,7 +129,8 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
            
          } catch (SQLException ex) {
              System.out.println("ERROR: " + ex.getMessage());
-           }    }catch (SQLException ex) {
+           }    
+       }catch (SQLException ex) {
            System.out.println("ERROR: " + ex.getMessage());
        }    
            
