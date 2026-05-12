@@ -25,7 +25,9 @@ movilidad enum('movil','fija') not null DEFAULT 'fija', -- !
 
 
 PRIMARY KEY (id_ubi),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
+FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+
+CHECK(id_ubi LIKE('arm%'))
 );
 
 
@@ -46,7 +48,9 @@ id_ubi VARCHAR(25) not null,
 tipo enum('operativo', 'reparacion') not null DEFAULT 'operativo',
 
 PRIMARY KEY (id_ubi),
-FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi)
+FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
+
+CHECK(id_ubi LIKE('est%'))
 );
 
 
@@ -64,9 +68,7 @@ categoria enum('cableado','equipo de red','herramientas','perifericos','componen
 id_ubi VARCHAR(25) not null,
 
 -- id_armario VARCHAR(25) null,
-id_balda int null,
-
-
+id_balda int  null,
 
 fecha_alta DATE DEFAULT (current_date),
 observaciones varchar(150),

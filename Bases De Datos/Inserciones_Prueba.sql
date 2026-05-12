@@ -10,7 +10,9 @@ values  ('pc01', 'ninguno','operativo',1,'sobremesa','est01', 'Op'),
 		('pc02', 'ninguno','operativo',1,'sobremesa','est01', 'Op'),
 		('pc03', 'ninguno','en reparacion',1,'portatil','est03', 'ER'),
 		('pc04', 'ninguno','obsoleto',1,'sobremesa','est04', 'Ob'),
+     --   ('pc06', 'ninguno','obsoleto',1,'sobremesa','arm04', 'Ob'), -- arm04 no existe en la tabla estacion
 		('pc05', 'ninguno','averiado',1,'portatil','est02', 'Ob');
+        
 commit;
 
 -- inster into para Componentes
@@ -40,6 +42,13 @@ VALUES ('componente4','es un comp','en reparacion',9,'componentes','arm02',2,'no
 insert into componentes(id_matTa,id_pc)
 values(last_insert_id(),null);
 
+/*  -- error porque en la tabla balda no existe 'est02'
+INSERT INTO materialestaller(nombre,descripcion,estado,cantidad,categoria,id_ubi,id_balda,observaciones)
+VALUES ('componente5','es un comp','operativo',9,'componentes','est02',1,'funciona');
+
+insert into componentes(id_matTa,id_pc)
+values(last_insert_id(),3);
+*/
 commit;
 
 
@@ -47,10 +56,19 @@ commit;
 
 -- insert into equipos_red
 INSERT INTO materialestaller(nombre,descripcion,estado,cantidad,categoria,id_ubi,id_balda,observaciones)
-VALUES ('equipo','es un equ_red','operativo',8,'equipo de red','arm05',3,'en funiconamiento');
+VALUES ('equipoR1','es un equ_red','operativo',8,'equipo de red','arm05',3,'en funiconamiento');
 
 insert into equipos_red(id_matTa,num_puertos)
 values(last_insert_id(), 2);
+
+INSERT INTO materialestaller(nombre,descripcion,estado,cantidad,categoria,id_ubi,id_balda,observaciones)
+VALUES ('equipoR2','es un equ_red','obsoleto',8,'equipo de red','est01',null,'en desuso');
+
+insert into equipos_red(id_matTa,num_puertos)
+values(last_insert_id(), 2);
+
+
+
 
 commit;
 
