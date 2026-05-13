@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
 
-    private Connection getConnection() {
+    private static Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
 
@@ -58,7 +58,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
            int filas = ps.executeUpdate();
            if (filas != 1) {
                System.out.println("No se ha insertado correctamente");
-           }
+           }           
        } catch (SQLException ex) {
            System.out.println("ERROR: " + ex.getMessage());
        }    }
@@ -105,8 +105,44 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 rs.getString("observaciones"));
     }
     
-    public void guardarPeriferico(Perifericos t) throws SQLException {
-    String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
+    //
+    
+    
+    //
+    
+    public static void guardarMaterial1(MaterialInventario t) {
+ String sql = "INSERT INTO materialesTaller (nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones) VALUES (?,?,?,?,?,?,?,?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getNombre());
+           ps.setString(2, t.getDescripcion());
+           ps.setString(3, t.getEstado().toString());
+           ps.setInt(4, t.getCantidad());
+           ps.setString(5, t.getId_ubi());
+           ps.setInt(6, t.getId_balda());
+           
+           ps.setString(7, t.getFecha_alta().toString());
+           
+           ps.setString(8, t.getObservaciones());
+           
+           
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }           
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
+    
+    
+    
+    public static void guardarPeriferico(Perifericos t) throws SQLException {
+    
+        guardarMaterial1(t);
+        
+        
+        String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
  
        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
            ps.setString(1, t.getConexion().toString());
@@ -116,28 +152,101 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                System.out.println("No se ha insertado correctamente");
            }
            
-           String sql2 = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
+           String sql2 = "INSERT INTO perifericos_pcs (id_periferico, id_pc) VALUES (last_insert_id(),?)";
  
-       try (PreparedStatement ps2 = getConnection().prepareStatement(sql)) {
-           ps.setString(1, t.getConexion().toString());
+                try (PreparedStatement ps2 = getConnection().prepareStatement(sql2)) {
+                    ps.setInt(1, t.getId_pc());
            
-           int filas2 = ps2.executeUpdate();
-            if (filas != 1) {
-                System.out.println("No se ha insertado correctamente");
-            }
+                    int filas2 = ps2.executeUpdate();
+                    if (filas != 1) {
+                 System.out.println("No se ha insertado correctamente");
+                }
            
            
-         } catch (SQLException ex) {
-             System.out.println("ERROR: " + ex.getMessage());
-           }    
+                 } catch (SQLException ex) {
+                System.out.println("ERROR: " + ex.getMessage());
+                }    
        }catch (SQLException ex) {
            System.out.println("ERROR: " + ex.getMessage());
        }    
            
        } 
     
+    public void guardarComponente(Componentes t) {
+        String sql = "INSERT INTO componentes (id_matTa, id_pc) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setInt(1, t.getId_pc());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
     
+        public void guardarEquipoRed(Equipos_en_red t) {
+        String sql = "INSERT INTO equipos_red (id_matTa, num_puertos) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setInt(1, t.getNumPuertos());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
     
+        
+        public void guardarCableado(Cableado t) {
+        String sql = "INSERT INTO cableado (id_matTa, longitud, conector1, conector2) VALUES (last_insert_id(),?,?,?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setDouble(1, t.getLongitud());
+           ps.setString(2, t.getConector1());
+           ps.setString(3, t.getConector2());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
     
-    
+        public void guardarHerramienta(Herramientas t) {
+        String sql = "INSERT INTO herramientas (id_matTa, tipo) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getTipo().toString());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
+        
+        
+        public void guardarMaterialFungible(Material_Fungible t) {
+        String sql = "INSERT INTO material_fungible (id_matTa, estado) VALUES (last_insert_id(),?)";
+ 
+       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+           ps.setString(1, t.getEstadoFungible().toString());
+           
+           int filas = ps.executeUpdate();
+           if (filas != 1) {
+               System.out.println("No se ha insertado correctamente");
+           }
+       } catch (SQLException ex) {
+           System.out.println("ERROR: " + ex.getMessage());
+       }    }
+        
+        
+        
+        
 }

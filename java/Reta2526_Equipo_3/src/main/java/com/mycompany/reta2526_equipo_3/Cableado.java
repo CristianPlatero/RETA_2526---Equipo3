@@ -9,6 +9,7 @@ import Excepciones.DescripcionInvalidaException;
 import Excepciones.EstadoInvalidoException;
 import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
+import Excepciones.LongitudInvalidaException;
 import Excepciones.NombreInvalidoException;
 
 /**
@@ -21,7 +22,7 @@ public class Cableado extends MaterialInventario{
     private String conector1;
     private String conector2;
 
-    public Cableado(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
+    public Cableado(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, LongitudInvalidaException {
         super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
         setLongitud(longitud);
         this.conector1 = conector1;
@@ -34,7 +35,7 @@ public class Cableado extends MaterialInventario{
         return longitud;
     }
 
-    public void setLongitud(String longitud) throws CantidadInvalidaException {
+    public void setLongitud(String longitud) throws CantidadInvalidaException, LongitudInvalidaException {
         Validador.validaLongitud(longitud);
         this.longitud = Double.parseDouble(longitud);
     }
