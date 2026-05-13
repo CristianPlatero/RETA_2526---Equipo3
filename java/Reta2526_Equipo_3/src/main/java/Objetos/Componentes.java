@@ -22,12 +22,15 @@ public class Componentes extends MaterialInventario {
 
     private int id_pc;
 
-    public Componentes( String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones,String id_pc) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
+    public Componentes(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String id_pc) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
         super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
         setId_pc(id_pc);
     }
 
-    
+    public Componentes(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String id_pc) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setId_pc(id_pc);
+    }
 
     public int getId_pc() {
         return id_pc;
@@ -37,13 +40,5 @@ public class Componentes extends MaterialInventario {
         Validador.validaPc(id_pc);
         this.id_pc = Integer.parseInt(id_pc);
     }
-
-   
-
-   
-    
-    
-    
-    
 
 }
