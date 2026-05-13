@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventario Taller Informática</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
     <!-- enlace necesario a css  -->
-    <script src="./js/main.js" defer></script>
+    <script src="../js/main.js" defer></script>
     <!-- enlace necesario a javascript-->
   </head>
   <body>
     <header>
       <div class="img">
         <img
-          src="./assets/RETAMH.png"
+          src="../assets/RETAMH.png"
           alt="logo del equipo"
           style="border-radius: 14px"
         />
@@ -23,15 +23,21 @@
     <nav>
       <div class="navegador">
         <div>
-          <button class="boton">inicio</button>
+          <a href="index.html">
+            <button class="boton">inicio</button>
+          </a>
         </div>
         |
         <div>
-          <button class="boton">contacto</button>
+          <a href="../pages/contacto.html">
+            <button class="boton" >contacto</button>
+          </a>
         </div>
         |
         <div>
-          <button class="boton">galeria</button>
+          <a href="../pages/galeria.html">
+            <button class="boton">galeria</button>
+          </a>
         </div>
       </div>
     </nav>
@@ -45,7 +51,7 @@
 
         <div class="map-wrap" id="mapWrap">
           <img
-            src="./assets/plano-taller.png"
+            src="./assets/plano-taller-trans.png"
             alt="Plano Taller de Informática"
             id="mapImg"
             style="border-radius: 14px; margin-bottom: 60px;"
@@ -136,7 +142,12 @@
             style="left: 56%; top: 61%; width: 19%; height: 7%"
             data-id="e8"
           ></div>
-
+          <div
+            class="hotspot"
+            id="hs-t1"
+            style="left: 30%; top: 40%; width: 35%; height: 11%"
+            data-id="t1"
+          ></div>
           <div class="card-overlay" id="infoCard">
             <button class="card-close" id="cardClose" aria-label="Cerrar">
               ×
@@ -154,11 +165,11 @@
 
     <footer>
       <div class="img">
-        <img
+        <a href="https://github.com/CristianPlatero/RETA_2526---Equipo3" target="_blank"><img
           src="./assets/footer.png"
           alt="Logo del equipo"
           style="border-radius: 8px"
-        />
+        /></a>
       </div>
     </footer>
   </body>

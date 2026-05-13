@@ -1,5 +1,20 @@
+/*
+Paleta de colores
+
+Arena #ece4d7
+Azul oscuro #20293c
+*/
+
+/* Diseño página principal */
+
 * {
   box-sizing: border-box;
+}
+
+body {
+
+background-color: #3b4b6e;
+  
 }
 
 header {
@@ -67,12 +82,7 @@ nav .navegador {
   box-shadow: 0 8px 14px #7c7468;
 }
 
-/*
-Paleta de colores
 
-Arena #ece4d7
-Azul oscuro #20293c
-*/
 
 
 
@@ -91,6 +101,7 @@ Azul oscuro #20293c
   border-radius: var(--border-radius-lg);
   box-sizing: border-box;
   height: auto;
+  border-radius:  8px;
 }
 .hotspot {
   position: absolute;
@@ -104,7 +115,7 @@ Azul oscuro #20293c
   align-items: center;
   justify-content: center;
 }
-
+f
 .hotspot:hover {
   background: rgba(55, 138, 221, 0.18);
   border-color: #378add;
@@ -125,12 +136,12 @@ Azul oscuro #20293c
 }
 .card-overlay {
   position: absolute;
-  background: #ece4d7;
+  background: #999999;
   border: 1px solid #000000;
   border-radius: 8px;
   padding: 14px 16px;
   width: 210px;
-  height: 260px;
+  height: fit-content;
   z-index: 20;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.637);
   display: none;
@@ -186,4 +197,58 @@ Azul oscuro #20293c
 .badge-estacion {
   background: #094a86;
   color: #ece4d7;
+}
+
+.badge-taller {
+  background: rgb(133, 38, 128);
+  color: #ece4d7
+}
+
+/* Galería */
+
+.card-foto {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px auto;
+  max-width: 80%;
+  max-height: fit-content;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 14px #7c7468;
+}
+
+.tarjeta-foto {
+
+ background-color: #ece4d7;
+  border-radius: 8px;
+  box-shadow: 0 8px 14px #7c7468;
+  overflow: hidden;
+  text-align: center;
+  /* 5 tarjetas por fila */
+  width: calc(20% - 20px);
+  transition: transform 0.2s;
+
+}
+/* EFECTO HOVER */
+.tarjeta-foto:hover {
+  transform: scale(1.03);
+}
+
+
+/* IMAGEN */
+.tarjeta-foto img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* TEXTO */
+.tarjeta-foto p {
+  background-color: #ece4d7;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
 }
