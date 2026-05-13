@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +54,10 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
         String sql = "INSERT INTO materialesTaller (nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones) VALUES (?,?,?,?,?,?,?,?)";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = getConnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, t.getNombre());
             ps.setString(2, t.getDescripcion());
-            ps.setString(3, t.getEstado().toString());
+            ps.setString(3, t.getEstado().toString().toLowerCase());
             ps.setInt(4, t.getCantidad());
             ps.setString(5, t.getId_ubi());
             ps.setInt(6, t.getId_balda());
@@ -64,15 +65,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             ps.setString(7, t.getFecha_alta().toString());
 
             ps.setString(8, t.getObservaciones());
-
+           
             int filas = ps.executeUpdate();
+            
+             
+            
             if (filas != 1) {
                 System.out.println("No se ha insertado correctamente en materialesTaller");
             }
-            
+            ResultSet rs = ps.getGeneratedKeys();
+            int idAI = rs.getInt(1);
             switch (t) {
                 case Perifericos pe ->
-                    guardarPeriferico(pe);
+                    guardarPeriferico(pe, idAI);
                 case Cableado ca ->
                     guardarCableado(ca);
                 case Componentes co ->
@@ -133,12 +138,13 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     //
     //
-    public void guardarPeriferico(Perifericos t) throws SQLException {
+    public void guardarPeriferico(Perifericos t, int id) throws SQLException {
 
-        String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (last_insert_id(),?)";
+        String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (?,?)";
 
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            ps.setString(1, t.getConexion().toString());
+            ps.setInt(1, id);
+            ps.setString(2, t.getConexion().toString().toLowerCase());
 
             int filas = ps.executeUpdate();
             if (filas != 1) {

@@ -28,8 +28,8 @@ public class App {
     public static void main(String[] args) throws IdInvalidoException, SQLException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
         //Marco miMarco = new Marco();
         AdministradorDAO ad = new AdministradorDAO();
-        Perifericos p = new Perifericos("1", "no", "des", "OBSOLETO", "1", "ARM02", "1", "12-12-2010", "obs", "1", "INALAMBRICA");
-        ad.guardarPeriferico(p);
+        Perifericos p = new Perifericos("no", "des", "OBSOLETO", "1", "ARM02", "1", "12-12-2010", "obs", "1", "INALAMBRICA");
+        ad.guardarMaterial(p);
         
         
         
