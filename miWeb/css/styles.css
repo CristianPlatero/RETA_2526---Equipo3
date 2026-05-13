@@ -13,7 +13,7 @@ Azul oscuro #20293c
 
 body {
 
-background-color: #3b4b6e;
+background-color: #5f636b;
   
 }
 
@@ -39,6 +39,13 @@ nav {
   box-shadow: 0 8px 14px #7c7468;
 }
 
+nav .navegador {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+  gap: 20px;
+}
+
 footer {
   display: flex;
   justify-content: center;
@@ -55,6 +62,7 @@ footer img {
   width: 100%;
   object-fit: contain;
   display: block;
+  
 }
 
 nav .navegador {
@@ -115,7 +123,7 @@ nav .navegador {
   align-items: center;
   justify-content: center;
 }
-f
+
 .hotspot:hover {
   background: rgba(55, 138, 221, 0.18);
   border-color: #378add;
@@ -136,8 +144,101 @@ f
 }
 .card-overlay {
   position: absolute;
-  background: #999999;
-  border: 1px solid #000000;
+
+  display: none;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  width: 220px;
+
+  padding: 1rem;
+
+  background: #27272a; /* estilo oscuro moderno */
+
+  border-radius: 1rem;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+  z-index: 20;
+
+  color: #d9d9d9;
+
+  
+}
+
+.card-overlay.visible {
+  display: flex;
+}
+
+.card-overlay img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.card-overlay h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #ce8787;
+}
+
+.card-overlay p {
+  font-size: 0.75rem;
+  margin: 0;
+  color: #c75151;
+  line-height: 1.4;
+}
+
+.card-overlay a:hover {
+  text-decoration: underline;
+}
+.card-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.badge {
+  display: inline-block;
+  width: fit-content;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  border-radius: 0.4rem;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.badge-armario {
+  background: #4a7c08;
+  color: white;
+}
+
+.badge-estacion {
+  background: #094a86;
+  color: white;
+}
+
+.badge-taller {
+  background: #6d28d9;
+  color: white;
+}
+
+
+
+/* antiguo
+.card-overlay {
+  position: absolute;
+  background: #f0afaf;
+  border: 1px solid #9c1b1b;
   border-radius: 8px;
   padding: 14px 16px;
   width: 210px;
@@ -203,12 +304,14 @@ f
   background: rgb(133, 38, 128);
   color: #ece4d7
 }
+*/ 
 
 /* Galería */
 
 .card-foto {
   display: flex;
   flex-wrap: wrap;
+  gap: 25px;
   justify-content: center;
   margin: 10px auto;
   max-width: 80%;
@@ -225,8 +328,8 @@ f
   box-shadow: 0 8px 14px #7c7468;
   overflow: hidden;
   text-align: center;
-  /* 5 tarjetas por fila */
-  width: calc(20% - 20px);
+  /* 4 tarjetas por fila */
+  width: calc(25% - 20px);
   transition: transform 0.2s;
 
 }
