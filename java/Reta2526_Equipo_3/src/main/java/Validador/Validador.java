@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.reta2526_equipo_3;
+package Validador;
 
 import Excepciones.CantidadInvalidaException;
 import Excepciones.CategoriaInvalidaException;
@@ -15,6 +15,7 @@ import Excepciones.LongitudInvalidaException;
 import Excepciones.MovilidadInvalidaException;
 import Excepciones.NombreInvalidoException;
 import Excepciones.TipoInvalidoException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -253,7 +254,7 @@ public class Validador {
             throw new IdInvalidoException("El ID de la estación no puede estar vacío.");
         }
 
-        if (!estacion.matches("^[EST]0[1-8]$")) {
+        if (!estacion.matches("^(EST)0[1-8]$")) {
             throw new IdInvalidoException("El ID de la estación debe tener el siguiente formato: EST01 hasta EST08.");
         }
     }
@@ -263,7 +264,7 @@ public class Validador {
             throw new IdInvalidoException("El ID del armario no puede estar vacío.");
         }
 // ! CAMBIAR CHECK A MAYUSCULAS EN BASE DE DATOS MYSQL
-        if (!armario.matches("^[ARM]0[1-6]$")) {
+        if (!armario.matches("^(ARM)0[1-6]$")) {
             throw new IdInvalidoException("El ID del armario debe tener el siguiente formato: ARM01 hasta ARM06.");
         }
     }
@@ -283,7 +284,7 @@ public class Validador {
             throw new IdInvalidoException("El ID de la balda no puede estar vacío.");
         }
 
-        if (!ubi.matches("^[ARM]0[1-6]$") && !ubi.matches("^[EST]0[1-8]$")) {
+        if (!ubi.matches("^(ARM)0[1-6]$") && !ubi.matches("^(EST)0[1-8]$")) {
             throw new IdInvalidoException("El ID de la ubicacion debe tener el siguiente formato: ARM01 hasta ARM06 o EST01 hasta EST08");
         }
     }
@@ -308,7 +309,7 @@ public class Validador {
         }
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
-            LocalDateTime.parse(fecha, formato);
+            LocalDate.parse(fecha, formato);
         } catch (DateTimeParseException e) {
             throw new FechaInvalidaException("La fecha debe tener el formato dd-MM-yyyy.");
         }
