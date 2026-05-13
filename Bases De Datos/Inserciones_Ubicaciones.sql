@@ -3,48 +3,48 @@ USE inventario_taller;
 
 INSERT INTO ubicacion(id_ubi,nombre,descripcion)
 VALUES
-	('arm01','armario01','Almacena cables'),
-    ('arm02','armario02','Almacena tornillos'),
-    ('arm03','armario03','Almacena cables'),
-    ('arm04','armario04','Almacena '),
-    ('arm05','armario05','Almacena'),
-    ('est01','estacion01','Se encuentran'),
-    ('est02','estacion02','Se encuentran'),
-    ('est03','estacion03','Se encuentran'),
-    ('est04','estacion04','Se encuentran'),
-    ('est05','estacion05','Se encuentran'),
-    ('est06','estacion06','Se encuentran'),
-    ('est07','estacion07','Se encuentran'),
-    ('est08','estacion08','Se encuentran');
+	('ARM01','armario01','Almacena cables'),
+    ('ARM02','armario02','Almacena tornillos'),
+    ('ARM03','armario03','Almacena cables'),
+    ('ARM04','armario04','Almacena '),
+    ('ARM05','armario05','Almacena'),
+    ('EST01','estacion01','Se encuentran'),
+    ('EST02','estacion02','Se encuentran'),
+    ('EST03','estacion03','Se encuentran'),
+    ('EST04','estacion04','Se encuentran'),
+    ('EST05','estacion05','Se encuentran'),
+    ('EST06','estacion06','Se encuentran'),
+    ('EST07','estacion07','Se encuentran'),
+    ('EST08','estacion08','Se encuentran');
     
     
 INSERT INTO armario(id_ubi,movilidad)
 VALUES 
-	('arm01','movil'),
-    ('arm02','movil'),
-    ('arm03','fija'),
-    ('arm04','movil'),
-    ('arm05','fija');
+	('ARM01','movil'),
+    ('ARM02','movil'),
+    ('ARM03','fija'),
+    ('ARM04','movil'),
+    ('ARM05','fija');
 
 INSERT INTO estacion(id_ubi)
 VALUES 
-	('est01'),
-    ('est03'),
-    ('est04'),
-    ('est06'),
-    ('est07'),
-    ('est08');
+	('EST01'),
+    ('EST03'),
+    ('EST04'),
+    ('EST06'),
+    ('EST07'),
+    ('EST08');
     
 INSERT INTO estacion (id_ubi,tipo)
 VALUES
-    ('est02','reparacion'),
-	('est05','reparacion');
+    ('EST02','reparacion'),
+	('EST05','reparacion');
  
 INSERT INTO balda(id_balda,id_armario)
 VALUES
-	(1,'arm01'),(2,'arm01'),(3,'arm01'),(4,'arm01'),(5,'arm01'),(6,'arm01'),
-    (1,'arm02'),(2,'arm02'),(3,'arm02'),(4,'arm02'),(5,'arm02'),(6,'arm02'),
-    (1,'arm03'),(2,'arm03'),(3,'arm03'),(4,'arm03'),(5,'arm03'),(6,'arm03'),
-    (1,'arm04'),(2,'arm04'),(3,'arm04'),(4,'arm04'),(5,'arm04'),(6,'arm04'),
-    (1,'arm05'),(2,'arm05'),(3,'arm05'),(4,'arm05'),(5,'arm05'),(6,'arm05');
+	(1,'ARM01'),(2,'ARM01'),(3,'ARM01'),(4,'ARM01'),(5,'ARM01'),(6,'ARM01'),
+    (1,'ARM02'),(2,'ARM02'),(3,'ARM02'),(4,'ARM02'),(5,'ARM02'),(6,'ARM02'),
+    (1,'ARM03'),(2,'ARM03'),(3,'ARM03'),(4,'ARM03'),(5,'ARM03'),(6,'ARM03'),
+    (1,'ARM04'),(2,'ARM04'),(3,'ARM04'),(4,'ARM04'),(5,'ARM04'),(6,'ARM04'),
+    (1,'ARM05'),(2,'ARM05'),(3,'ARM05'),(4,'ARM05'),(5,'ARM05'),(6,'ARM05');
 

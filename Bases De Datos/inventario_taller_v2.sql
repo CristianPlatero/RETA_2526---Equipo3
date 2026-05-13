@@ -27,7 +27,7 @@ movilidad enum('movil','fija') not null DEFAULT 'fija', -- !
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
 
-CHECK(id_ubi LIKE('arm%'))
+CHECK(id_ubi LIKE('ARM%'))
 );
 
 
@@ -50,7 +50,7 @@ tipo enum('operativo', 'reparacion') not null DEFAULT 'operativo',
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
 
-CHECK(id_ubi LIKE('est%'))
+CHECK(id_ubi LIKE('EST%'))
 );
 
 
@@ -63,7 +63,7 @@ nombre varchar(50) not null,
 descripcion varchar(150) not null,
 estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
-categoria enum('cableado','equipo de red','herramientas','perifericos','componentes','consumibles') not null,
+-- categoria enum('cableado','equipo de red','herramientas','perifericos','componentes','consumibles') not null,
 
 id_ubi VARCHAR(25) not null,
 
@@ -126,7 +126,7 @@ FOREIGN KEY (id_estacion) REFERENCES estacion(id_ubi) ON DELETE CASCADE
 DROP TABLE if exists perifericos;
 CREATE TABLE if not exists perifericos(
 id_matTa INT,
-conexion enum('inalambrica','fisica') not null,-- !
+conexion enum('inalambrica','cable') not null,-- !
 
 PRIMARY KEY (id_matTa),
 
@@ -208,7 +208,7 @@ FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
 DROP TABLE if exists material_fungible;
 CREATE TABLE if not exists material_fungible(
 id_matTa INT,
-estado enum('lleno','vacio','por la mitad') not null, -- !
+estado enum('lleno','vacio','medio') not null, -- !
 
 PRIMARY KEY (id_matTa),
 FOREIGN KEY (id_matTa) REFERENCES materialesTaller(id_matTa) ON DELETE CASCADE
