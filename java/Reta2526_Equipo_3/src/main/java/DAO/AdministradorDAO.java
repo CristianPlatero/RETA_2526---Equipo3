@@ -41,11 +41,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return AccesoBaseDatos.getInstance().getConn();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<MaterialInventario> listarMaterial() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public MaterialInventario porIdMaterial(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -119,6 +128,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     }
 
+    /**
+     *Metodo para eliminar un objeto de la tabla materialesTaller por la id
+     * 
+     * Tiene el atributo id
+     * Emplea una sentencia Mysql para eliminar un objeto por el id
+     * Se conecta a la BD y prepara la sentencia
+     * Sustituye el simbolo designado por defecto por el id
+     * Ejecuta la sentencia
+     * 
+     * Se eliminan el resto de entradas del objeto con ese id
+     * por la configuracion de la BD
+     * @param id
+     */
     @Override
     public void eliminarMaterial(int id) {
         String sql = "DELETE FROM materialesTaller WHERE id_matTa = ?";
@@ -140,21 +162,38 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Pc> listarPc() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Pc porIdPc(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param t
+     */
     @Override
     public void guardarPc(Pc t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void eliminarPc(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -174,9 +213,33 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 rs.getString("fecha_alta"),
                 rs.getString("observaciones"));
     }
-
-    //
-    //
+//=====================================================================
+    //METODOS DE GUARDADO ENCAPSULADOS
+    
+    /**
+     *Metodo para guardar un Objeto Periferico en la tabla perifericos de la BD
+     * @param t
+     * Es el Objeto Periferico
+     * @param id
+     * Es un Int que es el id que tendra asignado en la tabla
+     * @throws SQLException
+     * 
+     * Emplea una sentencia de Mysql para insertar en la tabla perifericos
+     * Se conecta a la BD y prepara la sentencia
+     * Los valores a insertar no estan introducidos(?)
+     * Se inserta como un numero entero(int) en el primer (?) el id
+     * En el segundo (?) se inserta el atributo Conexion que es un Enum
+     * *como una cadena de texto(String) en minusculas(lowerCase)
+     * Se ejecuta la sentencia
+     * 
+     * Se crea una segunda sentencia SQL para insertar en la tabla perifericos_pcs
+     * *Una tabla intermedia
+     * Se conecta a la BD y prepara la segunda sentencia
+     * Los valores a insertar no estan introducidos(?)
+     * El primer (?) es el id
+     * El segundo (?) es el id_pc de t
+     * Se ejecuta la sentencia
+     */
     public void guardarPeriferico(Perifericos t, int id) throws SQLException {
 
         String sql = "INSERT INTO perifericos (id_matTa, conexion) VALUES (?,?)";
@@ -210,6 +273,25 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     }
 
+    /**
+     *METODO PARA INSERTAR UN OBJETO COMPONENTE EN LA TABLA componentes DE LA BD
+     * @param t
+     * Es el Objeto Componente que se va a insertar
+     * @param id
+     * Es el id con el que va a ser insertado
+     * 
+     * Se crea una sentencia SQL para insertar como cadena de texto(String) 
+     * *INSERT INTO componentes (id_matTa, id_pc) VALUES (?,?)
+     * **(?) es un simbolo que puede ser cambiado por datos
+     * Se conecta a la BD y prepara la sentencia para manipularla
+     * Al primer (?) se le sustituye por id
+     * Al segundo (?) se le sustituye por el atributo id_pc de t
+     * *Ambos son valores enteros (int)
+     * 
+     * Se crea un entero(int) 
+     * que recoge el numero de filas afectadas al ejecutarse la sentencia
+     * 
+     */
     public void guardarComponente(Componentes t, int id) {
         String sql = "INSERT INTO componentes (id_matTa, id_pc) VALUES (?,?)";
 
@@ -226,6 +308,25 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
+    /**
+     *METODO PARA INSERTAR UN OBJETO EQUIPO_DE_RED EN LA TABLA equipos_red DE LA BD
+     * @param t
+     * Es el Objeto Equipos_en_red
+     * @param id
+     * Es el id con el que va a ser insertado
+     * 
+     * Se crea una sentencia SQL para insertar como cadena de texto(String) 
+     * *INSERT INTO equipos_red (id_matTa, num_puertos) VALUES (?,?)
+     * **(?) es un simbolo que puede ser cambiado por datos
+     * Se conecta a la BD y prepara la sentencia para manipularla
+     * Al primer (?) se le sustituye por id
+     * Al segundo (?) se le sustituye por el atributo numPuertos de t
+     * *Ambos son valores enteros (int)
+     * 
+     * Se crea un entero(int) 
+     * que recoge el numero de filas afectadas al ejecutarse la sentencia
+     * 
+     */
     public void guardarEquipoRed(Equipos_en_red t, int id) {
         String sql = "INSERT INTO equipos_red (id_matTa, num_puertos) VALUES (?,?)";
 
@@ -242,10 +343,15 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
+    /**
+     *
+     * @param t
+     * @param id
+     */
     public void guardarCableado(Cableado t, int id) {
         String sql = "INSERT INTO cableado (id_matTa, longitud, conector1, conector2) VALUES (?,?,?,?)";
 
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ps.setInt(1, id);
             ps.setDouble(2, t.getLongitud());
             ps.setString(3, t.getConector1());
@@ -255,11 +361,16 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             if (filas != 1) {
                 System.out.println("No se ha insertado correctamente en cableado");
             }
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }
     }
 
+    /**
+     *
+     * @param t
+     * @param id
+     */
     public void guardarHerramienta(Herramientas t, int id) {
         String sql = "INSERT INTO herramientas (id_matTa, tipo) VALUES (?,?)";
 
@@ -276,6 +387,11 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
+    /**
+     *
+     * @param t
+     * @param id
+     */
     public void guardarMaterialFungible(Material_Fungible t, int id) {
         String sql = "INSERT INTO material_fungible (id_matTa, estado) VALUES (?,?)";
 

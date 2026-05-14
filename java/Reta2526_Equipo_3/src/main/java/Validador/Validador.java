@@ -26,6 +26,21 @@ import java.time.format.DateTimeParseException;
  */
 public class Validador {
 
+    /**
+     *METODO ESTATICO PARA VALIDAR EL ID DE MaterialInventario
+     * @param inventario
+     * Es el id como un String
+     * @throws IdInvalidoException
+     * 
+     * Si el inventario no existe o esta en blanco
+     * *Lanza una excepcion
+     * 
+     * Se crea un try
+     * Se crea un int llamado valor que es el inventario convertido en int
+     * Si valor es negativo o supera a 99
+     * *Lanza una excepcion
+     * Si hay un problema con el parseo lanza una excepcion
+     */
     public static void validaInventario(String inventario) throws IdInvalidoException {
         if (inventario == null || inventario.isBlank()) {
             throw new IdInvalidoException("Debe introducir un ID de inventario.");
@@ -40,6 +55,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param nombre
+     * @throws NombreInvalidoException
+     */
     public static void validaNombre(String nombre) throws NombreInvalidoException {
         if (nombre == null || nombre.isBlank()) {
             throw new NombreInvalidoException("El nombre no puede estar vacío.");
@@ -52,6 +72,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param descripcion
+     * @throws DescripcionInvalidaException
+     */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
             throw new DescripcionInvalidaException("La descripcion no puede estar vacía.");
@@ -62,11 +87,33 @@ public class Validador {
 
     }
 
+    //=================================================
+    //VALIDACION DE ENUM
+    
+    /**
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO estado
+     * @param estado
+     * Cadena de texto(String)
+     * @throws EstadoInvalidoException
+     * @throws DescripcionInvalidaException
+     * 
+     * Si estado no existe o esta en blanco
+     * *Se lanza una excepcion
+     * 
+     * Se le quitan los espacios en al inicio y final(trim) a estado
+     * Se pone estado en mayuscula(UpperCase)
+     * 
+     * Si estado no coincide con una de las posibilidades
+     * *Lanza una excepcion
+     */
     public static void validaEstado(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
-        estado = estado.toUpperCase().trim();
+        
         if (estado == null || estado.isBlank()) {
             throw new DescripcionInvalidaException("El estado no puede estar vacía.");
         }
+        
+        estado = estado.toUpperCase().trim();
+        
         switch (estado) {
             case "OBSOLETO" -> {
 
@@ -78,18 +125,25 @@ public class Validador {
 
             }
             default -> {
-
                 throw new EstadoInvalidoException("El estado debe ser OBSOLETO, OPERATIVO O REPARACION");
             }
         }
-
     }
 
+    /**
+     *
+     * @param tipo
+     * @throws TipoInvalidoException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
-        tipo = tipo.toUpperCase().trim();
+        
         if (tipo == null || tipo.isBlank()) {
             throw new DescripcionInvalidaException("El estado no puede estar vacio.");
         }
+        
+        tipo = tipo.toUpperCase().trim();
+        
         switch (tipo) {
             case "PRUEBAS" -> {
 
@@ -108,11 +162,20 @@ public class Validador {
 
     }
 
+    /**
+     *
+     * @param categoria
+     * @throws CategoriaInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaCategoria(String categoria) throws CategoriaInvalidaException, DescripcionInvalidaException {
-        categoria = categoria.toUpperCase().trim();
+        
         if (categoria == null || categoria.isBlank()) {
             throw new DescripcionInvalidaException("La categoría no puede estar vacía.");
         }
+        
+        categoria = categoria.toUpperCase().trim();
+        
         switch (categoria) {
             case "PORTATIL" -> {
 
@@ -129,6 +192,12 @@ public class Validador {
 
     }
 
+    /**
+     *
+     * @param movilidad
+     * @throws MovilidadInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaMovilidad(String movilidad) throws MovilidadInvalidaException, DescripcionInvalidaException {
         movilidad = movilidad.toUpperCase().trim();
         if (movilidad == null || movilidad.isBlank()) {
@@ -150,6 +219,12 @@ public class Validador {
 
     }
 
+    /**
+     *
+     * @param estado
+     * @throws EstadoInvalidoException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaEstadoFungible(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         estado = estado.toUpperCase().trim();
         if (estado == null || estado.isBlank()) {
@@ -173,6 +248,12 @@ public class Validador {
 
     }
 
+    /**
+     *
+     * @param tipoHerramienta
+     * @throws CategoriaInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaTipoHerramienta(String tipoHerramienta) throws CategoriaInvalidaException, DescripcionInvalidaException {
         tipoHerramienta = tipoHerramienta.toUpperCase().trim();
         if (tipoHerramienta == null || tipoHerramienta.isBlank()) {
@@ -194,6 +275,12 @@ public class Validador {
 
     }
 
+    /**
+     *
+     * @param conexion
+     * @throws CategoriaInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public static void validaTipoConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
         conexion = conexion.toUpperCase().trim();
         if (conexion == null || conexion.isBlank()) {
@@ -214,7 +301,13 @@ public class Validador {
         }
 
     }
-
+//==========================================
+    
+    /**
+     *
+     * @param cantidad
+     * @throws CantidadInvalidaException
+     */
     public static void validaCantidad(String cantidad) throws CantidadInvalidaException {
         if (cantidad == null || cantidad.isBlank()) {
             throw new CantidadInvalidaException("Debe introducir una cantidad.");
@@ -229,6 +322,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param numPuertos
+     * @throws CantidadInvalidaException
+     */
     public static void validaNumPuertos(String numPuertos) throws CantidadInvalidaException {
         if (numPuertos == null || numPuertos.isBlank()) {
             throw new CantidadInvalidaException("Debe introducir un numero de puertos.");
@@ -242,7 +340,22 @@ public class Validador {
             throw new CantidadInvalidaException("El numero de puertos debe ser un número entero válido.");
         }
     }
-
+//=====================================================================
+    //VALIDACION DE IDs DE UBICACIONES
+    
+    /**
+     *Metodo estatico que valida el formato del id_estacion
+     * @param estacion
+     * Es el id de estacion que debe validar
+     * @throws IdInvalidoException
+     * 
+     * estacion no puede ser NULL ni estar en blanco(isBlank)
+     * 
+     * estacion debe cumplir el formato
+     * *Empezar por (EST0) seguido de un numero entre [1-8]
+     * 
+     * En caso de que pase lo contrario lanza excepciones personalizadas
+     */
     public static void validaEstacion(String estacion) throws IdInvalidoException {
         if (estacion == null || estacion.isBlank()) {
             throw new IdInvalidoException("El ID de la estación no puede estar vacío.");
@@ -253,6 +366,19 @@ public class Validador {
         }
     }
 
+    /**
+     *Metodo estatico que valida el formato del id_armario
+     * @param armario
+     * Es el id de armario que debe validar
+     * @throws IdInvalidoException
+     * 
+     * armario no puede ser NULL ni estar en blanco(isBlank)
+     * 
+     * armario debe cumplir el formato
+     * *Empezar por (ARM0) seguido de un numero entre [1-6]
+     * 
+     * En caso de que pase lo contrario lanza excepciones personalizadas
+     */
     public static void validaArmario(String armario) throws IdInvalidoException {
         if (armario == null || armario.isBlank()) {
             throw new IdInvalidoException("El ID del armario no puede estar vacío.");
@@ -263,9 +389,24 @@ public class Validador {
         }
     }
 
+    /**
+     *Metodo estatico que valida el formato del id_balda
+     * @param ubi
+     * Es el id de la ubicacion del cual depende el formato del id_balda
+     * @param balda
+     * Es el id de la balda que debe validar
+     * @throws IdInvalidoException
+     * 
+     * Si ubi cumple el formato de armario
+     * *Empezar por (ARM0) seguido de un numero entre [1-6]
+     * balda no puede ser NULL
+     * Y debe ser un numero entre [1-6]
+     * 
+     * Si ubi cumple el formato de estacion
+     * *Empezar por (EST0) seguido de un numero entre [1-8]
+     * balda debe ser NULL
+     */
     public static void validaBalda(String ubi, String balda) throws IdInvalidoException {
-        
-       
         
         if (ubi.matches("^(ARM)0[1-6]$")) {
             if (balda == null) {
@@ -278,14 +419,23 @@ public class Validador {
 
         if (ubi.matches("^(EST)0[1-8]$")) {
             if (balda != null  ) {
-                throw new IdInvalidoException("El ID de la balda debe estar vacío, cuando la ubicacion es una estacion");
-                
+                throw new IdInvalidoException("El ID de la balda debe estar vacío, cuando la ubicacion es una estacion");            
             }
-
         }
-
     }
 
+    /**
+     *Metodo estatico que valida el id_ubi
+     * @param ubi
+     * Es el id de la ubicacion que debe validar
+     * @throws IdInvalidoException
+     * 
+     * ubi no puede ser NULL ni estar vacio
+     * 
+     * ubi debe cumplir el formato de armario o estacion
+     * *Empezar por (ARM0) seguido de un numero entre [1-6]
+     * *Empezar por (EST0) seguido de un numero entre [1-8]
+     */
     public static void validaUbi(String ubi) throws IdInvalidoException {
         if (ubi == null || ubi.isBlank()) {
             throw new IdInvalidoException("El ID de la balda no puede estar vacío.");
@@ -295,7 +445,13 @@ public class Validador {
             throw new IdInvalidoException("El ID de la ubicacion debe tener el siguiente formato: ARM01 hasta ARM06 o EST01 hasta EST08");
         }
     }
+//=====================================================================
 
+    /**
+     *
+     * @param pc
+     * @throws IdInvalidoException
+     */
     public static void validaPc(String pc) throws IdInvalidoException {
         if (pc == null || pc.isBlank()) {
             throw new IdInvalidoException("Debe introducir un ID de PC.");
@@ -310,6 +466,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param fecha
+     * @throws FechaInvalidaException
+     */
     public static void validaFecha(String fecha) throws FechaInvalidaException {
         if (fecha == null || fecha.isBlank()) {
             throw new FechaInvalidaException("Debe introducir una fecha.");
@@ -322,6 +483,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param longitud
+     * @throws LongitudInvalidaException
+     */
     public static void validaLongitud(String longitud) throws LongitudInvalidaException {
         if (longitud == null || longitud.isBlank()) {
             throw new LongitudInvalidaException("Debe introducir una longitud.");
@@ -336,6 +502,11 @@ public class Validador {
         }
     }
 
+    /**
+     *
+     * @param conector
+     * @throws ConectorInvalidoException
+     */
     public static void validaConector(String conector) throws ConectorInvalidoException {
         if (conector == null || conector.isBlank()) {
             throw new ConectorInvalidoException("El conector no puede estar vacío.");

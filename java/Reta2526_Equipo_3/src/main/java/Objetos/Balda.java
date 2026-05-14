@@ -26,6 +26,12 @@ public class Balda extends Armario {
         return id_balda;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_balda
+     * @param ubi
+     * @param id_balda
+     * @throws IdInvalidoException
+     */
     public void setId_balda(String ubi,String id_balda) throws IdInvalidoException {
         Validador.validaBalda(ubi,id_balda);
         if(id_balda == null){

@@ -34,6 +34,23 @@ public class Pc {
     private LocalDate fecha_alta;
     private String observaciones;
 
+    /**
+     *CONSTRUCTOR CON ID PARA LECTURA
+     * @param id_pc
+     * @param nombre
+     * @param descripcion
+     * @param estado
+     * @param categoria
+     * @param id_estacion
+     * @param fecha_alta
+     * @param observaciones
+     * @throws IdInvalidoException
+     * @throws NombreInvalidoException
+     * @throws DescripcionInvalidaException
+     * @throws EstadoInvalidoException
+     * @throws CategoriaInvalidaException
+     * @throws FechaInvalidaException
+     */
     public Pc(String id_pc, String nombre, String descripcion, String estado, String categoria, String id_estacion, String fecha_alta, String observaciones) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CategoriaInvalidaException, FechaInvalidaException {
         setId_pc(id_pc);
         setNombre(nombre);
@@ -49,6 +66,11 @@ public class Pc {
         return id_pc;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_pc
+     * @param id_pc
+     * @throws IdInvalidoException
+     */
     public void setId_pc(String id_pc) throws IdInvalidoException {
         Validador.validaPc(id_pc);
         this.id_pc = Integer.parseInt(id_pc);
@@ -58,6 +80,11 @@ public class Pc {
         return nombre;
     }
 
+    /**
+     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO nombre
+     * @param nombre
+     * @throws NombreInvalidoException
+     */
     public void setNombre(String nombre) throws NombreInvalidoException {
         Validador.validaNombre(nombre);
         this.nombre = nombre;
@@ -67,6 +94,11 @@ public class Pc {
         return descripcion;
     }
 
+    /**
+     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO descripcion
+     * @param descripcion
+     * @throws DescripcionInvalidaException
+     */
     public void setDescripcion(String descripcion) throws DescripcionInvalidaException {
         Validador.validaDescripcion(descripcion);
         this.descripcion = descripcion;
@@ -76,6 +108,12 @@ public class Pc {
         return estado;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO estado
+     * @param estado
+     * @throws EstadoInvalidoException
+     * @throws DescripcionInvalidaException
+     */
     public void setEstado(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         Validador.validaEstado(estado);
         this.estado = Estados.valueOf(estado);
@@ -87,6 +125,12 @@ public class Pc {
         return categoria;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO categoria
+     * @param categoria
+     * @throws CategoriaInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public void setCategoria(String categoria) throws CategoriaInvalidaException, DescripcionInvalidaException {
         Validador.validaCategoria(categoria);
         this.categoria = Categorias.valueOf(categoria);
@@ -96,6 +140,11 @@ public class Pc {
         return id_estacion;
     }
 
+    /**
+     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO id_estacion
+     * @param id_estacion
+     * @throws IdInvalidoException
+     */
     public void setId_estacion(String id_estacion) throws IdInvalidoException {
         Validador.validaEstacion(id_estacion);
         this.id_estacion = id_estacion;
@@ -105,6 +154,11 @@ public class Pc {
         return fecha_alta;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO fecha_alta
+     * @param fecha_alta
+     * @throws FechaInvalidaException
+     */
     public void setFecha_alta(String fecha_alta) throws FechaInvalidaException {
         Validador.validaFecha(fecha_alta);
         this.fecha_alta = LocalDate.parse(nombre, formato);
@@ -114,6 +168,11 @@ public class Pc {
         return observaciones;
     }
 
+    /**
+     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO observaciones
+     * @param observaciones
+     * @throws DescripcionInvalidaException
+     */
     public void setObservaciones(String observaciones) throws DescripcionInvalidaException {
         Validador.validaDescripcion(observaciones);
         this.observaciones = observaciones;

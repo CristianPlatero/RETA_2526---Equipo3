@@ -27,6 +27,12 @@ public class Armario extends Ubicacion {
         return movilidad;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO movilidad
+     * @param movilidad
+     * @throws MovilidadInvalidaException
+     * @throws DescripcionInvalidaException
+     */
     public void setMovilidad(String movilidad) throws MovilidadInvalidaException, DescripcionInvalidaException {
         Validador.validaMovilidad(movilidad);
         this.movilidad = Movilidades.valueOf(movilidad);

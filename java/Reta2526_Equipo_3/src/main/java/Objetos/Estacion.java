@@ -27,6 +27,12 @@ public class Estacion extends Ubicacion {
         return tipo;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO tipo
+     * @param tipo
+     * @throws TipoInvalidoException
+     * @throws DescripcionInvalidaException
+     */
     public void setTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
         Validador.validaTipo(tipo);
         this.tipo = Tipos.valueOf(tipo);
