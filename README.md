@@ -21,14 +21,15 @@
    - [🌟 ¿Por qué este proyecto?](#-por-qué-este-proyecto)
    - [🔁 Metodología de trabajo](#-metodología-de-trabajo)
    - [✨ Características principales](#-características-principales)
-   - [🖼️ Capturas de pantalla / Demo](#️-capturas-de-pantalla--demo)
 2. [⚙️ Instalación](#️-instalación)
 3. [🛠️ Uso](#️-uso)
-4. [🗺️ Roadmap](#️-roadmap)
-5. [🆘 Soporte](#-soporte)
-6. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
-7. [📄 Licencia](#-licencia)
-8. [📊 Estado del proyecto](#-estado-del-proyecto)
+4. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
+5. [🗺️ Roadmap](#️-roadmap)
+6. [🆘 Soporte](#-soporte)
+7. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
+8. [📄 Licencia](#-licencia)
+9. [📚 Referencias](#-referencias)
+10. [📊 Estado del proyecto](#-estado-del-proyecto)
 
 
 ---
@@ -78,22 +79,11 @@ Trabajamos siguiendo el marco ágil **SCRUM** e incorporamos **Pair Programming*
 
 ### ✨ Características principales
 
-- **Interfaz dinámica** — descripción concisa de lo que aporta.
-- **Base de datos completa** — descripción concisa de lo que aporta.
-- **Aplicación de escritorio ligera y robusta** — descripción concisa de lo que aporta.
-- **Página web interactiva** — descripción concisa de lo que aporta.
-- **Diseño elegante y 'user friendly'** — descripción concisa de lo que aporta.
-
-### 🖼️ Capturas de pantalla / Demo
-
-> Incluye aquí screenshots, GIFs animados o un enlace a una demo en vivo. Una imagen vale más que mil palabras.
-
-```
-<!-- Ejemplo -->
-![Demo](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2xsMHA4ZnQ2aWM2cWMxcWhlZGVzNHBlYzVsamJuazRxeGticDNxMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/78XCFBGOlS6keY1Bil/giphy.gif)
-```
-
-[![Demo en vivo](https://img.shields.io/badge/Demo-Ver%20en%20vivo-blue?style=flat-square)](https://RETA_2526---Equipo3/releases.example.com)
+- **Interfaz dinámica** — navegación fluida entre módulos adaptada al perfil del usuario (Administrador / Profesor).
+- **Base de datos completa** — modelo relacional normalizado con disparadores para mantener la integridad del inventario.
+- **Aplicación de escritorio ligera y robusta** — ejecutable `.jar` sin dependencias externas al JRE, con gestión de errores y validación de formularios.
+- **Página web interactiva** — plano visual del taller con localización en tiempo real de los componentes.
+- **Diseño elegante y _user friendly_** — interfaz limpia e intuitiva, pensada para usuarios no técnicos.
 
 ---
 
@@ -103,92 +93,54 @@ Trabajamos siguiendo el marco ágil **SCRUM** e incorporamos **Pair Programming*
 
 Antes de instalar, asegúrate de tener lo siguiente:
 
-- [Node.js](https://nodejs.org/) >= 18.0 (o el runtime que aplique)
+- [Java JRE](https://www.java.com/) >= 17
 - [Git](https://git-scm.com/)
-- Cualquier otra dependencia del sistema
+- [VirtualBox](https://www.virtualbox.org/) (para desplegar las máquinas virtuales)
 
 ### Instalación paso a paso
 
 **1. Clona el repositorio**
 
 ```bash
-git clone https://github.com/CristianPlatero/RETA_2526---Equipo3/releases.git
-cd tuproyecto
+git clone https://github.com/CristianPlatero/RETA_2526---Equipo3.git
+cd RETA_2526---Equipo3
 ```
 
-**2. Instala las dependencias**
+**2. Importa las máquinas virtuales**
+
+Descarga los archivos `.ova` desde los enlaces indicados en el repositorio e impórtalos en VirtualBox:
+
+- **MV1** — Servidor de base de datos MySQL
+- **MV2** — Servidor web con el sitio del taller
+
+**3. Ejecuta la aplicación de escritorio**
 
 ```bash
-npm install
-# o con yarn
-yarn install
+java -jar App.jar
 ```
 
-**3. Configura las variables de entorno**
-
-```bash
-cp .env.example .env
-# Edita .env con tus valores
-```
-
-**4. Inicia el proyecto**
-
-```bash
-npm run dev
-```
-
-La aplicación estará disponible en `http://localhost:3000`.
+> 📚 Para instrucciones detalladas de despliegue, consulta la [Guía de despliegue](docs/guia-despliegue.pdf).
 
 ---
 
 ## 🛠️ Uso
 
-El ejemplo más pequeño posible para demostrar el valor del proyecto:
+Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 
-```bash
-# Ejemplo básico
-RETA_2526---Equipo3 --input archivo.txt --output resultado.json
-```
+- **Administrador** — acceso completo al módulo de inventario: altas, bajas, modificaciones y generación de informes.
+- **Profesor** — acceso al módulo de consulta para localizar componentes y visualizar el plano del taller.
 
-**Salida esperada:**
-
-```
-✔ Procesado: archivo.txt
-✔ Resultado guardado en: resultado.json
-```
-
-### Ejemplos adicionales
-
-```bash
-# Modo verbose
-RETA_2526---Equipo3 --input archivo.txt --verbose
-
-# Procesamiento por lotes
-RETA_2526---Equipo3 --batch ./carpeta/ --format json
-```
-
-> 📚 Para ejemplos más avanzados y casos de uso completos, consulta la [documentación oficial](https://github.com/CristianPlatero/RETA_2526---Equipo3/docs).
+> 📚 Para una guía completa por perfil, consulta el [Manual de usuario](docs/manual-usuario.pdf).
 
 ---
 
+## 🌳 Estructura del proyecto
 
-### Configuración del entorno de desarrollo
+> Capturas del árbol de carpetas del repositorio.
 
-```bash
-# Instalar dependencias de desarrollo
-npm install
-
-# Ejecutar tests
-npm test
-
-# Lint
-npm run lint
-
-# Build de producción
-npm run build
 ```
-
-
+<!-- Añadir aquí la salida de `tree` o capturas de pantalla -->
+```
 
 ---
 
@@ -200,16 +152,16 @@ npm run build
 - [x] Cuaderno de trabajo diario del equipo en GitHub Issues: un Issue por jornada usando la plantilla «Cuaderno 
       de trabajo» (etiqueta cuaderno-trabajo), asignado a todos los miembros del equipo y creado el mismo día 
       de la jornada. 
-- [ ] Documentación del reto en Markdown en el repositorio GitHub (README): índice, descripción, miembros, 
+- [x] Documentación del reto en Markdown en el repositorio GitHub (README): índice, descripción, miembros, 
       resultados, tecnologías, valoración y webgrafía. 
 - [x] Diagrama E/R y diagrama relacional de la base de datos (en repositorio y documentación). 
 - [x] Script SQL de creación de la base de datos con datos ficticios de prueba, en repositorio GitHub. 
 - [ ] Script con disparadores de la base de datos, en repositorio GitHub. 
 - [ ] Diagrama de clases completo (en repositorio y documentación). 
-- [ ] Diagrama de casos de uso (en repositorio y documentación). 
+- [x] Diagrama de casos de uso (en repositorio y documentación). 
 - [ ] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
 - [ ] Ejecutable de la aplicación de escritorio Java (.jar). 
-- [ ] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
+- [x] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
 - [ ] (Opcional) Código de las hojas de estilos XSLT en repositorio GitHub. 
 - [ ] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
       diagrama de arquitectura de red, comparativa de tecnologías, configuración ufw, conexión SSH, 
@@ -221,7 +173,7 @@ npm run build
 - [ ] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
    comparación de ≥ 3 licencias y archivo LICENSE en GitHub, guía de uso por perfil y webgrafía. Enlazado 
    al repositorio GitHub. 
-- [ ] Tareas entregadas por Teams para el módulo de IPEI. 
+- [x] Tareas entregadas por Teams para el módulo de IPEI. 
 - [ ] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
 
 ¿Tienes ideas? Abre un [issue](https://github.com/CristianPlatero/RETA_2526---Equipo3/issues) con la etiqueta `mejoras`.
@@ -258,9 +210,22 @@ Este proyecto está licenciado bajo Licencia **[GPLv3](https://www.gnu.org/licen
 
 ---
 
+## 📚 Referencias
+
+> Estos son los recurso que el equipo ha utilizado para la creación del proyecto:
+
+| # | Recurso | URL |
+|---|---------|-----|
+| 1 | Plantillas README| [Best README Template](https://github.com/othneildrew/Best-README-Template?tab=readme-ov-file) |
+| 2 | Badges| [Shields.io](https://shields.io/badges)|
+| 3 | | |
+
+---
+
 ## 📊 Estado del proyecto
 
 > ✅ **En desarrollo activo** — Se aceptan contribuciones e issues.
+
 
 <!-- Si el proyecto está pausado, usa algo como: -->
 <!-- ⚠️ **Mantenimiento mínimo** — Este proyecto recibe únicamente correcciones críticas. Si quieres tomar el relevo como mantenedor, abre un issue. -->
