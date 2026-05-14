@@ -270,4 +270,3 @@ document.addEventListener("click", function () {
     activeHs = null;
   }
 });
-
