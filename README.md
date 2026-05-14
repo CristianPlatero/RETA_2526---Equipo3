@@ -139,7 +139,22 @@ Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 > Capturas del árbol de carpetas del repositorio.
 
 ```
-<!-- Añadir aquí la salida de `tree` o capturas de pantalla -->
+├── 📂 docs
+│   ├── 📂 assets
+│   │   ├── 📂 img
+│   │   └── 📂 taller_fotos
+│   ├── 📂 DiagramaCasoUsos
+│   │   ├── 📄 DiagramaCasoUso_01.png
+│   │   └── 📄 DiagramaCasoUsos_01.drawio
+│   ├── 📄 informe_revision_BBDD.md
+│   ├── 📄 Licencias.md
+│   ├── 📄 Licencias.pdf
+│   ├── 📄 Metodologia.md
+│   └── 📄 presentacion_reto_inventario.pptx
+├── 📄 LICENSE.md
+└── 📄 README.md
+
+<<En desarrollo>>
 ```
 
 ---
