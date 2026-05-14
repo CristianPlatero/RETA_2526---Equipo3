@@ -12,9 +12,7 @@ Azul oscuro #20293c
 }
 
 body {
-
-background-color: #5f636b;
-  
+  background-color: #5f636b;
 }
 
 header {
@@ -45,7 +43,12 @@ nav .navegador {
   margin: 10px auto;
   gap: 20px;
 }
-
+.boton {
+  border-radius: 4px;
+  background-color: #20293c;
+  color: #ffffff;
+  padding: 8px 80px;
+}
 footer {
   display: flex;
   justify-content: center;
@@ -62,23 +65,9 @@ footer img {
   width: 100%;
   object-fit: contain;
   display: block;
-  
 }
 
-nav .navegador {
-  display: flex;
-  justify-content: center;
-  margin: 10px auto;
-  gap: 20px;
-}
-
-.boton {
-  border-radius: 4px;
-  background-color: #20293c;
-  color: #ffffff;
-  padding: 8px 80px;
-}
-
+/* CONTENEDOR CENTRAL, DONDE VA EL MAPA */
 .card {
   display: flex;
   justify-content: center;
@@ -89,12 +78,6 @@ nav .navegador {
   border-radius: 8px;
   box-shadow: 0 8px 14px #7c7468;
 }
-
-
-
-
-
-
 
 /* mapa interactivo */
 
@@ -109,8 +92,10 @@ nav .navegador {
   border-radius: var(--border-radius-lg);
   box-sizing: border-box;
   height: auto;
-  border-radius:  8px;
+  border-radius: 8px;
 }
+
+/* HOTSPOTS */
 .hotspot {
   position: absolute;
   cursor: pointer;
@@ -142,39 +127,31 @@ nav .navegador {
   pointer-events: none;
   white-space: nowrap;
 }
+
+/* TARJETAS DESPLEGABLES */
 .card-overlay {
   position: absolute;
-
   display: none;
   flex-direction: column;
   gap: 0.75rem;
-
-  width: 220px;
-
+  width: 320px;
   padding: 1rem;
-
   background: #27272a; /* estilo oscuro moderno */
-
   border-radius: 1rem;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   z-index: 20;
-
   color: #d9d9d9;
-
-  
 }
-
 .card-overlay.visible {
   display: flex;
 }
 
 .card-overlay img {
   width: 100%;
-  height: 90px;
+  height: 100%;
   object-fit: cover;
   border-radius: 0.5rem;
+
 }
 
 .card-overlay h3 {
@@ -187,7 +164,7 @@ nav .navegador {
 .card-overlay p {
   font-size: 0.75rem;
   margin: 0;
-  color: #c75151;
+  color: #cfc8ec;
   line-height: 1.4;
 }
 
@@ -232,80 +209,6 @@ nav .navegador {
   color: white;
 }
 
-
-
-/* antiguo
-.card-overlay {
-  position: absolute;
-  background: #f0afaf;
-  border: 1px solid #9c1b1b;
-  border-radius: 8px;
-  padding: 14px 16px;
-  width: 210px;
-  height: fit-content;
-  z-index: 20;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.637);
-  display: none;
-  backdrop-filter: blur(6px);
-}
-.card-overlay.visible {
-  display: block;
-}
-.card-overlay h3 {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0 0 6px;
-  color: var(--color-text-primary);
-}
-.card-overlay p {
-  font-size: 12px;
-  color: var(--color-text-secondary);
-  margin: 0 0 4px;
-  line-height: 1.5;
-}
-.card-overlay a {
-  font-size: 12px;
-  color: #185fa5;
-  text-decoration: none;
-}
-.card-overlay a:hover {
-  text-decoration: underline;
-}
-.card-close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  color: var(--color-text-secondary);
-  line-height: 1;
-  background: none;
-  border: none;
-  padding: 0;
-}
-.badge {
-  display: inline-block;
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.badge-armario {
-  background: #4a7c08;
-  color: #ece4d7;
-}
-.badge-estacion {
-  background: #094a86;
-  color: #ece4d7;
-}
-
-.badge-taller {
-  background: rgb(133, 38, 128);
-  color: #ece4d7
-}
-*/ 
-
 /* Galería */
 
 .card-foto {
@@ -322,8 +225,7 @@ nav .navegador {
 }
 
 .tarjeta-foto {
-
- background-color: #ece4d7;
+  background-color: #ece4d7;
   border-radius: 8px;
   box-shadow: 0 8px 14px #7c7468;
   overflow: hidden;
@@ -331,13 +233,12 @@ nav .navegador {
   /* 4 tarjetas por fila */
   width: calc(25% - 20px);
   transition: transform 0.2s;
-
 }
+
 /* EFECTO HOVER */
 .tarjeta-foto:hover {
   transform: scale(1.03);
 }
-
 
 /* IMAGEN */
 .tarjeta-foto img {
@@ -347,7 +248,6 @@ nav .navegador {
   display: block;
 }
 
-
 /* TEXTO */
 .tarjeta-foto p {
   background-color: #ece4d7;
@@ -355,3 +255,43 @@ nav .navegador {
   font-size: 14px;
   color: #333;
 }
+
+
+/* INVENTARIO */
+
+.card-inventario {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+align-items: center;
+  margin: 10px auto;
+  max-width: 80%;
+  max-height: fit-content;
+  background: #ece4d7;
+  border-radius: 8px;
+  box-shadow: 0 8px 14px #7c7468;
+}
+
+    
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      
+    }
+
+    thead {
+      background: #2c7ac7;
+      color: white;
+      
+    }
+
+    th, td {
+      padding: 6px 8px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tbody tr:hover {
+      background: #f1f1f1;
+    }
