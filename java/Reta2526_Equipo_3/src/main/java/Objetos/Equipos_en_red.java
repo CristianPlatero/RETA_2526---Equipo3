@@ -20,10 +20,17 @@ public class Equipos_en_red extends MaterialInventario{
     
     private  int numPuertos;
 
-    public Equipos_en_red(int numPuertos, String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
+    public Equipos_en_red(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones,String numPuertos) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException {
         super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
-        setNumPuertos(nombre);
+        setNumPuertos(numPuertos);
     }
+
+    public Equipos_en_red(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones,String numPuertos) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setNumPuertos(numPuertos);
+    }
+    
+    
 
     public int getNumPuertos() {
         return numPuertos;

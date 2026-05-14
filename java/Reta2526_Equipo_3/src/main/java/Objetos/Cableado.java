@@ -29,6 +29,14 @@ public class Cableado extends MaterialInventario{
         this.conector1 = conector1;
         this.conector2 = conector2;
     }
+
+    public Cableado(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, LongitudInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+         setLongitud(longitud);
+        this.conector1 = conector1;
+        this.conector2 = conector2;
+    }
+    
     
     
 

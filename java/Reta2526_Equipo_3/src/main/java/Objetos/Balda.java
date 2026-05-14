@@ -13,22 +13,27 @@ import Excepciones.IdInvalidoException;
  */
 public class Balda extends Armario {
 
-    private int id_balda;
+    private Integer id_balda;
 
     public Balda(String id_ubi, String nombre, String descripcion, String movilidad, String id_balda) throws IdInvalidoException {
         super(id_ubi, nombre, descripcion, movilidad);
-        setId_balda(id_balda);
+        setId_balda(id_ubi,id_balda);
     }
 
    
 
-    public int getId_balda() {
+    public Integer getId_balda() {
         return id_balda;
     }
 
-    public void setId_balda(String id_balda) throws IdInvalidoException {
-        Validador.validaBalda(id_balda);
-        this.id_balda = Integer.parseInt(id_balda);
+    public void setId_balda(String ubi,String id_balda) throws IdInvalidoException {
+        Validador.validaBalda(ubi,id_balda);
+        if(id_balda == null){
+            this.id_balda = null;
+        }else{
+            this.id_balda = Integer.valueOf(id_balda);
+        }
+        
     }
 
 }

@@ -172,8 +172,8 @@ public class Validador {
         }
 
     }
-    
-       public static void validaTipoHerramienta(String tipoHerramienta) throws CategoriaInvalidaException, DescripcionInvalidaException {
+
+    public static void validaTipoHerramienta(String tipoHerramienta) throws CategoriaInvalidaException, DescripcionInvalidaException {
         tipoHerramienta = tipoHerramienta.toUpperCase().trim();
         if (tipoHerramienta == null || tipoHerramienta.isBlank()) {
             throw new DescripcionInvalidaException("El tipo de herramienta no puede estar vacio.");
@@ -193,8 +193,8 @@ public class Validador {
         }
 
     }
-       
-       public static void validaTipoConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
+
+    public static void validaTipoConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
         conexion = conexion.toUpperCase().trim();
         if (conexion == null || conexion.isBlank()) {
             throw new DescripcionInvalidaException("El tipo de conexion no puede estar vacio.");
@@ -214,7 +214,6 @@ public class Validador {
         }
 
     }
-       
 
     public static void validaCantidad(String cantidad) throws CantidadInvalidaException {
         if (cantidad == null || cantidad.isBlank()) {
@@ -229,8 +228,7 @@ public class Validador {
             throw new CantidadInvalidaException("La cantidad debe ser un número entero válido.");
         }
     }
-    
-    
+
     public static void validaNumPuertos(String numPuertos) throws CantidadInvalidaException {
         if (numPuertos == null || numPuertos.isBlank()) {
             throw new CantidadInvalidaException("Debe introducir un numero de puertos.");
@@ -244,10 +242,6 @@ public class Validador {
             throw new CantidadInvalidaException("El numero de puertos debe ser un número entero válido.");
         }
     }
-    
-    
-    
-    
 
     public static void validaEstacion(String estacion) throws IdInvalidoException {
         if (estacion == null || estacion.isBlank()) {
@@ -269,14 +263,27 @@ public class Validador {
         }
     }
 
-    public static void validaBalda(String balda) throws IdInvalidoException {
-        if (balda == null || balda.isBlank()) {
-            throw new IdInvalidoException("El ID de la balda no puede estar vacío.");
+    public static void validaBalda(String ubi, String balda) throws IdInvalidoException {
+        
+       
+        
+        if (ubi.matches("^(ARM)0[1-6]$")) {
+            if (balda == null) {
+                throw new IdInvalidoException("El ID de la balda no puede estar vacío, cuando la ubicacion es un armario");
+            }
+            if (!balda.matches("^[1-6]")) {
+                throw new IdInvalidoException("El ID de la balda debe tener el siguiente formato: 1 hasta 6");
+            }
         }
 
-        if (!balda.matches("^[1-6]")) {
-            throw new IdInvalidoException("El ID de la balda debe tener el siguiente formato: 1 hasta 6");
+        if (ubi.matches("^(EST)0[1-8]$")) {
+            if (balda != null  ) {
+                throw new IdInvalidoException("El ID de la balda debe estar vacío, cuando la ubicacion es una estacion");
+                
+            }
+
         }
+
     }
 
     public static void validaUbi(String ubi) throws IdInvalidoException {

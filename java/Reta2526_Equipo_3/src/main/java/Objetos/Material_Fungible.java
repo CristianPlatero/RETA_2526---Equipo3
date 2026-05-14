@@ -26,6 +26,13 @@ public class Material_Fungible extends MaterialInventario {
         setEstadoFungible(estadoFungible);
     }
 
+    public Material_Fungible(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String estadoFungible) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setEstadoFungible(estadoFungible);
+    }
+    
+    
+    
     public EstadosFungible getEstadoFungible() {
         return estadoFungible;
     }

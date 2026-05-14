@@ -29,7 +29,7 @@ public class MaterialInventario {
     private int cantidad;
 
     private String id_ubi;
-    private int id_balda;
+    private Integer id_balda;
     private LocalDate fecha_alta;
     private String observaciones;
 
@@ -41,7 +41,7 @@ public class MaterialInventario {
         setEstado(estado);
         setCantidad(cantidad);
         setId_ubi(id_ubi);
-        setId_balda(id_balda);
+        setId_balda(id_ubi, id_balda);
         setFecha_alta(fecha_alta);
         setObservaciones(observaciones);
 
@@ -53,7 +53,7 @@ public class MaterialInventario {
         setEstado(estado);
         setCantidad(cantidad);
         setId_ubi(id_ubi);
-        setId_balda(id_balda);
+        setId_balda(id_ubi, id_balda);
         setFecha_alta(fecha_alta);
         setObservaciones(observaciones);
 
@@ -113,13 +113,28 @@ public class MaterialInventario {
         this.id_ubi = id_ubi;
     }
 
-    public int getId_balda() {
+    public Integer getId_balda() {
         return id_balda;
     }
 
-    public void setId_balda(String id_balda) throws IdInvalidoException {
-        Validador.validaBalda(id_balda);
-        this.id_balda = Integer.parseInt(id_balda);
+    public void setId_balda(String ubi, String id_balda) throws IdInvalidoException {
+        
+        if(id_balda != null && id_balda.isBlank()){
+            id_balda = null;
+        }
+        
+        Validador.validaBalda(ubi, id_balda);
+
+        if (id_balda == null) {
+            this.id_balda = null;
+        } 
+        else if (id_balda.isBlank()) {
+            this.id_balda = null;
+        } 
+        else {
+            this.id_balda = Integer.valueOf(id_balda);
+        }
+
     }
 
     public LocalDate getFecha_alta() {
