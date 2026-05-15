@@ -18,11 +18,25 @@ public class Estacion extends Ubicacion {
 
     private Tipos tipo;
 
+    /**
+     *
+     * @param id_ubi
+     * @param nombre
+     * @param descripcion
+     * @param tipo
+     * @throws TipoInvalidoException
+     * @throws DescripcionInvalidaException
+     * @throws IdInvalidoException
+     */
     public Estacion(String id_ubi, String nombre, String descripcion, String tipo) throws TipoInvalidoException, DescripcionInvalidaException, IdInvalidoException {
         super(id_ubi, nombre, descripcion);
         setTipo(tipo);
     }
 
+    /**
+     *
+     * @return
+     */
     public Tipos getTipo() {
         return tipo;
     }

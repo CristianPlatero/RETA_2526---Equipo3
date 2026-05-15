@@ -71,9 +71,10 @@ public class Herramientas extends MaterialInventario{
         setTipoH(tipo);
     }
     
-    
-    
-
+    /**
+     *
+     * @return
+     */
     public TiposHerramienta getTipo() {
         return tipo;
     }

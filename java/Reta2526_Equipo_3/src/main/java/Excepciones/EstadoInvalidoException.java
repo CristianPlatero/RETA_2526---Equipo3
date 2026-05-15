@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class EstadoInvalidoException extends Exception{
 
+    /**
+     *
+     * @param message
+     */
     public EstadoInvalidoException(String message) {
         super(message);
     }

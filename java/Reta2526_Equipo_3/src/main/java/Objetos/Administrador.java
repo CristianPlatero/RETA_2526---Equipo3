@@ -10,6 +10,11 @@ package Objetos;
  */
 public class Administrador extends Usuario{
     
+    /**
+     *
+     * @param nombre
+     * @param contrasena
+     */
     public Administrador(String nombre, String contrasena) {
         super(nombre, contrasena);
     }

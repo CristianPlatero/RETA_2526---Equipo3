@@ -69,6 +69,10 @@ public class Componentes extends MaterialInventario {
         setId_pc(id_pc);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId_pc() {
         return id_pc;
     }

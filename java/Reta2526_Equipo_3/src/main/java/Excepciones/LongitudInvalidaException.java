@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class LongitudInvalidaException extends Exception{
 
+    /**
+     *
+     * @param message
+     */
     public LongitudInvalidaException(String message) {
         super(message);
     }

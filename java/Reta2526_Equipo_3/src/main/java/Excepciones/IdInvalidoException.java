@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class IdInvalidoException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public IdInvalidoException(String message) {
         super(message);
     }

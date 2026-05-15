@@ -11,7 +11,7 @@ import java.util.Properties;
 
 /**
  *
- * @author Pedro Aguirre
+ * @author DAW126
  */
 public class AccesoBaseDatos {
      private static final String BD = "inventario_taller";
@@ -45,6 +45,10 @@ public class AccesoBaseDatos {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public static AccesoBaseDatos getInstance() {
         return AccesoBaseDatosHolder.INSTANCE;
     }
@@ -53,6 +57,10 @@ public class AccesoBaseDatos {
         private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
     }
 
+    /**
+     *
+     * @return
+     */
     public Connection getConn() {
         try {
             if (conn == null || conn.isClosed()) {
@@ -65,6 +73,10 @@ public class AccesoBaseDatos {
         return conn;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean cerrar() {
         if (conn == null) {
             return true;

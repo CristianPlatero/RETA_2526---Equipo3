@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class DescripcionInvalidaException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public DescripcionInvalidaException(String message) {
         super(message);
     }

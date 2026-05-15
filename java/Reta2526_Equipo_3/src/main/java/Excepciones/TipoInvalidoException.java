@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class TipoInvalidoException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public TipoInvalidoException(String message) {
         super(message);
     }

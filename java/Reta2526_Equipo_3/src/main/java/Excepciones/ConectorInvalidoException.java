@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class ConectorInvalidoException extends Exception{
 
+    /**
+     *
+     * @param message
+     */
     public ConectorInvalidoException(String message) {
         super(message);
     }

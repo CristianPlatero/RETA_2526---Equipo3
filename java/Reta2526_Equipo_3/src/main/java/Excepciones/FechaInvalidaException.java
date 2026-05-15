@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class FechaInvalidaException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public FechaInvalidaException(String message) {
         super(message);
     }

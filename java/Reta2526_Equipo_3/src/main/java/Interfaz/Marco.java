@@ -17,6 +17,9 @@ public class Marco extends JFrame {
     private JPanel panelContenido;
     private CardLayout cardLayout;
 
+    /**
+     *
+     */
     public Marco() {
 
         // Settings del marco principal

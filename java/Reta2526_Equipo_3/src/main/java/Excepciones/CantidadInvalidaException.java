@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class CantidadInvalidaException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public CantidadInvalidaException(String message) {
         super(message);
     }

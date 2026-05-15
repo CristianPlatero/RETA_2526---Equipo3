@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class NombreInvalidoException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public NombreInvalidoException(String message) {
         super(message);
     }

@@ -68,8 +68,10 @@ public class Material_Fungible extends MaterialInventario {
         setEstadoFungible(estadoFungible);
     }
     
-    
-    
+    /**
+     *
+     * @return
+     */
     public EstadosFungible getEstadoFungible() {
         return estadoFungible;
     }

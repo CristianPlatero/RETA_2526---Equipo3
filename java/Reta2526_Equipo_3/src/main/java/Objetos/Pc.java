@@ -62,6 +62,39 @@ public class Pc {
         setObservaciones(observaciones);
     }
 
+    /**
+     *CONSTRUCTOR SIN ID PARA INSERCION
+     * @param nombre
+     * @param descripcion
+     * @param estado
+     * @param categoria
+     * @param id_estacion
+     * @param fecha_alta
+     * @param observaciones
+     * @throws NombreInvalidoException
+     * @throws DescripcionInvalidaException
+     * @throws EstadoInvalidoException
+     * @throws CategoriaInvalidaException
+     * @throws IdInvalidoException
+     * @throws FechaInvalidaException
+     */
+    public Pc(String nombre, String descripcion, String estado, String categoria, String id_estacion, String fecha_alta, String observaciones) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CategoriaInvalidaException, IdInvalidoException, FechaInvalidaException {
+       setNombre(nombre);
+        setDescripcion(descripcion);
+        setEstado(estado);
+        setCategoria(categoria);
+        setId_estacion(id_estacion);
+        setFecha_alta(fecha_alta);
+        setObservaciones(observaciones);
+    }
+
+    
+    
+    
+    /**
+     *
+     * @return
+     */
     public int getId_pc() {
         return id_pc;
     }
@@ -76,6 +109,10 @@ public class Pc {
         this.id_pc = Integer.parseInt(id_pc);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
@@ -90,6 +127,10 @@ public class Pc {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescripcion() {
         return descripcion;
     }
@@ -104,6 +145,10 @@ public class Pc {
         this.descripcion = descripcion;
     }
 
+    /**
+     *
+     * @return
+     */
     public Estados getEstado() {
         return estado;
     }
@@ -119,8 +164,10 @@ public class Pc {
         this.estado = Estados.valueOf(estado);
     }
 
-    
-
+    /**
+     *
+     * @return
+     */
     public Categorias getCategoria() {
         return categoria;
     }
@@ -136,6 +183,10 @@ public class Pc {
         this.categoria = Categorias.valueOf(categoria);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getId_estacion() {
         return id_estacion;
     }
@@ -150,6 +201,10 @@ public class Pc {
         this.id_estacion = id_estacion;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDate getFecha_alta() {
         return fecha_alta;
     }
@@ -164,6 +219,10 @@ public class Pc {
         this.fecha_alta = LocalDate.parse(nombre, formato);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getObservaciones() {
         return observaciones;
     }

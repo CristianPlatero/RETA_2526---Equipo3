@@ -67,8 +67,10 @@ public class Equipos_en_red extends MaterialInventario{
         setNumPuertos(numPuertos);
     }
     
-    
-
+    /**
+     *
+     * @return
+     */
     public int getNumPuertos() {
         return numPuertos;
     }

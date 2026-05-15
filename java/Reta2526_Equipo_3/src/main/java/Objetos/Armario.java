@@ -18,11 +18,23 @@ public class Armario extends Ubicacion {
 
     private Movilidades movilidad;
 
+    /**
+     *
+     * @param id_ubi
+     * @param nombre
+     * @param descripcion
+     * @param movilidad
+     * @throws IdInvalidoException
+     */
     public Armario(String id_ubi, String nombre, String descripcion, String movilidad) throws IdInvalidoException {
         super(id_ubi, nombre, descripcion);
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Movilidades getMovilidad() {
         return movilidad;
     }

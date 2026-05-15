@@ -10,6 +10,10 @@ package Excepciones;
  */
 public class MovilidadInvalidaException extends Exception {
 
+    /**
+     *
+     * @param message
+     */
     public MovilidadInvalidaException(String message) {
         super(message);
     }

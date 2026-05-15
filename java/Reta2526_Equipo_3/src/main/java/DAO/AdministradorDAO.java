@@ -101,6 +101,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
             int idAI = rs.getInt(1);
+                
             
             switch (t) {
                 case Perifericos pe ->
@@ -200,6 +201,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     // =========================================================================
+    
+    
+    
     private MaterialInventario crearMaterialBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, EstadoInvalidoException, FechaInvalidaException {
 //        Estados estado = Estados.valueOf(rs.getString("estado"));
 

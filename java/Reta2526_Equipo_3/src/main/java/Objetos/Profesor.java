@@ -10,6 +10,11 @@ package Objetos;
  */
 public class Profesor extends Usuario{
     
+    /**
+     *
+     * @param nombre
+     * @param contrasena
+     */
     public Profesor(String nombre, String contrasena) {
         super(nombre, contrasena);
     }
