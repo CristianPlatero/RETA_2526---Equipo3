@@ -47,7 +47,35 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      */
     @Override
     public List<MaterialInventario> listarMaterial() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<MaterialInventario> materiales = new ArrayList<>();
+        
+        String sql = "SELECT id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones FROM materialesTaller";
+        
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()){
+            
+            while(rs.next()){
+                materiales.add(crearMaterialBD(rs));
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al listar materiales"+ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            System.out.println("Error con el id "+ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            System.out.println("Error con el nombre "+ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            System.out.println("Error con la cantidad "+ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            System.out.println("Error con la descripcion "+ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            System.out.println("Error con el estado "+ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            System.out.println("Error con la fecha "+ex.getMessage());
+        }
+        
+        
+        return materiales;
     }
 
     /**

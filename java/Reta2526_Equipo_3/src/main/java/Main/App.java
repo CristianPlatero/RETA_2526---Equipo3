@@ -18,6 +18,7 @@ import Objetos.Cableado;
 import Objetos.Componentes;
 import Objetos.Equipos_en_red;
 import Objetos.Herramientas;
+import Objetos.MaterialInventario;
 import Objetos.Material_Fungible;
 import Objetos.Perifericos;
 import java.sql.SQLException;
@@ -57,7 +58,17 @@ public class App {
         
        // ad.eliminarMaterial(13);
 
-
+       var lista = ad.listarMaterial();
+       
+       if(lista.isEmpty()){
+           
+       }else{
+           for(MaterialInventario m : lista){
+               System.out.println(m);
+           }
+       }
+       
+       
     }
     
 }
