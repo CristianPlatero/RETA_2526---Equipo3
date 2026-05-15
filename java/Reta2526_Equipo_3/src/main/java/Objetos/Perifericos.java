@@ -13,64 +13,34 @@ import Excepciones.EstadoInvalidoException;
 import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
+import static Validador.Validador.validaPc;
+import java.util.ArrayList;
 
 /**
  *
  * @author DAW120
  */
-public class Perifericos extends Componentes {
+public class Perifericos extends MaterialInventario {
 // Tal vez se deberia quitar la herencia paracrear un array de id_pc
-    
+
     private Conexion conexion;
 
-    /**
-     *CONSTRUCTOR SIN ID PARA INSERCION
-     * @param nombre
-     * @param descripcion
-     * @param estado
-     * @param cantidad
-     * @param id_ubi
-     * @param id_balda
-     * @param fecha_alta
-     * @param observaciones
-     * @param id_pc
-     * @param conexion
-     * @throws IdInvalidoException
-     * @throws NombreInvalidoException
-     * @throws DescripcionInvalidaException
-     * @throws EstadoInvalidoException
-     * @throws CantidadInvalidaException
-     * @throws FechaInvalidaException
-     * @throws CategoriaInvalidaException
-     */
-    public Perifericos(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String id_pc, String conexion) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
-        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones, id_pc);
+    private ArrayList<Integer> pcs;
+
+    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion, ArrayList<Integer> pcs) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
+        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
         setConexion(conexion);
+        setPcs(pcs);
     }
 
-    /**
-     *CONSTRUCTOR CON ID PARA LECTURA
-     * @param id_matTa
-     * @param nombre
-     * @param descripcion
-     * @param estado
-     * @param cantidad
-     * @param id_ubi
-     * @param id_balda
-     * @param fecha_alta
-     * @param observaciones
-     * @param id_pc
-     * @param conexion
-     * @throws IdInvalidoException
-     * @throws NombreInvalidoException
-     * @throws DescripcionInvalidaException
-     * @throws EstadoInvalidoException
-     * @throws CantidadInvalidaException
-     * @throws FechaInvalidaException
-     * @throws CategoriaInvalidaException
-     */
-    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String id_pc, String conexion) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
-        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones, id_pc);
+    public Perifericos(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion, ArrayList<Integer> pcs) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, CategoriaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setConexion(conexion);
+        setPcs(pcs);
+    }
+
+    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
+        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
         setConexion(conexion);
     }
 
@@ -83,7 +53,8 @@ public class Perifericos extends Componentes {
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO conexion
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO conexion
+     *
      * @param conexion
      * @throws CategoriaInvalidaException
      * @throws DescripcionInvalidaException
@@ -91,6 +62,28 @@ public class Perifericos extends Componentes {
     public void setConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
         Validador.validaTipoConexion(conexion);
         this.conexion = Conexion.valueOf(conexion);
+    }
+
+    public ArrayList<Integer> getPcs() {
+        return pcs;
+    }
+
+    public void setPcs(ArrayList<Integer> pcs) throws IdInvalidoException {
+        if (!pcs.isEmpty()) {
+            for (Integer pc : pcs) {
+                validaPc(pc.toString());
+            }
+        }
+        this.pcs = pcs;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("\n---Periferico---");
+        sb.append("\nConexion: ").append(conexion);
+        return sb.toString();
     }
 
 }

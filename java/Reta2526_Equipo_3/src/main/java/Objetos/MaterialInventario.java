@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class MaterialInventario {
 
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private int id_matTa;
     private String nombre;
     private String descripcion;
@@ -35,7 +35,8 @@ public class MaterialInventario {
     private String observaciones;
 
     /**
-     *CONSTRUCTOR CON ID PARA LECTURA
+     * CONSTRUCTOR CON ID PARA LECTURA
+     *
      * @param id_matTa
      * @param nombre
      * @param descripcion
@@ -67,7 +68,8 @@ public class MaterialInventario {
     }
 
     /**
-     *CONSTRUCTOR SIN ID PARA INSERCION
+     * CONSTRUCTOR SIN ID PARA INSERCION
+     *
      * @param nombre
      * @param descripcion
      * @param estado
@@ -96,18 +98,17 @@ public class MaterialInventario {
     }
 
     //Sobrecarga
-
     /**
      *
      * @return
      */
-    
     public int getId_matTa() {
         return id_matTa;
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_matTa
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_matTa
+     *
      * @param id_matTa
      * @throws IdInvalidoException
      */
@@ -125,7 +126,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO nombre
+     * METODO QUE VALIDA Y ASIGNA EL ATRIBUTO nombre
+     *
      * @param nombre
      * @throws NombreInvalidoException
      */
@@ -143,7 +145,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO descripcion
+     * METODO QUE VALIDA Y ASIGNA EL ATRIBUTO descripcion
+     *
      * @param descripcion
      * @throws DescripcionInvalidaException
      */
@@ -161,7 +164,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO estado
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO estado
+     *
      * @param estado
      * @throws EstadoInvalidoException
      * @throws DescripcionInvalidaException
@@ -180,7 +184,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO cantidad
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO cantidad
+     *
      * @param cantidad
      * @throws CantidadInvalidaException
      */
@@ -198,7 +203,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO id_ubi
+     * METODO QUE VALIDA Y ASIGNA EL ATRIBUTO id_ubi
+     *
      * @param id_ubi
      * @throws IdInvalidoException
      */
@@ -216,38 +222,35 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_balda
-     * @param ubi
-     * Es el id de la ubicacion del cual depende el formato del id_balda
-     * @param id_balda
-     * Es el id de la balda que debe validar
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_balda
+     *
+     * @param ubi Es el id de la ubicacion del cual depende el formato del
+     * id_balda
+     * @param id_balda Es el id de la balda que debe validar
      * @throws IdInvalidoException
-     * 
-     * Si el id_balda existe(!null) pero esta en blanco(isBlank)
-     * *Lo vuelve NULL
-     * 
-     * Llama al metodo validaBalda de la clase Validador
-     * *Para que valide el id_balda dependiendo de ubi
-     * 
-     * Si id_balda es null el valor asignado al id_balda es null
-     * Si no, es el id_balda convertido en numero
-     * 
+     *
+     * Si el id_balda existe(!null) pero esta en blanco(isBlank) *Lo vuelve NULL
+     *
+     * Llama al metodo validaBalda de la clase Validador *Para que valide el
+     * id_balda dependiendo de ubi
+     *
+     * Si id_balda es null el valor asignado al id_balda es null Si no, es el
+     * id_balda convertido en numero
+     *
      */
     public void setId_balda(String ubi, String id_balda) throws IdInvalidoException {
-        
-        if(id_balda != null && id_balda.isBlank()){
+
+        if (id_balda != null && id_balda.isBlank()) {
             id_balda = null;
         }
-        
+
         Validador.validaBalda(ubi, id_balda);
 
         if (id_balda == null) {
             this.id_balda = null;
-        } 
-        else if (id_balda.isBlank()) {
+        } else if (id_balda.isBlank()) {
             this.id_balda = null;
-        } 
-        else {
+        } else {
             this.id_balda = Integer.valueOf(id_balda);
         }
 
@@ -262,7 +265,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO fecha_alta
+     * METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO fecha_alta
+     *
      * @param fecha_alta
      * @throws FechaInvalidaException
      */
@@ -280,7 +284,8 @@ public class MaterialInventario {
     }
 
     /**
-     *METODO QUE VALIDA Y ASIGNA EL ATRIBUTO observaciones
+     * METODO QUE VALIDA Y ASIGNA EL ATRIBUTO observaciones
+     *
      * @param observaciones
      * @throws DescripcionInvalidaException
      */
@@ -296,15 +301,16 @@ public class MaterialInventario {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("MaterialInventario{");
-        sb.append("id_matTa=").append(id_matTa);
-        sb.append(", nombre=").append(nombre);
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", estado=").append(estado);
-        sb.append(", cantidad=").append(cantidad);
-        sb.append(", id_balda=").append(id_balda);
-        sb.append(", fecha_alta=").append(fecha_alta);
-        sb.append(", observaciones=").append(observaciones);
+        sb.append("\n---Material Inventario---");
+        sb.append("\n ID Material: ").append(id_matTa);
+        sb.append("\n Nombre: ").append(nombre);
+        sb.append("\n Descripcion: ").append(descripcion);
+        sb.append("\n Estado: ").append(estado);
+        sb.append("\n Cantidad: ").append(cantidad);
+        sb.append("\n ID Ubicacion: ").append(id_ubi);
+        sb.append("\n ID Balda: ").append(id_balda);
+        sb.append("\n Fecha alta: ").append(fecha_alta);
+        sb.append("\n Observaciones: ").append(observaciones);
 
         return sb.toString();
     }

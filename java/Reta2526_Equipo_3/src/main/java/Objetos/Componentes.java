@@ -87,4 +87,16 @@ public class Componentes extends MaterialInventario {
         this.id_pc = Integer.parseInt(id_pc);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(super.toString());
+        sb.append("Componentes{");
+        sb.append("id_pc=").append(id_pc);
+        sb.append('}');
+        return sb.toString();
+    }
+    
+    
+
 }

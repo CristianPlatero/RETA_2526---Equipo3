@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  *
@@ -465,7 +466,15 @@ public class Validador {
             throw new IdInvalidoException("El ID del PC debe ser un número entero válido.");
         }
     }
-
+    
+     public static void validaPcs(ArrayList<Integer> pcs) throws IdInvalidoException {
+       
+        
+    }
+    
+    
+    
+    
     /**
      *
      * @param fecha
@@ -475,11 +484,11 @@ public class Validador {
         if (fecha == null || fecha.isBlank()) {
             throw new FechaInvalidaException("Debe introducir una fecha.");
         }
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(fecha, formato);
         } catch (DateTimeParseException e) {
-            throw new FechaInvalidaException("La fecha debe tener el formato dd-MM-yyyy.");
+            throw new FechaInvalidaException("La fecha debe tener el formato yyyy-MM-dd.");
         }
     }
 
