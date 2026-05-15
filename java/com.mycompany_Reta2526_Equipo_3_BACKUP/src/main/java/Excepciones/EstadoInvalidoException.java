@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Objetos;
+package Excepciones;
 
 /**
  *
  * @author DAW120
  */
-public class Administrador extends Usuario{
-    
+public class EstadoInvalidoException extends Exception{
+
     /**
      *
-     * @param nombre
-     * @param contrasena
+     * @param message
      */
-    public Administrador(String nombre, String contrasena) {
-        super(nombre, contrasena);
+    public EstadoInvalidoException(String message) {
+        super(message);
     }
     
 }

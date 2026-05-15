@@ -2,30 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Objetos;
-
-import java.io.Serializable;
+package Usuarios;
 
 /**
  *
  * @author DAW120
  */
-public abstract class Usuario implements Serializable{
-    
-    private String nombre;
-    private String contrasena;
+public class Administrador extends Usuario {
 
     /**
      *
      * @param nombre
      * @param contrasena
      */
-    public Usuario(String nombre, String contrasena) {
-        this.nombre = nombre;
-        this.contrasena = contrasena;
+    public Administrador(String nombre, String contrasena) {
+        super(nombre, contrasena);
     }
-    
-    
-    
-    
+
 }

@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Objetos;
+package Excepciones;
 
 /**
  *
  * @author DAW120
  */
-public class Profesor extends Usuario{
-    
+public class CantidadInvalidaException extends Exception {
+
     /**
      *
-     * @param nombre
-     * @param contrasena
+     * @param message
      */
-    public Profesor(String nombre, String contrasena) {
-        super(nombre, contrasena);
+    public CantidadInvalidaException(String message) {
+        super(message);
     }
-    
+
 }
