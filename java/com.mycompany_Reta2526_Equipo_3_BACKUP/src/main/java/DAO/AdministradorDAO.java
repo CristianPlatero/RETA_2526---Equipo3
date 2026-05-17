@@ -307,7 +307,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 ps2.setInt(2, t.getId_pc());
 
                 int filas2 = ps2.executeUpdate();
-                if (filas != 1) {
+                if (filas2 != 1) {
                     LoggerApp.log("No se ha insertado correctamente en perifericos_pcs");
                 }
 

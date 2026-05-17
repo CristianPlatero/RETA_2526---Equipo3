@@ -5,6 +5,8 @@ package Interfaz;
 //  Sin estos imports el compilador no encontraría las clases.
 // ══════════════════════════════════════════════════════════════════════════════
 import DAO.AdministradorDAO;           // Clase que conecta con la base de datos
+import DAO.PcDAO;
+import DAO.UbicacionDAO;
 import Objetos.MaterialInventario;     // Clase padre de todos los materiales
 import Objetos.Perifericos;            // Subclase: periférico (ratón, teclado...)
 import Objetos.Cableado;               // Subclase: cable (HDMI, USB...)
@@ -13,6 +15,7 @@ import Objetos.Herramientas;           // Subclase: herramienta (soldador...)
 import Objetos.Material_Fungible;      // Subclase: material fungible (pasta térmica...)
 import Objetos.Equipos_en_red;         // Subclase: equipo de red (switch, router...)
 import Excepciones.*;                  // Todas las excepciones personalizadas del Validador
+import Objetos.Pc;
 import Utilidades.LoggerApp;
 
 import javax.swing.*;                  // Todo lo visual de Swing: JFrame, JPanel, JButton...
@@ -110,15 +113,15 @@ public class InventarioApp extends JFrame {
     //  Es un JTextArea para mostrar mensajes de error de consola y mensajes de validación sin abrir un Jdialog
     // ══════════════════════════════════════════════════════════════════════
     private JTextArea areaLogs;
-    
-    
+
     // ══════════════════════════════════════════════════════════════════════
     //  DAO — Punto de acceso a la base de datos
     //  Se crea una sola vez aquí y se reutiliza en todos los paneles.
     //  Todos los métodos que guardan, listan o eliminan de la BD pasan por aquí.
     // ══════════════════════════════════════════════════════════════════════
     private final AdministradorDAO dao = new AdministradorDAO();
-
+    private final PcDAO pcDao = new PcDAO();
+    private final UbicacionDAO ubiDao = new UbicacionDAO();
     // ══════════════════════════════════════════════════════════════════════
     //  FORMATO DE FECHA
     //  Compartido por todos los paneles para mostrar/parsear fechas igual.
@@ -128,7 +131,6 @@ public class InventarioApp extends JFrame {
     //    "dd 'de' MMMM 'de' yyyy" → 17 de mayo de 2025 (requiere Locale)
     // ══════════════════════════════════════════════════════════════════════
     private static final DateTimeFormatter FMT_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
 
     // ══════════════════════════════════════════════════════════════════════
     //  CONSTRUCTOR
@@ -260,7 +262,7 @@ public class InventarioApp extends JFrame {
 
         // Subtítulo (texto pequeño debajo del título)
         // 🎨 Cambia el texto o tamaño (12)
-        JLabel lblSub = new JLabel("Gestión de materiales · CRUD");
+        JLabel lblSub = new JLabel("Gestión de materiales y Pcs del Taller de Informática del IES Miguel Herrero");
         lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // 🎨 Fuente del subtítulo
         lblSub.setForeground(COLOR_TEXTO_GRIS);
 
@@ -379,6 +381,13 @@ public class InventarioApp extends JFrame {
             panel.add(crearBotonMenu("✏️  Modificar", e -> mostrarPanel(crearPanelModificar())));
             panel.add(crearBotonMenu("🗑️  Eliminar", e -> mostrarPanel(crearPanelEliminar())));
         }
+
+        // ── Sección PC's: visible para todos ──────────────────────────
+        panel.add(Box.createVerticalStrut(6));
+        panel.add(crearSeparador());
+        panel.add(crearEtiquetaSeccion("PCS"));
+        panel.add(crearBotonMenu("🖥️  Listar PCs", e -> mostrarPanel(crearPanelListarPCs())));
+        panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
 
         // ── Sección OTROS: visible para todos ─────────────────────────────
         panel.add(Box.createVerticalStrut(6));
@@ -577,42 +586,39 @@ public class InventarioApp extends JFrame {
         panel.add(contenido);
         return panel;
     }
-    
-    
-    
-    
+
     private JPanel crearPanelLogs() {
 
-    JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new BorderLayout());
 
-    panel.setBorder(BorderFactory.createMatteBorder(
-            1, 0, 0, 0,
-            new Color(180,180,200)));
+        panel.setBorder(BorderFactory.createMatteBorder(
+                1, 0, 0, 0,
+                new Color(180, 180, 200)));
 
-    areaLogs = new JTextArea(4, 20);
+        areaLogs = new JTextArea(4, 20);
 
-    LoggerApp.inicializar(areaLogs);
-    
-    areaLogs.setEditable(false);
+        LoggerApp.inicializar(areaLogs);
 
-    areaLogs.setFont(new Font("Consolas", Font.PLAIN, 12));
+        areaLogs.setEditable(false);
 
-    areaLogs.setBackground(new Color(35, 35, 35));
+        areaLogs.setFont(new Font("Consolas", Font.PLAIN, 12));
 
-    areaLogs.setForeground(new Color(220, 220, 220));
+        areaLogs.setBackground(new Color(35, 35, 35));
 
-    areaLogs.setLineWrap(true);
+        areaLogs.setForeground(new Color(220, 220, 220));
 
-    areaLogs.setWrapStyleWord(true);
+        areaLogs.setLineWrap(true);
 
-    areaLogs.setText("Sistema iniciado...\n");
+        areaLogs.setWrapStyleWord(true);
 
-    JScrollPane scroll = new JScrollPane(areaLogs);
+        areaLogs.setText("Sistema iniciado...\n");
 
-    panel.add(scroll, BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(areaLogs);
 
-    return panel;
-}
+        panel.add(scroll, BorderLayout.CENTER);
+
+        return panel;
+    }
 
     // ══════════════════════════════════════════════════════════════════════
     //  PANEL LISTAR
@@ -861,9 +867,27 @@ public class InventarioApp extends JFrame {
         spinnerMin.setPreferredSize(new Dimension(80, 28));
         filtros.add(spinnerMin, gbc);
 
-        // Fila 2: botón de filtrar (ocupa 2 columnas)
+        // Fila 2: Etiqueta y spinner de Ubicación
         gbc.gridx = 0;
         gbc.gridy = 2;
+        filtros.add(etiqueta("Ubicación:"), gbc);
+        gbc.gridx = 1;
+        gbc.gridwidth = 1;
+
+        JComboBox<String> comboUbicacion = new JComboBox<>();
+        comboUbicacion.addItem("Todas");
+        // Cargar ubicaciones desde la BD
+        for (String ubi : ubiDao.listarUbicaciones()) {
+            comboUbicacion.addItem(ubi);
+        }
+
+        comboUbicacion.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        filtros.add(comboUbicacion, gbc);
+
+        // Fila 3: botón de filtrar (ocupa 2 columnas)
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+
         gbc.gridwidth = 2;
         JButton btnFiltrar = crearBotonAccion("Aplicar filtros");
         filtros.add(btnFiltrar, gbc);
@@ -884,6 +908,10 @@ public class InventarioApp extends JFrame {
             String estadoFiltro = (String) comboEstado.getSelectedItem();
             int cantMinima = (int) spinnerMin.getValue(); // getValue() de un JSpinner devuelve Object, lo casteamos
 
+            String ubicacionFiltro
+                    = comboUbicacion
+                            .getSelectedItem()
+                            .toString();
             List<MaterialInventario> lista = dao.listarMaterial();
             // Usamos ArrayList para ir acumulando las filas que pasen los filtros
             java.util.List<Object[]> filasFiltradas = new java.util.ArrayList<>();
@@ -894,9 +922,11 @@ public class InventarioApp extends JFrame {
                         || m.getEstado().toString().equals(estadoFiltro);
                 // Condición 2: la cantidad es mayor o igual al mínimo pedido
                 boolean okCantidad = m.getCantidad() >= cantMinima;
+                // Condición 3: la ubicacion coincide o el filtro es "Todas"
+                boolean okUbicacion = ubicacionFiltro.equals("Todas") || m.getId_ubi().equals(ubicacionFiltro);
 
                 // Solo añadimos si AMBAS condiciones se cumplen
-                if (okEstado && okCantidad) {
+                if (okEstado && okCantidad && okUbicacion) {
                     filasFiltradas.add(new Object[]{
                         m.getId_matTa(),
                         m.getNombre(),
@@ -1826,6 +1856,194 @@ public class InventarioApp extends JFrame {
     }
 
     // ══════════════════════════════════════════════════════════════════════
+    //  PANELES PC
+    //  Paneles para listar y añadir PCs
+    // ══════════════════════════════════════════════════════════════════════
+    private JPanel crearPanelListarPCs() {
+
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+
+        panel.setBackground(COLOR_TRABAJO_BG);
+
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20)
+        );
+
+        panel.add(crearTituloPanel("Listado de PCs"), BorderLayout.NORTH);
+
+        String[] cols = {
+            "ID",
+            "Nombre",
+            "Estado",
+            "Categoría",
+            "Estación"
+        };
+
+        java.util.List<Pc> lista = pcDao.listarPCs();
+
+        Object[][] datos = new Object[lista.size()][cols.length];
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            Pc pc = lista.get(i);
+            datos[i][0] = pc.getId_pc();
+            datos[i][1] = pc.getNombre();
+            datos[i][2] = pc.getEstado();
+            datos[i][3] = pc.getCategoria();
+            datos[i][4] = pc.getId_estacion();
+        }
+
+        panel.add(new JScrollPane(crearTabla(datos, cols)), BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JPanel crearPanelAnadirPC() {
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(COLOR_TRABAJO_BG);
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 6, 6, 6);
+        gbc.anchor = GridBagConstraints.WEST;
+        JTextField txtNombre = new JTextField(20);
+        JTextField txtDesc = new JTextField(20);
+
+        JComboBox<String> comboEstado
+                = new JComboBox<>(
+                        new String[]{
+                            "OPERATIVO",
+                            "REPARACION",
+                            "OBSOLETO"
+                        }
+                );
+
+        JComboBox<String> comboCategoria
+                = new JComboBox<>(
+                        new String[]{
+                            "PORTATIL",
+                            "SOBREMESA"
+                        }
+                );
+
+        JComboBox<String> comboEstacion
+                = new JComboBox<>();
+
+        for (String est : ubiDao.listarEstaciones()) {
+            comboEstacion.addItem(est);
+        }
+
+        JTextField txtFecha = new JTextField(LocalDate.now().format(FMT_FECHA), 10);
+
+        JTextField txtObs = new JTextField(20);
+
+        int y = 0;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Nombre:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(txtNombre, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Descripción:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(txtDesc, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Estado:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(comboEstado, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Categoría:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(comboCategoria, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Estación:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(comboEstacion, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Fecha:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(txtFecha, gbc);
+
+        y++;
+
+        gbc.gridx = 0;
+        gbc.gridy = y;
+        panel.add(etiqueta("Observaciones:"), gbc);
+
+        gbc.gridx = 1;
+        panel.add(txtObs, gbc);
+
+        JButton btnGuardar
+                = crearBotonAccion(
+                        "💾 Guardar PC"
+                );
+
+        y++;
+
+        gbc.gridx = 1;
+        gbc.gridy = y;
+
+        panel.add(btnGuardar, gbc);
+
+        btnGuardar.addActionListener(e -> {
+            try {
+                Pc pc = new Pc(
+                        txtNombre.getText(),
+                        txtDesc.getText(),
+                        comboEstado
+                                .getSelectedItem()
+                                .toString(),
+                        comboCategoria
+                                .getSelectedItem()
+                                .toString(),
+                        comboEstacion
+                                .getSelectedItem()
+                                .toString(),
+                        txtFecha.getText(),
+                        txtObs.getText()
+                );
+
+                pcDao.guardarPC(pc);
+
+            } catch (CategoriaInvalidaException | DescripcionInvalidaException | EstadoInvalidoException | FechaInvalidaException | IdInvalidoException | NombreInvalidoException ex) {
+                LoggerApp.log(
+                        "❌ Error creando PC: "
+                        + ex.getMessage()
+                );
+            }
+        });
+
+        return panel;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     //  PANEL WEB
     //  Abre la web local del proyecto en el navegador predeterminado del sistema.
     // ══════════════════════════════════════════════════════════════════════
@@ -2119,6 +2337,5 @@ public class InventarioApp extends JFrame {
             campo.selectAll();    // selecciona todo el texto del campo para fácil corrección
         }
     }
-    
-   
+
 }

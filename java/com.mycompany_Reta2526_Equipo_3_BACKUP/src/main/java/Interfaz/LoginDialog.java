@@ -101,7 +101,7 @@ public class LoginDialog extends JDialog {
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Subtítulo
-        JLabel lblSub = new JLabel("Inventario Escolar");
+        JLabel lblSub = new JLabel("Inventario Taller");
         lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         lblSub.setForeground(COLOR_GRIS);
         lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);

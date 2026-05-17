@@ -79,8 +79,8 @@ public class Validador {
      */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
-            descripcion = "Sin descripción";
-            // throw new DescripcionInvalidaException("La descripcion no puede estar vacía.");
+            
+            throw new DescripcionInvalidaException("La descripcion no puede estar vacía.");
             
         }
         if (descripcion.length() < 2 || descripcion.length() > 50) {

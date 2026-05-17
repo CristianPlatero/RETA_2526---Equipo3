@@ -4,6 +4,7 @@
  */
 package Usuarios;
 
+import Utilidades.LoggerApp;
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -92,7 +93,7 @@ public class GestionUsuarios {
             return (ArrayList<Usuario>) ois.readObject(); // devuelve la lista con sus objetos reales (Administradores y profesores)
 
         } catch (Exception e) {
-            System.out.println("Error al leer el archivo binario: " + e.getMessage());
+            LoggerApp.log("Error al leer el archivo binario: " + e.getMessage());
             return new ArrayList<>();
         }
 
@@ -105,7 +106,7 @@ public class GestionUsuarios {
             oos.writeObject(usuarios);
 
         } catch (IOException ex) {
-            System.out.println("Error al guardar en el archivo binario: " + ex.getMessage());
+            LoggerApp.log("Error al guardar en el archivo binario: " + ex.getMessage());
 
         }
 

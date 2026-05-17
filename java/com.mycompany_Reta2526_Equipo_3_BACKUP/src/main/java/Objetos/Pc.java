@@ -216,7 +216,7 @@ public class Pc {
      */
     public void setFecha_alta(String fecha_alta) throws FechaInvalidaException {
         Validador.validaFecha(fecha_alta);
-        this.fecha_alta = LocalDate.parse(nombre, formato);
+        this.fecha_alta = LocalDate.parse(fecha_alta, formato);
     }
 
     /**

@@ -7,8 +7,8 @@ package Main;
 import Interfaz.InventarioApp;
 import Interfaz.LoginDialog;
 import Interfaz.Rol;
-import Usuarios.Administrador;
-import Usuarios.GestionUsuarios;
+import Usuarios.InicializadorUsuarios;
+import Utilidades.ExportadorCSV;
 
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -16,37 +16,30 @@ import javax.swing.UIManager;
 public class App {
 
     public static void main(String[] args) {
-        GestionUsuarios gestor = new GestionUsuarios();
 
-String hash = org.mindrot.jbcrypt.BCrypt.hashpw(
-    "admin123",
-    org.mindrot.jbcrypt.BCrypt.gensalt()
-);
+        // Inicializamos los usuarios para su login correcto
+        InicializadorUsuarios.inicializarUsuariosBase();
 
-Administrador admin = new Administrador("admin", hash);
-
-gestor.registrarUsuario(admin);
         try {
             UIManager.setLookAndFeel(
-                UIManager.getSystemLookAndFeelClassName()
+                    UIManager.getSystemLookAndFeelClassName()
             );
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         SwingUtilities.invokeLater(() -> {
-
             LoginDialog login = new LoginDialog(null);
             login.setVisible(true);
 
             Rol rol = login.getRolAutenticado();
 
             if (rol != null) {
-
+                //ExportadorCSV.exportarTodo();
                 InventarioApp app = new InventarioApp(rol);
                 app.setVisible(true);
 
             }
         });
+
     }
 }
