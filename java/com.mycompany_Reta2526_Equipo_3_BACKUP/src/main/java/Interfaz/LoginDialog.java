@@ -1,4 +1,4 @@
-package InterfazNueva;
+package Interfaz;
 
 import Usuarios.Administrador;
 import Usuarios.GestionUsuarios;

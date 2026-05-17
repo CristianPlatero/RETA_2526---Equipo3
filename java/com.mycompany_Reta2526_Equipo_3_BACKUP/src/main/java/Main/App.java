@@ -4,9 +4,9 @@
  */
 package Main;
 
-import InterfazNueva.InventarioApp;
-import InterfazNueva.LoginDialog;
-import InterfazNueva.Rol;
+import Interfaz.InventarioApp;
+import Interfaz.LoginDialog;
+import Interfaz.Rol;
 import Usuarios.Administrador;
 import Usuarios.GestionUsuarios;
 

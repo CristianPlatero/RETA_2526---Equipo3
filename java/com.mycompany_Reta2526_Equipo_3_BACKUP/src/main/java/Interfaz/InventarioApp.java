@@ -1,10 +1,9 @@
-package InterfazNueva;
+package Interfaz;
 
 // ══════════════════════════════════════════════════════════════════════════════
 //  IMPORTS — Aquí indicamos a Java qué clases externas vamos a usar.
 //  Sin estos imports el compilador no encontraría las clases.
 // ══════════════════════════════════════════════════════════════════════════════
-
 import DAO.AdministradorDAO;           // Clase que conecta con la base de datos
 import Objetos.MaterialInventario;     // Clase padre de todos los materiales
 import Objetos.Perifericos;            // Subclase: periférico (ratón, teclado...)
@@ -27,27 +26,25 @@ import java.util.List;                 // Para trabajar con listas de objetos
 
 /**
  * ══════════════════════════════════════════════════════════════════════════════
- *  CLASE PRINCIPAL: InventarioApp
+ * CLASE PRINCIPAL: InventarioApp
  * ══════════════════════════════════════════════════════════════════════════════
  *
- *  Esta clase ES la ventana principal de la aplicación.
- *  Extiende JFrame, que en Swing es la clase que representa una ventana de escritorio.
+ * Esta clase ES la ventana principal de la aplicación. Extiende JFrame, que en
+ * Swing es la clase que representa una ventana de escritorio.
  *
- *  ESTRUCTURA VISUAL DE LA VENTANA:
+ * ESTRUCTURA VISUAL DE LA VENTANA:
  *
- *  ┌──────────────────────────────────────────────────────────┐
- *  │  BANNER (parte de arriba: logo, título, botón de salir)  │  ← BorderLayout.NORTH
- *  ├────────────┬─────────────────────────────────────────────┤
- *  │            │                                             │
- *  │  MENÚ      │          ÁREA DE TRABAJO                   │  ← BorderLayout.CENTER
- *  │  LATERAL   │  (aquí aparecen los paneles al pulsar       │
- *  │            │   los botones del menú)                     │
- *  └────────────┴─────────────────────────────────────────────┘
- *   ↑ BorderLayout.WEST
+ * ┌──────────────────────────────────────────────────────────┐ │ BANNER (parte
+ * de arriba: logo, título, botón de salir) │ ← BorderLayout.NORTH
+ * ├────────────┬─────────────────────────────────────────────┤ │ │ │ │ MENÚ │
+ * ÁREA DE TRABAJO │ ← BorderLayout.CENTER │ LATERAL │ (aquí aparecen los
+ * paneles al pulsar │ │ │ los botones del menú) │
+ * └────────────┴─────────────────────────────────────────────┘ ↑
+ * BorderLayout.WEST
  *
- *  ROLES DE USUARIO:
- *  - ADMINISTRADOR → ve todos los botones del menú (consulta + edición)
- *  - PROFESOR      → solo ve los botones de consulta (sin añadir/modificar/eliminar)
+ * ROLES DE USUARIO: - ADMINISTRADOR → ve todos los botones del menú (consulta +
+ * edición) - PROFESOR → solo ve los botones de consulta (sin
+ * añadir/modificar/eliminar)
  */
 public class InventarioApp extends JFrame {
 
@@ -56,11 +53,10 @@ public class InventarioApp extends JFrame {
     //  Controlan el tamaño de la ventana y sus partes.
     //  🎨 DISEÑO: Cambia estos números para hacer la ventana más grande/pequeña.
     // ══════════════════════════════════════════════════════════════════════
-
     private static final int ANCHO_VENTANA = 900;  // 🎨 Ancho total de la ventana en píxeles
-    private static final int ALTO_VENTANA  = 600;  // 🎨 Alto total de la ventana en píxeles
-    private static final int ANCHO_MENU    = 190;  // 🎨 Ancho del menú lateral izquierdo
-    private static final int ALTO_BANNER   = 120;  // 🎨 Alto del banner superior
+    private static final int ALTO_VENTANA = 600;  // 🎨 Alto total de la ventana en píxeles
+    private static final int ANCHO_MENU = 190;  // 🎨 Ancho del menú lateral izquierdo
+    private static final int ALTO_BANNER = 120;  // 🎨 Alto del banner superior
 
     // ══════════════════════════════════════════════════════════════════════
     //  URL DE LA WEB LOCAL
@@ -71,7 +67,6 @@ public class InventarioApp extends JFrame {
     //    "http://localhost:3000"   → servidor Node.js típico
     //    "http://127.0.0.1:80"     → misma cosa que localhost
     // ══════════════════════════════════════════════════════════════════════
-
     private static final String URL_WEB_LOCAL = "http://localhost";
 
     // ══════════════════════════════════════════════════════════════════════
@@ -79,25 +74,23 @@ public class InventarioApp extends JFrame {
     //  Todos los colores de la interfaz están aquí centralizados.
     //  🎨 DISEÑO: Modifica estos colores para cambiar el tema visual completo.
     // ══════════════════════════════════════════════════════════════════════
-
-    private static final Color COLOR_BANNER      = new Color(30,  30,  46);  // 🎨 Fondo del banner (azul muy oscuro/morado)
-    private static final Color COLOR_MENU_BG     = new Color(44,  44,  64);  // 🎨 Fondo del menú lateral
-    private static final Color COLOR_MENU_BTN    = new Color(64,  64,  96);  // 🎨 Color de los separadores del menú
-    private static final Color COLOR_MENU_HOVER  = new Color(90,  90, 140);  // 🎨 Color del botón al pasar el ratón por encima
+    private static final Color COLOR_BANNER = new Color(30, 30, 46);  // 🎨 Fondo del banner (azul muy oscuro/morado)
+    private static final Color COLOR_MENU_BG = new Color(44, 44, 64);  // 🎨 Fondo del menú lateral
+    private static final Color COLOR_MENU_BTN = new Color(64, 64, 96);  // 🎨 Color de los separadores del menú
+    private static final Color COLOR_MENU_HOVER = new Color(90, 90, 140);  // 🎨 Color del botón al pasar el ratón por encima
     private static final Color COLOR_MENU_ACTIVO = new Color(114, 90, 200);  // 🎨 Color del botón seleccionado (morado)
-    private static final Color COLOR_TRABAJO_BG  = new Color(245, 245, 252); // 🎨 Fondo del área de trabajo (blanco azulado)
+    private static final Color COLOR_TRABAJO_BG = new Color(245, 245, 252); // 🎨 Fondo del área de trabajo (blanco azulado)
     private static final Color COLOR_TEXTO_CLARO = Color.WHITE;              // 🎨 Texto blanco (sobre fondos oscuros)
-    private static final Color COLOR_TEXTO_GRIS  = new Color(180, 180, 200); // 🎨 Texto gris suave (subtítulos, hints)
+    private static final Color COLOR_TEXTO_GRIS = new Color(180, 180, 200); // 🎨 Texto gris suave (subtítulos, hints)
     private static final Color COLOR_BADGE_ADMIN = new Color(114, 90, 200);  // 🎨 Pastilla "ADMINISTRADOR" (morado)
-    private static final Color COLOR_BADGE_PROF  = new Color(50, 140, 100);  // 🎨 Pastilla "PROFESOR" (verde)
-    private static final Color COLOR_ERROR       = new Color(180, 60,  60);  // 🎨 Texto de error (rojo oscuro)
-    private static final Color COLOR_OK          = new Color(40,  140, 80);  // 🎨 Texto de éxito (verde)
+    private static final Color COLOR_BADGE_PROF = new Color(50, 140, 100);  // 🎨 Pastilla "PROFESOR" (verde)
+    private static final Color COLOR_ERROR = new Color(180, 60, 60);  // 🎨 Texto de error (rojo oscuro)
+    private static final Color COLOR_OK = new Color(40, 140, 80);  // 🎨 Texto de éxito (verde)
 
     // ══════════════════════════════════════════════════════════════════════
     //  ATRIBUTOS DE ESTADO
     //  Variables que guardan información mientras la aplicación está abierta.
     // ══════════════════════════════════════════════════════════════════════
-
     // El rol del usuario que ha iniciado sesión (ADMINISTRADOR o PROFESOR).
     // Es "final" porque no cambia durante la sesión.
     private final Rol rolActual;
@@ -115,7 +108,6 @@ public class InventarioApp extends JFrame {
     //  Se crea una sola vez aquí y se reutiliza en todos los paneles.
     //  Todos los métodos que guardan, listan o eliminan de la BD pasan por aquí.
     // ══════════════════════════════════════════════════════════════════════
-
     private final AdministradorDAO dao = new AdministradorDAO();
 
     // ══════════════════════════════════════════════════════════════════════
@@ -126,7 +118,6 @@ public class InventarioApp extends JFrame {
     //    "yyyy-MM-dd"  → 2025-05-17  (formato ISO, útil para la BD)
     //    "dd 'de' MMMM 'de' yyyy" → 17 de mayo de 2025 (requiere Locale)
     // ══════════════════════════════════════════════════════════════════════
-
     private static final DateTimeFormatter FMT_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // ══════════════════════════════════════════════════════════════════════
@@ -135,12 +126,11 @@ public class InventarioApp extends JFrame {
     //  Recibe el Rol del usuario que viene del LoginDialog.
     //  Su trabajo es: guardar el rol, construir la ventana y mostrarla.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Construye la ventana principal con el rol del usuario autenticado.
      *
-     * @param rol  El rol del usuario (Rol.ADMINISTRADOR o Rol.PROFESOR),
-     *             que determina qué botones aparecen en el menú.
+     * @param rol El rol del usuario (Rol.ADMINISTRADOR o Rol.PROFESOR), que
+     * determina qué botones aparecen en el menú.
      */
     public InventarioApp(Rol rol) {
         this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
@@ -149,8 +139,8 @@ public class InventarioApp extends JFrame {
 
         // Paso 2: añadimos las tres zonas principales de la ventana.
         // BorderLayout divide la ventana en: NORTH, SOUTH, EAST, WEST, CENTER.
-        add(crearBanner(),         BorderLayout.NORTH);   // Banda de arriba (logo + título)
-        add(crearMenuLateral(),    BorderLayout.WEST);    // Panel de botones de la izquierda
+        add(crearBanner(), BorderLayout.NORTH);   // Banda de arriba (logo + título)
+        add(crearMenuLateral(), BorderLayout.WEST);    // Panel de botones de la izquierda
         areaTrabajoContenedor = crearAreaTrabajo();       // Panel vacío del centro
         add(areaTrabajoContenedor, BorderLayout.CENTER);
 
@@ -161,14 +151,12 @@ public class InventarioApp extends JFrame {
     // ══════════════════════════════════════════════════════════════════════
     //  CONFIGURACIÓN BÁSICA DE LA VENTANA
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Configura las propiedades básicas del JFrame (la ventana).
      *
-     * 🎨 DISEÑO: En este método puedes cambiar:
-     *   - El título de la barra de título de Windows
-     *   - El tamaño inicial y mínimo de la ventana
-     *   - Lo que pasa al pulsar la X (aquí: cierra el programa)
+     * 🎨 DISEÑO: En este método puedes cambiar: - El título de la barra de
+     * título de Windows - El tamaño inicial y mínimo de la ventana - Lo que
+     * pasa al pulsar la X (aquí: cierra el programa)
      */
     private void configurarVentana() {
         // Texto que aparece en la barra de título de Windows/Linux/Mac
@@ -194,8 +182,8 @@ public class InventarioApp extends JFrame {
     }
 
     /**
-     * Devuelve el nombre legible del rol actual como texto.
-     * Se usa para mostrarlo en el título y en el badge del banner.
+     * Devuelve el nombre legible del rol actual como texto. Se usa para
+     * mostrarlo en el título y en el badge del banner.
      */
     private String nombreRol() {
         return (rolActual == Rol.ADMINISTRADOR) ? "Administrador" : "Profesor";
@@ -205,23 +193,19 @@ public class InventarioApp extends JFrame {
     //  BANNER SUPERIOR
     //  La franja de arriba que contiene: imagen, título y botón de cerrar sesión.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Construye y devuelve el panel del banner superior.
      *
-     * Organización interna del banner (también usa BorderLayout):
-     *   WEST   → espacio reservado para la imagen/logo
-     *   CENTER → título, subtítulo y pastilla de rol
-     *   EAST   → botón "Cerrar sesión"
+     * Organización interna del banner (también usa BorderLayout): WEST →
+     * espacio reservado para la imagen/logo CENTER → título, subtítulo y
+     * pastilla de rol EAST → botón "Cerrar sesión"
      *
-     * 🎨 DISEÑO: Puedes cambiar aquí:
-     *   - El color de fondo: COLOR_BANNER
-     *   - El grosor/color de la línea inferior del banner: createMatteBorder
-     *   - El tamaño del hueco para la imagen: setPreferredSize del lblImagen
-     *   - El texto del título y subtítulo
-     *   - El tamaño de las fuentes: new Font("Segoe UI", Font.BOLD, 24)
-     *     Formato: Font("NombreFuente", Estilo, Tamaño)
-     *     Estilos: Font.PLAIN, Font.BOLD, Font.ITALIC
+     * 🎨 DISEÑO: Puedes cambiar aquí: - El color de fondo: COLOR_BANNER - El
+     * grosor/color de la línea inferior del banner: createMatteBorder - El
+     * tamaño del hueco para la imagen: setPreferredSize del lblImagen - El
+     * texto del título y subtítulo - El tamaño de las fuentes: new Font("Segoe
+     * UI", Font.BOLD, 24) Formato: Font("NombreFuente", Estilo, Tamaño)
+     * Estilos: Font.PLAIN, Font.BOLD, Font.ITALIC
      */
     private JPanel crearBanner() {
         // Panel raíz del banner con BorderLayout
@@ -309,7 +293,7 @@ public class InventarioApp extends JFrame {
         panelLogout.add(btnLogout);
 
         // Montamos las tres zonas en el panel del banner
-        panel.add(lblImagen,   BorderLayout.WEST);
+        panel.add(lblImagen, BorderLayout.WEST);
         panel.add(panelTitulo, BorderLayout.CENTER);
         panel.add(panelLogout, BorderLayout.EAST);
         return panel;
@@ -318,17 +302,16 @@ public class InventarioApp extends JFrame {
     /**
      * Cierra la sesión actual y vuelve al LoginDialog.
      *
-     * Flujo:
-     *   1. Pregunta al usuario si está seguro (JOptionPane de confirmación)
-     *   2. Si dice SÍ: cierra esta ventana (dispose) y abre de nuevo el LoginDialog
-     *   3. Si dice NO: no hace nada
+     * Flujo: 1. Pregunta al usuario si está seguro (JOptionPane de
+     * confirmación) 2. Si dice SÍ: cierra esta ventana (dispose) y abre de
+     * nuevo el LoginDialog 3. Si dice NO: no hace nada
      */
     private void cerrarSesion() {
         // showConfirmDialog devuelve JOptionPane.YES_OPTION o NO_OPTION según lo que pulse el usuario
         int conf = JOptionPane.showConfirmDialog(this,
-            "¿Deseas cerrar la sesión actual?", // mensaje
-            "Cerrar sesión",                    // título del diálogo
-            JOptionPane.YES_NO_OPTION);         // botones: Sí / No
+                "¿Deseas cerrar la sesión actual?", // mensaje
+                "Cerrar sesión", // título del diálogo
+                JOptionPane.YES_NO_OPTION);         // botones: Sí / No
 
         if (conf == JOptionPane.YES_OPTION) {
             dispose();  // Cierra ESTA ventana (libera la memoria que ocupa)
@@ -343,26 +326,21 @@ public class InventarioApp extends JFrame {
     //  La columna de la izquierda con los botones de navegación.
     //  Muestra diferentes botones según el rol del usuario.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Construye y devuelve el panel del menú lateral izquierdo.
      *
-     * Estructura:
-     *   - Sección "CONSULTA" (visible para todos los roles):
-     *       📋 Listar · 🔍 Buscar · 🔎 Filtrar · 📄 Informe
-     *   - Sección "EDICIÓN" (solo para ADMINISTRADOR):
-     *       ➕ Añadir · ✏️ Modificar · 🗑️ Eliminar
-     *   - Sección "OTROS":
-     *       🌐 Web del proyecto
+     * Estructura: - Sección "CONSULTA" (visible para todos los roles): 📋
+     * Listar · 🔍 Buscar · 🔎 Filtrar · 📄 Informe - Sección "EDICIÓN" (solo
+     * para ADMINISTRADOR): ➕ Añadir · ✏️ Modificar · 🗑️ Eliminar - Sección
+     * "OTROS": 🌐 Web del proyecto
      *
-     * Cada botón, al pulsarse, llama a mostrarPanel() con el panel correspondiente.
+     * Cada botón, al pulsarse, llama a mostrarPanel() con el panel
+     * correspondiente.
      *
-     * 🎨 DISEÑO: Puedes:
-     *   - Cambiar los emojis/iconos de los botones
-     *   - Cambiar los textos de los botones
-     *   - Añadir nuevos botones creando más crearBotonMenu(...)
-     *   - Cambiar los nombres de las secciones (CONSULTA, EDICIÓN, OTROS)
-     *   - Cambiar el ancho del menú: constante ANCHO_MENU
+     * 🎨 DISEÑO: Puedes: - Cambiar los emojis/iconos de los botones - Cambiar
+     * los textos de los botones - Añadir nuevos botones creando más
+     * crearBotonMenu(...) - Cambiar los nombres de las secciones (CONSULTA,
+     * EDICIÓN, OTROS) - Cambiar el ancho del menú: constante ANCHO_MENU
      */
     private JPanel crearMenuLateral() {
         JPanel panel = new JPanel();
@@ -377,9 +355,9 @@ public class InventarioApp extends JFrame {
         // ── Sección CONSULTA: visible para todos ──────────────────────────
         panel.add(crearEtiquetaSeccion("CONSULTA")); // título de la sección
         // Cada línea: texto del botón → qué panel mostrar al pulsarlo
-        panel.add(crearBotonMenu("📋  Listar todo",     e -> mostrarPanel(crearPanelListar())));
-        panel.add(crearBotonMenu("🔍  Buscar",          e -> mostrarPanel(crearPanelBuscar())));
-        panel.add(crearBotonMenu("🔎  Filtrar",         e -> mostrarPanel(crearPanelFiltrar())));
+        panel.add(crearBotonMenu("📋  Listar todo", e -> mostrarPanel(crearPanelListar())));
+        panel.add(crearBotonMenu("🔍  Buscar", e -> mostrarPanel(crearPanelBuscar())));
+        panel.add(crearBotonMenu("🔎  Filtrar", e -> mostrarPanel(crearPanelFiltrar())));
         panel.add(crearBotonMenu("📄  Generar informe", e -> mostrarPanel(crearPanelInforme())));
 
         // ── Sección EDICIÓN: solo si es ADMINISTRADOR ─────────────────────
@@ -387,9 +365,9 @@ public class InventarioApp extends JFrame {
             panel.add(Box.createVerticalStrut(6)); // 🎨 Espacio de 6px antes del separador
             panel.add(crearSeparador());           // línea horizontal separadora
             panel.add(crearEtiquetaSeccion("EDICIÓN"));
-            panel.add(crearBotonMenu("➕  Añadir",    e -> mostrarPanel(crearPanelAnadir())));
+            panel.add(crearBotonMenu("➕  Añadir", e -> mostrarPanel(crearPanelAnadir())));
             panel.add(crearBotonMenu("✏️  Modificar", e -> mostrarPanel(crearPanelModificar())));
-            panel.add(crearBotonMenu("🗑️  Eliminar",  e -> mostrarPanel(crearPanelEliminar())));
+            panel.add(crearBotonMenu("🗑️  Eliminar", e -> mostrarPanel(crearPanelEliminar())));
         }
 
         // ── Sección OTROS: visible para todos ─────────────────────────────
@@ -405,14 +383,14 @@ public class InventarioApp extends JFrame {
     }
 
     /**
-     * Crea el texto pequeño de cabecera de cada sección del menú (ej: "CONSULTA").
+     * Crea el texto pequeño de cabecera de cada sección del menú (ej:
+     * "CONSULTA").
      *
-     * 🎨 DISEÑO: Cambia la fuente, tamaño o color para distinguir más las secciones.
-     *   - Font.BOLD  → negrita (actual)
-     *   - Font.ITALIC → cursiva
-     *   - Tamaño 10 → muy pequeño; 12 sería más visible
+     * 🎨 DISEÑO: Cambia la fuente, tamaño o color para distinguir más las
+     * secciones. - Font.BOLD → negrita (actual) - Font.ITALIC → cursiva -
+     * Tamaño 10 → muy pequeño; 12 sería más visible
      *
-     * @param texto  El nombre de la sección en mayúsculas
+     * @param texto El nombre de la sección en mayúsculas
      */
     private JLabel crearEtiquetaSeccion(String texto) {
         JLabel lbl = new JLabel("  " + texto); // dos espacios de sangría
@@ -426,7 +404,8 @@ public class InventarioApp extends JFrame {
     /**
      * Crea una línea horizontal separadora para el menú.
      *
-     * 🎨 DISEÑO: Cambia el color (COLOR_MENU_BTN) o el grosor (ANCHO_MENU - 20).
+     * 🎨 DISEÑO: Cambia el color (COLOR_MENU_BTN) o el grosor (ANCHO_MENU -
+     * 20).
      */
     private JSeparator crearSeparador() {
         JSeparator sep = new JSeparator();
@@ -440,18 +419,19 @@ public class InventarioApp extends JFrame {
     /**
      * Crea un botón estilizado para el menú lateral.
      *
-     * Comportamiento:
-     *   - Al pasar el ratón por encima: cambia al color HOVER (azul medio)
-     *   - Al pulsar: se queda resaltado en morado (COLOR_MENU_ACTIVO)
-     *   - El botón anterior pierde el resaltado al pulsar uno nuevo
+     * Comportamiento: - Al pasar el ratón por encima: cambia al color HOVER
+     * (azul medio) - Al pulsar: se queda resaltado en morado
+     * (COLOR_MENU_ACTIVO) - El botón anterior pierde el resaltado al pulsar uno
+     * nuevo
      *
-     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones del menú:
-     *   - Fuente: new Font("Segoe UI", Font.PLAIN, 13)  → tamaño, negrita...
-     *   - Alto de cada botón: setMaximumSize y setPreferredSize (actualmente 42px)
-     *   - Sangría del texto: new EmptyBorder(0, 16, 0, 0)  → los 16px del lado izquierdo
+     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones del
+     * menú: - Fuente: new Font("Segoe UI", Font.PLAIN, 13) → tamaño, negrita...
+     * - Alto de cada botón: setMaximumSize y setPreferredSize (actualmente
+     * 42px) - Sangría del texto: new EmptyBorder(0, 16, 0, 0) → los 16px del
+     * lado izquierdo
      *
-     * @param texto   Texto del botón (puede incluir emoji)
-     * @param accion  Qué hacer al pulsar el botón (una expresión lambda)
+     * @param texto Texto del botón (puede incluir emoji)
+     * @param accion Qué hacer al pulsar el botón (una expresión lambda)
      */
     private JButton crearBotonMenu(String texto, ActionListener accion) {
         JButton btn = new JButton(texto);
@@ -473,19 +453,26 @@ public class InventarioApp extends JFrame {
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Solo cambia a hover si NO es el botón actualmente activo
-                if (btn != botonActivo) btn.setBackground(COLOR_MENU_HOVER);
+                if (btn != botonActivo) {
+                    btn.setBackground(COLOR_MENU_HOVER);
+                }
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 // Al salir, solo restaura si NO es el activo
-                if (btn != botonActivo) btn.setBackground(COLOR_MENU_BG);
+                if (btn != botonActivo) {
+                    btn.setBackground(COLOR_MENU_BG);
+                }
             }
         });
 
         // ActionListener: qué pasa al hacer clic
         btn.addActionListener(e -> {
             // Des-resalta el botón que estaba activo antes
-            if (botonActivo != null) botonActivo.setBackground(COLOR_MENU_BG);
+            if (botonActivo != null) {
+                botonActivo.setBackground(COLOR_MENU_BG);
+            }
             // Marca este como el nuevo activo
             botonActivo = btn;
             btn.setBackground(COLOR_MENU_ACTIVO); // 🎨 Color del botón activo (morado)
@@ -499,11 +486,10 @@ public class InventarioApp extends JFrame {
     //  ÁREA DE TRABAJO
     //  El panel central que actúa como "pantalla" donde aparecen los paneles.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
-     * Crea el panel vacío del área de trabajo central.
-     * Es simplemente un panel con BorderLayout que actúa como contenedor.
-     * Su contenido se reemplaza cada vez que el usuario pulsa un botón del menú.
+     * Crea el panel vacío del área de trabajo central. Es simplemente un panel
+     * con BorderLayout que actúa como contenedor. Su contenido se reemplaza
+     * cada vez que el usuario pulsa un botón del menú.
      */
     private JPanel crearAreaTrabajo() {
         JPanel panel = new JPanel(new BorderLayout());
@@ -514,14 +500,12 @@ public class InventarioApp extends JFrame {
     /**
      * Reemplaza el contenido del área de trabajo con un nuevo panel.
      *
-     * Se llama cada vez que el usuario pulsa un botón del menú.
-     * Proceso:
-     *   1. Elimina el panel anterior del contenedor
-     *   2. Añade el nuevo panel en el centro
-     *   3. revalidate() → recalcula el layout (reorganiza los componentes)
-     *   4. repaint()    → redibuja la ventana en pantalla
+     * Se llama cada vez que el usuario pulsa un botón del menú. Proceso: 1.
+     * Elimina el panel anterior del contenedor 2. Añade el nuevo panel en el
+     * centro 3. revalidate() → recalcula el layout (reorganiza los componentes)
+     * 4. repaint() → redibuja la ventana en pantalla
      *
-     * @param nuevoPanel  El panel que queremos mostrar en el área central
+     * @param nuevoPanel El panel que queremos mostrar en el área central
      */
     private void mostrarPanel(JPanel nuevoPanel) {
         areaTrabajoContenedor.removeAll();                             // Elimina lo que había
@@ -534,15 +518,12 @@ public class InventarioApp extends JFrame {
     //  PANEL DE BIENVENIDA
     //  Pantalla inicial que se muestra al abrir la app.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel de bienvenida con emoji, nombre de rol y permisos.
      *
-     * 🎨 DISEÑO: Puedes cambiar:
-     *   - Los emojis según el rol (🛠️ admin / 📚 profesor)
-     *   - El tamaño del emoji: Font.PLAIN, 40
-     *   - El texto de bienvenida y permisos
-     *   - El color del texto de permisos (gris-azulado actualmente)
+     * 🎨 DISEÑO: Puedes cambiar: - Los emojis según el rol (🛠️ admin / 📚
+     * profesor) - El tamaño del emoji: Font.PLAIN, 40 - El texto de bienvenida
+     * y permisos - El color del texto de permisos (gris-azulado actualmente)
      */
     private JPanel crearPanelBienvenida() {
         // GridBagLayout sin restricciones centra el contenido horizontal y verticalmente
@@ -557,7 +538,7 @@ public class InventarioApp extends JFrame {
         // Emoji grande según el rol
         // 🎨 Cambia los emojis: "🛠️" admin, "📚" profesor → usa cualquier emoji
         JLabel lblEmoji = new JLabel(
-            rolActual == Rol.ADMINISTRADOR ? "🛠️" : "📚", SwingConstants.CENTER);
+                rolActual == Rol.ADMINISTRADOR ? "🛠️" : "📚", SwingConstants.CENTER);
         lblEmoji.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 40)); // 🎨 Tamaño del emoji
         lblEmoji.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -569,8 +550,8 @@ public class InventarioApp extends JFrame {
 
         // Descripción de permisos según el rol
         String permisos = (rolActual == Rol.ADMINISTRADOR)
-            ? "Acceso completo: consulta, edición y generación de informes."
-            : "Acceso de solo lectura: listar, buscar, filtrar y generar informes.";
+                ? "Acceso completo: consulta, edición y generación de informes."
+                : "Acceso de solo lectura: listar, buscar, filtrar y generar informes.";
         // <html><center> permite texto multilínea y centrado en un JLabel
         JLabel lblPermisos = new JLabel("<html><center>" + permisos + "</center></html>");
         lblPermisos.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -592,21 +573,19 @@ public class InventarioApp extends JFrame {
     //  Muestra TODOS los materiales de la BD en una tabla.
     //  Llama a: dao.listarMaterial()
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel con la tabla de todos los materiales del inventario.
      *
-     * Proceso:
-     *   1. Llama a dao.listarMaterial() → obtiene una List<MaterialInventario> de la BD
-     *   2. Convierte esa lista en un array Object[][] que entiende JTable
-     *   3. Crea la tabla con crearTabla() y la envuelve en un JScrollPane
-     *      (el scroll es necesario cuando hay muchos registros)
-     *   4. Añade un contador de registros y un botón para recargar los datos
+     * Proceso: 1. Llama a dao.listarMaterial() → obtiene una
+     * List<MaterialInventario> de la BD 2. Convierte esa lista en un array
+     * Object[][] que entiende JTable 3. Crea la tabla con crearTabla() y la
+     * envuelve en un JScrollPane (el scroll es necesario cuando hay muchos
+     * registros) 4. Añade un contador de registros y un botón para recargar los
+     * datos
      *
-     * 🎨 DISEÑO: Puedes:
-     *   - Cambiar las columnas mostradas (array cols[])
-     *   - Cambiar qué datos van en cada columna (el bucle for)
-     *   - Añadir más columnas si añades más campos al array y al bucle
+     * 🎨 DISEÑO: Puedes: - Cambiar las columnas mostradas (array cols[]) -
+     * Cambiar qué datos van en cada columna (el bucle for) - Añadir más
+     * columnas si añades más campos al array y al bucle
      */
     private JPanel crearPanelListar() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -670,21 +649,18 @@ public class InventarioApp extends JFrame {
     //  Cuando implementes porIdMaterial() en AdministradorDAO, puedes
     //  simplificar este método.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel de búsqueda por ID.
      *
-     * Proceso al pulsar "Buscar" (o Enter):
-     *   1. Lee el ID del JTextField y lo valida
-     *   2. Obtiene la lista completa de la BD
-     *   3. Recorre la lista buscando el ID
-     *   4. Si lo encuentra, muestra todos sus campos en el JTextArea
-     *   5. Si no lo encuentra, muestra un mensaje de error
+     * Proceso al pulsar "Buscar" (o Enter): 1. Lee el ID del JTextField y lo
+     * valida 2. Obtiene la lista completa de la BD 3. Recorre la lista buscando
+     * el ID 4. Si lo encuentra, muestra todos sus campos en el JTextArea 5. Si
+     * no lo encuentra, muestra un mensaje de error
      *
-     * 🎨 DISEÑO: Puedes cambiar:
-     *   - El formato de visualización del resultado (el String largo con "═══")
-     *   - La fuente del área de resultados (Monospaced actualmente)
-     *   - El color de fondo del área: new Color(230, 230, 240)
+     * 🎨 DISEÑO: Puedes cambiar: - El formato de visualización del resultado
+     * (el String largo con "═══") - La fuente del área de resultados
+     * (Monospaced actualmente) - El color de fondo del área: new Color(230,
+     * 230, 240)
      */
     private JPanel crearPanelBuscar() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -746,17 +722,17 @@ public class InventarioApp extends JFrame {
             // 🎨 Cambia el formato de esta cadena para que los datos se muestren diferente
             MaterialInventario m = encontrado;
             area.setText(
-                "══════════════════════════════════════\n"
-                + "  MATERIAL ENCONTRADO  (ID: " + m.getId_matTa() + ")\n"
-                + "══════════════════════════════════════\n"
-                + "  Nombre       : " + m.getNombre() + "\n"
-                + "  Descripción  : " + m.getDescripcion() + "\n"
-                + "  Estado       : " + m.getEstado() + "\n"
-                + "  Cantidad     : " + m.getCantidad() + "\n"
-                + "  Ubicación    : " + m.getId_ubi() + "\n"
-                + "  Balda        : " + (m.getId_balda() != null ? m.getId_balda() : "—") + "\n"
-                + "  Fecha alta   : " + m.getFecha_alta().format(FMT_FECHA) + "\n"
-                + "  Observaciones: " + m.getObservaciones() + "\n"
+                    "══════════════════════════════════════\n"
+                    + "  MATERIAL ENCONTRADO  (ID: " + m.getId_matTa() + ")\n"
+                    + "══════════════════════════════════════\n"
+                    + "  Nombre       : " + m.getNombre() + "\n"
+                    + "  Descripción  : " + m.getDescripcion() + "\n"
+                    + "  Estado       : " + m.getEstado() + "\n"
+                    + "  Cantidad     : " + m.getCantidad() + "\n"
+                    + "  Ubicación    : " + m.getId_ubi() + "\n"
+                    + "  Balda        : " + (m.getId_balda() != null ? m.getId_balda() : "—") + "\n"
+                    + "  Fecha alta   : " + m.getFecha_alta().format(FMT_FECHA) + "\n"
+                    + "  Observaciones: " + m.getObservaciones() + "\n"
             );
         });
 
@@ -776,27 +752,24 @@ public class InventarioApp extends JFrame {
     //  Permite filtrar los materiales por estado y cantidad mínima.
     //  Estados disponibles: OPERATIVO, REPARACION, OBSOLETO
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel de filtrado de materiales.
      *
-     * Componentes de filtro:
-     *   - JComboBox de estado: "Todos" o un estado específico del enum Estados
-     *   - JSpinner de cantidad mínima: un número entre 0 y 9999
+     * Componentes de filtro: - JComboBox de estado: "Todos" o un estado
+     * específico del enum Estados - JSpinner de cantidad mínima: un número
+     * entre 0 y 9999
      *
-     * Proceso al pulsar "Aplicar filtros":
-     *   1. Obtiene la lista completa de la BD
-     *   2. Recorre la lista y comprueba cada material contra los filtros
-     *   3. Los materiales que pasan los filtros se añaden a filasFiltradas
-     *   4. Se actualiza el modelo de la tabla (DefaultTableModel) con los resultados
-     *      → Esto es diferente a crearPanelListar(), donde se crea una tabla nueva;
-     *        aquí actualizamos el modelo de una tabla ya existente
+     * Proceso al pulsar "Aplicar filtros": 1. Obtiene la lista completa de la
+     * BD 2. Recorre la lista y comprueba cada material contra los filtros 3.
+     * Los materiales que pasan los filtros se añaden a filasFiltradas 4. Se
+     * actualiza el modelo de la tabla (DefaultTableModel) con los resultados →
+     * Esto es diferente a crearPanelListar(), donde se crea una tabla nueva;
+     * aquí actualizamos el modelo de una tabla ya existente
      *
-     * 🎨 DISEÑO: Puedes:
-     *   - Añadir más criterios de filtro (ej: filtrar por nombre, por fecha...)
-     *     Para cada filtro nuevo: añade un campo de entrada, una variable booleana
-     *     en el bucle y una condición en el if final
-     *   - Cambiar las columnas de la tabla de resultados (array cols[])
+     * 🎨 DISEÑO: Puedes: - Añadir más criterios de filtro (ej: filtrar por
+     * nombre, por fecha...) Para cada filtro nuevo: añade un campo de entrada,
+     * una variable booleana en el bucle y una condición en el if final -
+     * Cambiar las columnas de la tabla de resultados (array cols[])
      */
     private JPanel crearPanelFiltrar() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -809,18 +782,19 @@ public class InventarioApp extends JFrame {
         filtros.setOpaque(false);
         // Borde con título: crea un recuadro con texto en la esquina superior izquierda
         filtros.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 215)), // 🎨 Color del borde del recuadro
-            "Criterios de filtro",                                    // 🎨 Texto del título del recuadro
-            0, 0,
-            new Font("Segoe UI", Font.BOLD, 12),   // 🎨 Fuente del título del recuadro
-            new Color(80, 80, 100)));              // 🎨 Color del título del recuadro
+                BorderFactory.createLineBorder(new Color(200, 200, 215)), // 🎨 Color del borde del recuadro
+                "Criterios de filtro", // 🎨 Texto del título del recuadro
+                0, 0,
+                new Font("Segoe UI", Font.BOLD, 12), // 🎨 Fuente del título del recuadro
+                new Color(80, 80, 100)));              // 🎨 Color del título del recuadro
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(7, 10, 7, 10); // margen alrededor de cada celda
         gbc.anchor = GridBagConstraints.WEST;  // alineación a la izquierda
 
         // Fila 0: etiqueta + combo de estado
-        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         filtros.add(etiqueta("Estado:"), gbc);
         gbc.gridx = 1;
         // Los valores deben coincidir exactamente con el enum Estados: OPERATIVO, REPARACION, OBSOLETO
@@ -831,7 +805,8 @@ public class InventarioApp extends JFrame {
         filtros.add(comboEstado, gbc);
 
         // Fila 1: etiqueta + spinner de cantidad mínima
-        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         filtros.add(etiqueta("Cantidad mínima:"), gbc);
         gbc.gridx = 1;
         // SpinnerNumberModel(valorInicial, mínimo, máximo, paso)
@@ -841,7 +816,9 @@ public class InventarioApp extends JFrame {
         filtros.add(spinnerMin, gbc);
 
         // Fila 2: botón de filtrar (ocupa 2 columnas)
-        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
         JButton btnFiltrar = crearBotonAccion("Aplicar filtros");
         filtros.add(btnFiltrar, gbc);
 
@@ -868,7 +845,7 @@ public class InventarioApp extends JFrame {
             for (MaterialInventario m : lista) {
                 // Condición 1: el estado coincide, o el filtro es "Todos"
                 boolean okEstado = estadoFiltro.equals("Todos")
-                    || m.getEstado().toString().equals(estadoFiltro);
+                        || m.getEstado().toString().equals(estadoFiltro);
                 // Condición 2: la cantidad es mayor o igual al mínimo pedido
                 boolean okCantidad = m.getCantidad() >= cantMinima;
 
@@ -901,8 +878,8 @@ public class InventarioApp extends JFrame {
         JPanel centro = new JPanel(new BorderLayout(0, 10));
         centro.setOpaque(false);
         centro.add(filtros, BorderLayout.NORTH);
-        centro.add(scroll,  BorderLayout.CENTER);
-        centro.add(sur,     BorderLayout.SOUTH);
+        centro.add(scroll, BorderLayout.CENTER);
+        centro.add(sur, BorderLayout.SOUTH);
         panel.add(centro, BorderLayout.CENTER);
         return panel;
     }
@@ -911,26 +888,23 @@ public class InventarioApp extends JFrame {
     //  PANEL INFORME
     //  Genera un resumen de texto del inventario y permite exportarlo a .txt
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel de generación de informes.
      *
-     * Tipos de informe disponibles (JRadioButton):
-     *   - "Inventario completo": lista todos los materiales
-     *   - "Filtrado por estado": lista solo los de un estado concreto
+     * Tipos de informe disponibles (JRadioButton): - "Inventario completo":
+     * lista todos los materiales - "Filtrado por estado": lista solo los de un
+     * estado concreto
      *
-     * Proceso al pulsar "Generar":
-     *   1. Obtiene la lista de la BD
-     *   2. Construye un StringBuilder con el texto del informe
-     *   3. Lo muestra en un JTextArea (previsualización)
-     *   4. Habilita el botón "Exportar .txt"
+     * Proceso al pulsar "Generar": 1. Obtiene la lista de la BD 2. Construye un
+     * StringBuilder con el texto del informe 3. Lo muestra en un JTextArea
+     * (previsualización) 4. Habilita el botón "Exportar .txt"
      *
-     * Proceso al pulsar "Exportar .txt":
-     *   1. Abre un JFileChooser para que el usuario elija dónde guardar
-     *   2. Escribe el texto del JTextArea en el archivo con FileWriter
+     * Proceso al pulsar "Exportar .txt": 1. Abre un JFileChooser para que el
+     * usuario elija dónde guardar 2. Escribe el texto del JTextArea en el
+     * archivo con FileWriter
      *
      * 🎨 DISEÑO: Puedes cambiar el formato del informe en el StringBuilder (sb)
-     *   dentro del ActionListener del btnGenerar.
+     * dentro del ActionListener del btnGenerar.
      */
     private JPanel crearPanelInforme() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -942,14 +916,14 @@ public class InventarioApp extends JFrame {
         JPanel opciones = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 8));
         opciones.setOpaque(false);
         opciones.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(new Color(200, 200, 215)),
-            "Tipo de informe", 0, 0,
-            new Font("Segoe UI", Font.BOLD, 12), new Color(80, 80, 100)));
+                BorderFactory.createLineBorder(new Color(200, 200, 215)),
+                "Tipo de informe", 0, 0,
+                new Font("Segoe UI", Font.BOLD, 12), new Color(80, 80, 100)));
 
         // ButtonGroup agrupa los radios para que solo uno pueda estar seleccionado a la vez
         ButtonGroup grupo = new ButtonGroup();
         JRadioButton rbCompleto = new JRadioButton("Inventario completo", true); // seleccionado por defecto
-        JRadioButton rbEstado   = new JRadioButton("Filtrado por estado");
+        JRadioButton rbEstado = new JRadioButton("Filtrado por estado");
         for (JRadioButton rb : new JRadioButton[]{rbCompleto, rbEstado}) {
             rb.setFont(new Font("Segoe UI", Font.PLAIN, 13));
             rb.setOpaque(false);
@@ -974,7 +948,7 @@ public class InventarioApp extends JFrame {
         areaPreview.setBackground(new Color(230, 230, 242));         // 🎨 Color de fondo del informe
         areaPreview.setText("Pulsa 'Generar' para previsualizar el informe aquí.");
 
-        JButton btnGenerar  = crearBotonAccion("Generar");
+        JButton btnGenerar = crearBotonAccion("Generar");
         JButton btnExportar = crearBotonAccion("Exportar .txt");
         btnExportar.setEnabled(false); // deshabilitado hasta que se genere el informe
 
@@ -994,7 +968,7 @@ public class InventarioApp extends JFrame {
                 for (MaterialInventario m : lista) {
                     // String.format: %2d = entero de 2 dígitos, %-30s = texto de 30 chars alineado a izquierda
                     sb.append(String.format("  [%2d] %-30s Estado: %-12s  Cant: %d%n",
-                        m.getId_matTa(), m.getNombre(), m.getEstado(), m.getCantidad()));
+                            m.getId_matTa(), m.getNombre(), m.getEstado(), m.getCantidad()));
                 }
             } else {
                 // Informe filtrado por estado
@@ -1007,7 +981,7 @@ public class InventarioApp extends JFrame {
                 for (MaterialInventario m : lista) {
                     if (m.getEstado().toString().equals(filtro)) {
                         sb.append(String.format("  [%2d] %-30s  Cant: %d  Ubi: %s%n",
-                            m.getId_matTa(), m.getNombre(), m.getCantidad(), m.getId_ubi()));
+                                m.getId_matTa(), m.getNombre(), m.getCantidad(), m.getId_ubi()));
                         count++;
                     }
                 }
@@ -1029,12 +1003,12 @@ public class InventarioApp extends JFrame {
                 try (java.io.FileWriter fw = new java.io.FileWriter(chooser.getSelectedFile())) {
                     fw.write(areaPreview.getText()); // escribimos el contenido del área de texto
                     JOptionPane.showMessageDialog(this,
-                        "✅ Informe guardado en:\n" + chooser.getSelectedFile().getAbsolutePath(),
-                        "Exportado", JOptionPane.INFORMATION_MESSAGE);
+                            "✅ Informe guardado en:\n" + chooser.getSelectedFile().getAbsolutePath(),
+                            "Exportado", JOptionPane.INFORMATION_MESSAGE);
                 } catch (java.io.IOException ex) {
                     JOptionPane.showMessageDialog(this,
-                        "❌ Error al guardar: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                            "❌ Error al guardar: " + ex.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -1055,22 +1029,19 @@ public class InventarioApp extends JFrame {
     //  Formulario dinámico para insertar materiales en la BD.
     //  Llama a: dao.guardarMaterial(subclase)
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel contenedor para añadir materiales.
      *
-     * Este panel tiene dos partes:
-     *   1. Un JComboBox para elegir el tipo de material
-     *   2. Un panel dinámico que cambia según el tipo elegido
+     * Este panel tiene dos partes: 1. Un JComboBox para elegir el tipo de
+     * material 2. Un panel dinámico que cambia según el tipo elegido
      *
      * Cuando el usuario cambia el tipo en el combo, se llama a
      * crearFormularioPorTipo() y se reemplaza el formulario interior.
      *
-     * 🎨 DISEÑO: Los textos de los tipos deben coincidir con el switch
-     *   en crearFormularioPorTipo(). Si añades un nuevo tipo:
-     *   1. Añádelo al array tipos[]
-     *   2. Añade un case en el switch de crearFormularioPorTipo()
-     *   3. Crea la subclase correspondiente en el switch del ActionListener
+     * 🎨 DISEÑO: Los textos de los tipos deben coincidir con el switch en
+     * crearFormularioPorTipo(). Si añades un nuevo tipo: 1. Añádelo al array
+     * tipos[] 2. Añade un case en el switch de crearFormularioPorTipo() 3. Crea
+     * la subclase correspondiente en el switch del ActionListener
      */
     private JPanel crearPanelAnadir() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -1085,7 +1056,7 @@ public class InventarioApp extends JFrame {
         // 🎨 Cambia los textos del combo para que aparezcan con otro nombre en la interfaz
         // ⚠️ No cambies el orden sin actualizar el switch en crearFormularioPorTipo()
         String[] tipos = {"MaterialInventario", "Periférico", "Cableado", "Componente",
-                          "Herramienta", "Material Fungible", "Equipo en red"};
+            "Herramienta", "Material Fungible", "Equipo en red"};
         JComboBox<String> comboTipo = new JComboBox<>(tipos);
         comboTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         barraSelector.add(comboTipo);
@@ -1118,32 +1089,29 @@ public class InventarioApp extends JFrame {
     /**
      * Construye el formulario de campos específico para cada tipo de material.
      *
-     * CAMPOS COMUNES (filas 0-7, presentes siempre):
-     *   Nombre, Descripción, Estado, Cantidad, ID Ubicación, ID Balda, Fecha alta, Observaciones
+     * CAMPOS COMUNES (filas 0-7, presentes siempre): Nombre, Descripción,
+     * Estado, Cantidad, ID Ubicación, ID Balda, Fecha alta, Observaciones
      *
-     * CAMPOS ESPECÍFICOS (a partir de la fila 8, según el tipo):
-     *   - Periférico:       conexión (combo) + ID del PC
-     *   - Cableado:         longitud + conector1 + conector2
-     *   - Componente:       ID del PC
-     *   - Herramienta:      tipo herramienta (combo: SOLDADURA / GENERALES)
-     *   - Mat. Fungible:    estado fungible (combo: LLENO / VACIO / MEDIO)
-     *   - Equipo en red:    número de puertos
-     *   - MaterialInventario: sin campos extra
+     * CAMPOS ESPECÍFICOS (a partir de la fila 8, según el tipo): - Periférico:
+     * conexión (combo) + ID del PC - Cableado: longitud + conector1 + conector2
+     * - Componente: ID del PC - Herramienta: tipo herramienta (combo: SOLDADURA
+     * / GENERALES) - Mat. Fungible: estado fungible (combo: LLENO / VACIO /
+     * MEDIO) - Equipo en red: número de puertos - MaterialInventario: sin
+     * campos extra
      *
-     * Al pulsar "Guardar":
-     *   1. Lee todos los campos de texto
-     *   2. Intenta crear la subclase correspondiente → el constructor del objeto
-     *      llama al Validador internamente y lanza una excepción si algo está mal
-     *   3. Si todo es válido: llama a dao.guardarMaterial()
-     *   4. Si hay error: llama a mostrarErrorCampo() para indicar el campo fallido
+     * Al pulsar "Guardar": 1. Lee todos los campos de texto 2. Intenta crear la
+     * subclase correspondiente → el constructor del objeto llama al Validador
+     * internamente y lanza una excepción si algo está mal 3. Si todo es válido:
+     * llama a dao.guardarMaterial() 4. Si hay error: llama a
+     * mostrarErrorCampo() para indicar el campo fallido
      *
-     * 🎨 DISEÑO: Para cada campo puedes cambiar:
-     *   - El texto de la etiqueta (primer argumento de etiqueta())
-     *   - El ancho del JTextField (número entre paréntesis: new JTextField(20))
-     *   - Los valores de los JComboBox
+     * 🎨 DISEÑO: Para cada campo puedes cambiar: - El texto de la etiqueta
+     * (primer argumento de etiqueta()) - El ancho del JTextField (número entre
+     * paréntesis: new JTextField(20)) - Los valores de los JComboBox
      *
-     * @param tipo       Nombre del tipo seleccionado en el combo
-     * @param contenedor El panel padre (necesario para revalidar si se reconstruye)
+     * @param tipo Nombre del tipo seleccionado en el combo
+     * @param contenedor El panel padre (necesario para revalidar si se
+     * reconstruye)
      */
     private JPanel crearFormularioPorTipo(String tipo, JPanel contenedor) {
         JPanel form = new JPanel(new GridBagLayout());
@@ -1151,66 +1119,89 @@ public class InventarioApp extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(6, 8, 6, 8); // 🎨 Margen entre celdas: top, left, bottom, right
         gbc.anchor = GridBagConstraints.WEST; // alineación a la izquierda
-        gbc.fill   = GridBagConstraints.HORIZONTAL; // los campos de texto se estiran en horizontal
+        gbc.fill = GridBagConstraints.HORIZONTAL; // los campos de texto se estiran en horizontal
 
         // ── CAMPOS COMUNES (filas 0 a 7) ──────────────────────────────────
         // Patrón para cada campo: etiqueta en gridx=0, campo en gridx=1
-
-        gbc.gridx = 0; gbc.gridy = 0; gbc.weightx = 0; // weightx=0: la etiqueta no se estira
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0; // weightx=0: la etiqueta no se estira
         form.add(etiqueta("Nombre:"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1; // weightx=1: el campo sí se estira
+        gbc.gridx = 1;
+        gbc.weightx = 1; // weightx=1: el campo sí se estira
         JTextField txtNombre = new JTextField(20); // 🎨 Ancho base del campo (20 columnas)
         txtNombre.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtNombre, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
         form.add(etiqueta("Descripción:"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         JTextField txtDesc = new JTextField(20);
         txtDesc.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtDesc, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
         // 🎨 Cambia el texto de la etiqueta para ayudar al usuario
         form.add(etiqueta("Estado (OPERATIVO / REPARACION / OBSOLETO):"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         // JComboBox con los valores del enum Estados (deben ser exactamente iguales al enum)
         JComboBox<String> comboEstado = new JComboBox<>(new String[]{"OPERATIVO", "REPARACION", "OBSOLETO"});
         comboEstado.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(comboEstado, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 0;
         form.add(etiqueta("Cantidad:"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         JTextField txtCantidad = new JTextField(10);
         txtCantidad.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtCantidad, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0;
         form.add(etiqueta("ID Ubicación (ej: A1, B2...):"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         JTextField txtUbi = new JTextField(10);
         txtUbi.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtUbi, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.weightx = 0;
         form.add(etiqueta("ID Balda (dejar vacío si no aplica):"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         JTextField txtBalda = new JTextField(10);
         txtBalda.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtBalda, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 6; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.weightx = 0;
         form.add(etiqueta("Fecha alta (dd-MM-yyyy):"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         // Prellenamos con la fecha de hoy como valor por defecto
         JTextField txtFecha = new JTextField(LocalDate.now().format(FMT_FECHA), 10);
         txtFecha.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtFecha, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 7; gbc.weightx = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.weightx = 0;
         form.add(etiqueta("Observaciones:"), gbc);
-        gbc.gridx = 1; gbc.weightx = 1;
+        gbc.gridx = 1;
+        gbc.weightx = 1;
         JTextField txtObs = new JTextField(20);
         txtObs.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(txtObs, gbc);
@@ -1218,76 +1209,102 @@ public class InventarioApp extends JFrame {
         // ── CAMPOS ESPECÍFICOS ─────────────────────────────────────────────
         // Los declaramos aquí para que sean accesibles dentro del ActionListener del botón Guardar.
         // Solo los que se añadan al form según el tipo tendrán valores introducidos.
-
-        JComboBox<String> comboConexion  = new JComboBox<>(new String[]{"INALAMBRICA", "CABLE"});
-        JTextField txtIdPcPeri  = new JTextField(10); // ID del PC para Periférico
-        JTextField txtLongitud  = new JTextField(10); // Longitud del cable en metros
+        JComboBox<String> comboConexion = new JComboBox<>(new String[]{"INALAMBRICA", "CABLE"});
+        JTextField txtIdPcPeri = new JTextField(10); // ID del PC para Periférico
+        JTextField txtLongitud = new JTextField(10); // Longitud del cable en metros
         JTextField txtConector1 = new JTextField(10); // Conector de un extremo
         JTextField txtConector2 = new JTextField(10); // Conector del otro extremo
-        JTextField txtIdPcComp  = new JTextField(10); // ID del PC para Componente
-        JComboBox<String> comboTipoH   = new JComboBox<>(new String[]{"SOLDADURA", "GENERALES"}); // Tipo de herramienta
+        JTextField txtIdPcComp = new JTextField(10); // ID del PC para Componente
+        JComboBox<String> comboTipoH = new JComboBox<>(new String[]{"SOLDADURA", "GENERALES"}); // Tipo de herramienta
         JComboBox<String> comboEstadoF = new JComboBox<>(new String[]{"LLENO", "VACIO", "MEDIO"}); // Estado fungible
         JTextField txtNumPuertos = new JTextField(10); // Número de puertos de un switch/router
 
         // switch de expresión (Java 14+): añade los campos específicos según el tipo
         switch (tipo) {
             case "Periférico" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("Conexión (INALAMBRICA / CABLE):"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 comboConexion.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(comboConexion, gbc);
 
-                gbc.gridx = 0; gbc.gridy = 9; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 9;
+                gbc.weightx = 0;
                 form.add(etiqueta("ID del PC asociado:"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtIdPcPeri.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtIdPcPeri, gbc);
             }
             case "Cableado" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("Longitud (metros, ej: 1.5):"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtLongitud.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtLongitud, gbc);
 
-                gbc.gridx = 0; gbc.gridy = 9; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 9;
+                gbc.weightx = 0;
                 form.add(etiqueta("Conector extremo 1:"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtConector1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtConector1, gbc);
 
-                gbc.gridx = 0; gbc.gridy = 10; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 10;
+                gbc.weightx = 0;
                 form.add(etiqueta("Conector extremo 2:"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtConector2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtConector2, gbc);
             }
             case "Componente" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("ID del PC al que pertenece:"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtIdPcComp.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtIdPcComp, gbc);
             }
             case "Herramienta" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("Tipo (SOLDADURA / GENERALES):"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 comboTipoH.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(comboTipoH, gbc);
             }
             case "Material Fungible" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("Estado fungible (LLENO / VACIO / MEDIO):"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 comboEstadoF.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(comboEstadoF, gbc);
             }
             case "Equipo en red" -> {
-                gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0;
+                gbc.gridx = 0;
+                gbc.gridy = 8;
+                gbc.weightx = 0;
                 form.add(etiqueta("Número de puertos:"), gbc);
-                gbc.gridx = 1; gbc.weightx = 1;
+                gbc.gridx = 1;
+                gbc.weightx = 1;
                 txtNumPuertos.setFont(new Font("Segoe UI", Font.PLAIN, 13));
                 form.add(txtNumPuertos, gbc);
             }
@@ -1303,13 +1320,13 @@ public class InventarioApp extends JFrame {
         btnGuardar.addActionListener(e -> {
             // Leemos todos los campos comunes de texto
             String nombre = txtNombre.getText().trim();
-            String desc   = txtDesc.getText().trim();
+            String desc = txtDesc.getText().trim();
             String estado = ((String) comboEstado.getSelectedItem()).trim();
-            String cant   = txtCantidad.getText().trim();
-            String ubi    = txtUbi.getText().trim();
-            String balda  = txtBalda.getText().trim();
-            String fecha  = txtFecha.getText().trim();
-            String obs    = txtObs.getText().trim();
+            String cant = txtCantidad.getText().trim();
+            String ubi = txtUbi.getText().trim();
+            String balda = txtBalda.getText().trim();
+            String fecha = txtFecha.getText().trim();
+            String obs = txtObs.getText().trim();
 
             try {
                 MaterialInventario material;
@@ -1320,36 +1337,43 @@ public class InventarioApp extends JFrame {
                 // Si algo no es válido, el Validador lanza una excepción
                 // y el catch correspondiente la captura.
                 switch (tipo) {
-                    case "Periférico" -> material = new Perifericos(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        txtIdPcPeri.getText().trim(),
-                        (String) comboConexion.getSelectedItem()
-                    );
-                    case "Cableado" -> material = new Cableado(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        txtLongitud.getText().trim(),
-                        txtConector1.getText().trim(),
-                        txtConector2.getText().trim()
-                    );
-                    case "Componente" -> material = new Componentes(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        txtIdPcComp.getText().trim()
-                    );
-                    case "Herramienta" -> material = new Herramientas(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        (String) comboTipoH.getSelectedItem()
-                    );
-                    case "Material Fungible" -> material = new Material_Fungible(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        (String) comboEstadoF.getSelectedItem()
-                    );
-                    case "Equipo en red" -> material = new Equipos_en_red(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                        txtNumPuertos.getText().trim()
-                    );
-                    default -> material = new MaterialInventario(
-                        nombre, desc, estado, cant, ubi, balda, fecha, obs
-                    );
+                    case "Periférico" ->
+                        material = new Perifericos(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                txtIdPcPeri.getText().trim(),
+                                (String) comboConexion.getSelectedItem()
+                        );
+                    case "Cableado" ->
+                        material = new Cableado(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                txtLongitud.getText().trim(),
+                                txtConector1.getText().trim(),
+                                txtConector2.getText().trim()
+                        );
+                    case "Componente" ->
+                        material = new Componentes(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                txtIdPcComp.getText().trim()
+                        );
+                    case "Herramienta" ->
+                        material = new Herramientas(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                (String) comboTipoH.getSelectedItem()
+                        );
+                    case "Material Fungible" ->
+                        material = new Material_Fungible(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                (String) comboEstadoF.getSelectedItem()
+                        );
+                    case "Equipo en red" ->
+                        material = new Equipos_en_red(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs,
+                                txtNumPuertos.getText().trim()
+                        );
+                    default ->
+                        material = new MaterialInventario(
+                                nombre, desc, estado, cant, ubi, balda, fecha, obs
+                        );
                 }
 
                 // Si llegamos aquí, todos los campos son válidos → guardamos en la BD
@@ -1359,7 +1383,9 @@ public class InventarioApp extends JFrame {
 
                 // Limpiamos todos los JTextField del formulario para poder introducir otro
                 for (java.awt.Component c : form.getComponents()) {
-                    if (c instanceof JTextField tf) tf.setText(""); // Pattern matching (Java 16+)
+                    if (c instanceof JTextField tf) {
+                        tf.setText(""); // Pattern matching (Java 16+)
+                    }
                 }
                 txtFecha.setText(LocalDate.now().format(FMT_FECHA)); // Restauramos la fecha de hoy
 
@@ -1385,17 +1411,27 @@ public class InventarioApp extends JFrame {
         // Calculamos en qué fila colocar el mensaje y el botón
         // (debe ser debajo del último campo, que varía según el tipo)
         int filaLibre = switch (tipo) {
-            case "Periférico"        -> 11; // 8 comunes + 2 específicos + fila libre = 11
-            case "Cableado"          -> 12; // 8 comunes + 3 específicos + fila libre = 12
-            case "Componente"        -> 10; // 8 comunes + 1 específico  + fila libre = 10
-            case "Herramienta"       -> 10;
-            case "Material Fungible" -> 10;
-            case "Equipo en red"     -> 10;
-            default                  ->  9; // 8 comunes + fila libre = 9
+            case "Periférico" ->
+                11; // 8 comunes + 2 específicos + fila libre = 11
+            case "Cableado" ->
+                12; // 8 comunes + 3 específicos + fila libre = 12
+            case "Componente" ->
+                10; // 8 comunes + 1 específico  + fila libre = 10
+            case "Herramienta" ->
+                10;
+            case "Material Fungible" ->
+                10;
+            case "Equipo en red" ->
+                10;
+            default ->
+                9; // 8 comunes + fila libre = 9
         };
 
         // Mensaje de error/éxito (ocupa las 2 columnas)
-        gbc.gridx = 0; gbc.gridy = filaLibre; gbc.gridwidth = 2; gbc.weightx = 1;
+        gbc.gridx = 0;
+        gbc.gridy = filaLibre;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1;
         form.add(lblMsg, gbc);
 
         // Botón guardar, alineado a la derecha
@@ -1422,21 +1458,19 @@ public class InventarioApp extends JFrame {
     //  ⚠️ INCOMPLETO: modificarMaterial() NO existe en el DAO.
     //  La carga de datos sí funciona. El guardado muestra un aviso con el SQL.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel para modificar un material existente.
      *
-     * Flujo de uso:
-     *   1. El usuario escribe el ID en el campo y pulsa "Cargar datos"
-     *   2. El sistema busca ese ID en la BD y rellena los campos del formulario
-     *   3. El usuario edita los campos que quiera
-     *   4. Pulsa "Guardar cambios" → ⚠️ actualmente muestra un aviso porque
-     *      falta implementar modificarMaterial() en AdministradorDAO
+     * Flujo de uso: 1. El usuario escribe el ID en el campo y pulsa "Cargar
+     * datos" 2. El sistema busca ese ID en la BD y rellena los campos del
+     * formulario 3. El usuario edita los campos que quiera 4. Pulsa "Guardar
+     * cambios" → ⚠️ actualmente muestra un aviso porque falta implementar
+     * modificarMaterial() en AdministradorDAO
      *
-     * 🎨 DISEÑO: El aviso naranja (lblAviso) es temporal.
-     *   Una vez implementes modificarMaterial() en el DAO, elimina ese JLabel
-     *   y sustituye el contenido del ActionListener del btnGuardar por la
-     *   llamada real al DAO (el SQL está comentado dentro del método).
+     * 🎨 DISEÑO: El aviso naranja (lblAviso) es temporal. Una vez implementes
+     * modificarMaterial() en el DAO, elimina ese JLabel y sustituye el
+     * contenido del ActionListener del btnGuardar por la llamada real al DAO
+     * (el SQL está comentado dentro del método).
      */
     private JPanel crearPanelModificar() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -1448,14 +1482,14 @@ public class InventarioApp extends JFrame {
         // 🎨 Cuando termines de implementar modificarMaterial() en el DAO,
         //    elimina este JLabel y su añadido al panel 'norte'
         JLabel lblAviso = new JLabel(
-            "<html><b>⚠️ PENDIENTE:</b> Necesitas implementar <code>modificarMaterial()</code>"
-            + " en <code>AdministradorDAO</code>.<br>"
-            + "Ver comentario en el código de este panel para saber qué SQL usar.</html>");
+                "<html><b>⚠️ PENDIENTE:</b> Necesitas implementar <code>modificarMaterial()</code>"
+                + " en <code>AdministradorDAO</code>.<br>"
+                + "Ver comentario en el código de este panel para saber qué SQL usar.</html>");
         lblAviso.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         lblAviso.setForeground(new Color(160, 100, 0));   // 🎨 Color del texto del aviso (naranja)
         lblAviso.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(220, 180, 60)), // 🎨 Borde del aviso (amarillo)
-            new EmptyBorder(8, 10, 8, 10)));
+                BorderFactory.createLineBorder(new Color(220, 180, 60)), // 🎨 Borde del aviso (amarillo)
+                new EmptyBorder(8, 10, 8, 10)));
         lblAviso.setOpaque(true);
         lblAviso.setBackground(new Color(255, 250, 220)); // 🎨 Fondo del aviso (amarillo claro)
 
@@ -1476,7 +1510,7 @@ public class InventarioApp extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(7, 8, 7, 8);
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill   = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Etiquetas de los campos del formulario de edición
         // 🎨 Cambia estos textos para mostrarlos diferente en la interfaz
@@ -1487,9 +1521,12 @@ public class InventarioApp extends JFrame {
         // Array de campos de texto, uno por cada etiqueta
         JTextField[] campos = new JTextField[etiquetas.length];
         for (int i = 0; i < etiquetas.length; i++) {
-            gbc.gridx = 0; gbc.gridy = i; gbc.weightx = 0;
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            gbc.weightx = 0;
             form.add(etiqueta(etiquetas[i]), gbc);
-            gbc.gridx = 1; gbc.weightx = 1;
+            gbc.gridx = 1;
+            gbc.weightx = 1;
             campos[i] = new JTextField(20);
             campos[i].setFont(new Font("Segoe UI", Font.PLAIN, 13));
             campos[i].setEnabled(false); // deshabilitados hasta que se cargue un material
@@ -1521,7 +1558,10 @@ public class InventarioApp extends JFrame {
             List<MaterialInventario> lista = dao.listarMaterial();
             MaterialInventario encontrado = null;
             for (MaterialInventario m : lista) {
-                if (m.getId_matTa() == id) { encontrado = m; break; }
+                if (m.getId_matTa() == id) {
+                    encontrado = m;
+                    break;
+                }
             }
 
             if (encontrado == null) {
@@ -1543,7 +1583,9 @@ public class InventarioApp extends JFrame {
             campos[7].setText(encontrado.getObservaciones());
 
             // Habilitamos todos los campos para que el usuario pueda editarlos
-            for (JTextField c : campos) c.setEnabled(true);
+            for (JTextField c : campos) {
+                c.setEnabled(true);
+            }
             lblMsg.setForeground(COLOR_OK);
             lblMsg.setText("✅ Material cargado. Edita los campos y pulsa Guardar.");
         });
@@ -1596,17 +1638,17 @@ public class InventarioApp extends JFrame {
             lblMsg.setForeground(new Color(160, 100, 0));
             lblMsg.setText("⚠ modificarMaterial() pendiente de implementar en el DAO.");
             JOptionPane.showMessageDialog(this,
-                "Para que funcione este botón necesitas implementar\n"
-                + "modificarMaterial() en AdministradorDAO.\n\n"
-                + "El SQL necesario está en el comentario del código de este panel.",
-                "Método pendiente", JOptionPane.WARNING_MESSAGE);
+                    "Para que funcione este botón necesitas implementar\n"
+                    + "modificarMaterial() en AdministradorDAO.\n\n"
+                    + "El SQL necesario está en el comentario del código de este panel.",
+                    "Método pendiente", JOptionPane.WARNING_MESSAGE);
         });
 
         // ── Montaje del panel ──────────────────────────────────────────────
         JPanel norte = new JPanel(new BorderLayout(0, 8));
         norte.setOpaque(false);
         norte.add(lblAviso, BorderLayout.NORTH); // aviso temporal arriba
-        norte.add(barraId,  BorderLayout.SOUTH); // barra de ID debajo del aviso
+        norte.add(barraId, BorderLayout.SOUTH); // barra de ID debajo del aviso
 
         JPanel sur = new JPanel(new BorderLayout());
         sur.setOpaque(false);
@@ -1627,23 +1669,20 @@ public class InventarioApp extends JFrame {
     //  Elimina un material de la BD por su ID.
     //  Llama a: dao.eliminarMaterial(id)
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel para eliminar un material de la BD.
      *
-     * Flujo:
-     *   1. El usuario introduce el ID
-     *   2. Pulsa "Eliminar definitivamente" (o Enter en el campo)
-     *   3. Aparece un JOptionPane de confirmación (¿Estás seguro?)
-     *   4. Si confirma: llama a dao.eliminarMaterial(id) y limpia el campo
+     * Flujo: 1. El usuario introduce el ID 2. Pulsa "Eliminar definitivamente"
+     * (o Enter en el campo) 3. Aparece un JOptionPane de confirmación (¿Estás
+     * seguro?) 4. Si confirma: llama a dao.eliminarMaterial(id) y limpia el
+     * campo
      *
-     * ⚠️ La BD elimina en cascada los registros de las tablas hijas
-     *    gracias a la configuración de clave foránea (ON DELETE CASCADE).
+     * ⚠️ La BD elimina en cascada los registros de las tablas hijas gracias a
+     * la configuración de clave foránea (ON DELETE CASCADE).
      *
-     * 🎨 DISEÑO: Puedes cambiar:
-     *   - El color del botón de eliminar (actualmente rojo: new Color(200, 60, 60))
-     *   - El texto del aviso y del botón
-     *   - El mensaje de confirmación del JOptionPane
+     * 🎨 DISEÑO: Puedes cambiar: - El color del botón de eliminar (actualmente
+     * rojo: new Color(200, 60, 60)) - El texto del aviso y del botón - El
+     * mensaje de confirmación del JOptionPane
      */
     private JPanel crearPanelEliminar() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
@@ -1662,11 +1701,15 @@ public class InventarioApp extends JFrame {
         JLabel lblAviso = new JLabel("⚠️  Esta acción elimina el registro de forma permanente.");
         lblAviso.setFont(new Font("Segoe UI", Font.BOLD, 13));
         lblAviso.setForeground(COLOR_ERROR); // 🎨 Color del texto de aviso de eliminación
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
         centro.add(lblAviso, gbc);
 
         // Campo de texto para el ID (fila 1, 2 columnas)
-        gbc.gridwidth = 1; gbc.gridy = 1; gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        gbc.gridy = 1;
+        gbc.gridx = 0;
         centro.add(etiqueta("ID del material a eliminar:"), gbc);
         gbc.gridx = 1;
         JTextField txtId = new JTextField(12);
@@ -1677,7 +1720,9 @@ public class InventarioApp extends JFrame {
         // Etiqueta de mensaje de estado (fila 2)
         JLabel lblMsg = new JLabel(" ");
         lblMsg.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
         centro.add(lblMsg, gbc);
 
         // Botón de eliminar con estilo rojo llamativo
@@ -1712,10 +1757,10 @@ public class InventarioApp extends JFrame {
             // Pedimos confirmación antes de una acción irreversible
             // showConfirmDialog devuelve YES_OPTION o NO_OPTION
             int conf = JOptionPane.showConfirmDialog(this,
-                "¿Eliminar el material con ID " + id + "?\nEsta acción no se puede deshacer.",
-                "Confirmar eliminación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE); // icono de advertencia ⚠️
+                    "¿Eliminar el material con ID " + id + "?\nEsta acción no se puede deshacer.",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE); // icono de advertencia ⚠️
 
             if (conf == JOptionPane.YES_OPTION) {
                 dao.eliminarMaterial(id); // eliminación real en la BD
@@ -1738,23 +1783,20 @@ public class InventarioApp extends JFrame {
     //  PANEL WEB
     //  Abre la web local del proyecto en el navegador predeterminado del sistema.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
      * Crea el panel "Web del proyecto" que abre la web local en el navegador.
      *
-     * Funcionamiento:
-     *   - Usa Desktop.getDesktop().browse(URI) que es la forma estándar de
-     *     abrir el navegador del sistema en Java
-     *   - Si Desktop no está soportado (algunos Linux headless), tiene un
-     *     fallback con Runtime.exec(xdg-open) que abre el navegador en Linux
-     *   - El campo "URL:" permite cambiar la URL sin tocar el código
-     *     (pero se reinicia al abrir el panel de nuevo)
+     * Funcionamiento: - Usa Desktop.getDesktop().browse(URI) que es la forma
+     * estándar de abrir el navegador del sistema en Java - Si Desktop no está
+     * soportado (algunos Linux headless), tiene un fallback con
+     * Runtime.exec(xdg-open) que abre el navegador en Linux - El campo "URL:"
+     * permite cambiar la URL sin tocar el código (pero se reinicia al abrir el
+     * panel de nuevo)
      *
-     * 🎨 DISEÑO: Puedes cambiar:
-     *   - El emoji del icono grande (🌐)
-     *   - Los textos de información
-     *   - El tamaño del botón "Abrir web": setPreferredSize(new Dimension(240, 38))
-     *   - El valor permanente de la URL: constante URL_WEB_LOCAL al inicio del archivo
+     * 🎨 DISEÑO: Puedes cambiar: - El emoji del icono grande (🌐) - Los textos
+     * de información - El tamaño del botón "Abrir web": setPreferredSize(new
+     * Dimension(240, 38)) - El valor permanente de la URL: constante
+     * URL_WEB_LOCAL al inicio del archivo
      */
     private JPanel crearPanelWeb() {
         // GridBagLayout sin restricciones: centra el contenido en el panel
@@ -1786,8 +1828,8 @@ public class InventarioApp extends JFrame {
 
         // Texto de ayuda
         JLabel lblInfo = new JLabel(
-            "<html><center>Se abrirá tu navegador predeterminado en la URL indicada.<br>"
-            + "Asegúrate de que el servidor local esté en ejecución.</center></html>");
+                "<html><center>Se abrirá tu navegador predeterminado en la URL indicada.<br>"
+                + "Asegúrate de que el servidor local esté en ejecución.</center></html>");
         lblInfo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         lblInfo.setForeground(new Color(130, 130, 160)); // 🎨 Color del texto de ayuda
         lblInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1821,10 +1863,10 @@ public class InventarioApp extends JFrame {
                 lblMsg.setForeground(COLOR_ERROR);
                 lblMsg.setText("❌ No se pudo abrir el navegador: " + ex.getMessage());
                 JOptionPane.showMessageDialog(this,
-                    "No se pudo abrir el navegador.\n"
-                    + "URL: " + URL_WEB_LOCAL + "\n"
-                    + "Error: " + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                        "No se pudo abrir el navegador.\n"
+                        + "URL: " + URL_WEB_LOCAL + "\n"
+                        + "Error: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -1887,19 +1929,18 @@ public class InventarioApp extends JFrame {
     //  Métodos reutilizados por varios paneles para crear componentes
     //  con un aspecto consistente en toda la aplicación.
     // ══════════════════════════════════════════════════════════════════════
-
     /**
-     * Crea el título de un panel con texto grande y una línea separadora debajo.
+     * Crea el título de un panel con texto grande y una línea separadora
+     * debajo.
      *
      * Se usa al inicio de cada panel de trabajo para identificarlo.
      *
-     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los títulos de panel:
-     *   - Fuente: new Font("Segoe UI", Font.BOLD, 18)
-     *   - Color del texto: new Color(50, 50, 70)
-     *   - Color de la línea: new Color(200, 190, 230)
-     *   - Separación inferior: new EmptyBorder(0, 0, 14, 0)
+     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los títulos de
+     * panel: - Fuente: new Font("Segoe UI", Font.BOLD, 18) - Color del texto:
+     * new Color(50, 50, 70) - Color de la línea: new Color(200, 190, 230) -
+     * Separación inferior: new EmptyBorder(0, 0, 14, 0)
      *
-     * @param texto  El texto del título a mostrar
+     * @param texto El texto del título a mostrar
      */
     private JPanel crearTituloPanel(String texto) {
         JPanel p = new JPanel(new BorderLayout());
@@ -1920,12 +1961,11 @@ public class InventarioApp extends JFrame {
      *
      * Se usa para los textos a la izquierda de los campos en los formularios.
      *
-     * 🎨 DISEÑO: Cambia la fuente o el tamaño para modificar TODAS las etiquetas:
-     *   - Font.BOLD   → negrita (actual)
-     *   - Font.PLAIN  → normal (más sutil)
-     *   - Tamaño 13   → aumenta para etiquetas más grandes
+     * 🎨 DISEÑO: Cambia la fuente o el tamaño para modificar TODAS las
+     * etiquetas: - Font.BOLD → negrita (actual) - Font.PLAIN → normal (más
+     * sutil) - Tamaño 13 → aumenta para etiquetas más grandes
      *
-     * @param texto  El texto de la etiqueta
+     * @param texto El texto de la etiqueta
      */
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
@@ -1936,18 +1976,18 @@ public class InventarioApp extends JFrame {
     /**
      * Crea un botón de acción con el estilo morado de la aplicación.
      *
-     * Se usa para todos los botones de acción dentro de los paneles
-     * (Guardar, Buscar, Actualizar, Generar, Exportar...).
-     * El efecto hover (oscurece al pasar el ratón) está incluido.
+     * Se usa para todos los botones de acción dentro de los paneles (Guardar,
+     * Buscar, Actualizar, Generar, Exportar...). El efecto hover (oscurece al
+     * pasar el ratón) está incluido.
      *
-     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones de acción:
-     *   - Color normal: COLOR_MENU_ACTIVO (morado)
-     *   - Color hover:  COLOR_MENU_HOVER  (morado más oscuro)
-     *   - Fuente: new Font("Segoe UI", Font.BOLD, 13)
-     *   - Tamaño: setPreferredSize(new Dimension(180, 34))
-     *     Los 180px son el ancho base; cada botón puede sobreescribirlo con otro setPreferredSize()
+     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones de
+     * acción: - Color normal: COLOR_MENU_ACTIVO (morado) - Color hover:
+     * COLOR_MENU_HOVER (morado más oscuro) - Fuente: new Font("Segoe UI",
+     * Font.BOLD, 13) - Tamaño: setPreferredSize(new Dimension(180, 34)) Los
+     * 180px son el ancho base; cada botón puede sobreescribirlo con otro
+     * setPreferredSize()
      *
-     * @param texto  El texto del botón
+     * @param texto El texto del botón
      */
     private JButton crearBotonAccion(String texto) {
         JButton btn = new JButton(texto);
@@ -1961,8 +2001,15 @@ public class InventarioApp extends JFrame {
         btn.setPreferredSize(new Dimension(180, 34)); // 🎨 Ancho y alto del botón de acción
         // Efecto hover: oscurece al pasar el ratón
         btn.addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { btn.setBackground(COLOR_MENU_HOVER); }
-            @Override public void mouseExited(MouseEvent e)  { btn.setBackground(COLOR_MENU_ACTIVO); }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btn.setBackground(COLOR_MENU_HOVER);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btn.setBackground(COLOR_MENU_ACTIVO);
+            }
         });
         return btn;
     }
@@ -1970,26 +2017,27 @@ public class InventarioApp extends JFrame {
     /**
      * Crea una JTable con el estilo visual de la aplicación.
      *
-     * Características:
-     *   - Las celdas NO son editables (solo lectura) → isCellEditable devuelve false
-     *   - Se puede ordenar por columna haciendo clic en la cabecera (setAutoCreateRowSorter)
-     *   - Filas de 28px de alto
+     * Características: - Las celdas NO son editables (solo lectura) →
+     * isCellEditable devuelve false - Se puede ordenar por columna haciendo
+     * clic en la cabecera (setAutoCreateRowSorter) - Filas de 28px de alto
      *
-     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODAS las tablas:
-     *   - Altura de fila: setRowHeight(28) → sube para filas más altas
-     *   - Fuente del cuerpo: new Font("Segoe UI", Font.PLAIN, 13)
-     *   - Fuente de la cabecera: new Font("Segoe UI", Font.BOLD, 13)
-     *   - Color de selección: setSelectionBackground(new Color(200, 190, 240))
-     *   - Color de las líneas de la cuadrícula: setGridColor(new Color(220, 220, 230))
+     * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODAS las tablas: -
+     * Altura de fila: setRowHeight(28) → sube para filas más altas - Fuente del
+     * cuerpo: new Font("Segoe UI", Font.PLAIN, 13) - Fuente de la cabecera: new
+     * Font("Segoe UI", Font.BOLD, 13) - Color de selección:
+     * setSelectionBackground(new Color(200, 190, 240)) - Color de las líneas de
+     * la cuadrícula: setGridColor(new Color(220, 220, 230))
      *
-     * @param datos  Array 2D con los datos de las filas
-     * @param cols   Array con los nombres de las columnas
+     * @param datos Array 2D con los datos de las filas
+     * @param cols Array con los nombres de las columnas
      */
     private JTable crearTabla(Object[][] datos, String[] cols) {
         JTable tabla = new JTable(datos, cols) {
             // Sobrescribimos isCellEditable para que ninguna celda sea editable
             @Override
-            public boolean isCellEditable(int row, int col) { return false; }
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
         };
         tabla.setRowHeight(28);                                          // 🎨 Alto de cada fila
         tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));            // 🎨 Fuente del contenido
@@ -2001,21 +2049,21 @@ public class InventarioApp extends JFrame {
     }
 
     /**
-     * Muestra un mensaje de error en una etiqueta de estado y mueve el foco
-     * al campo de texto que causó el error.
+     * Muestra un mensaje de error en una etiqueta de estado y mueve el foco al
+     * campo de texto que causó el error.
      *
-     * Se usa en los catch de los formularios para indicar visualmente
-     * qué campo está incorrecto.
+     * Se usa en los catch de los formularios para indicar visualmente qué campo
+     * está incorrecto.
      *
-     * Comportamiento:
-     *   - Cambia el color del lblMsg a rojo (COLOR_ERROR)
-     *   - Pone el mensaje de error (ex.getMessage() viene del Validador)
-     *   - Si se pasa un campo: mueve el cursor al campo y selecciona su texto
-     *     (así el usuario puede corregirlo directamente sin hacer clic)
+     * Comportamiento: - Cambia el color del lblMsg a rojo (COLOR_ERROR) - Pone
+     * el mensaje de error (ex.getMessage() viene del Validador) - Si se pasa un
+     * campo: mueve el cursor al campo y selecciona su texto (así el usuario
+     * puede corregirlo directamente sin hacer clic)
      *
-     * @param lblMsg  La etiqueta donde mostrar el mensaje de error
+     * @param lblMsg La etiqueta donde mostrar el mensaje de error
      * @param mensaje El texto del error (normalmente ex.getMessage())
-     * @param campo   El JTextField con el valor incorrecto (puede ser null si no aplica)
+     * @param campo El JTextField con el valor incorrecto (puede ser null si no
+     * aplica)
      */
     private void mostrarErrorCampo(JLabel lblMsg, String mensaje, JTextField campo) {
         lblMsg.setForeground(COLOR_ERROR);       // 🎨 Color de los mensajes de error
@@ -2024,5 +2072,11 @@ public class InventarioApp extends JFrame {
             campo.requestFocus(); // mueve el cursor al campo con error
             campo.selectAll();    // selecciona todo el texto del campo para fácil corrección
         }
+    }
+    
+    private void mostrarError(JLabel lblMsg, String mensaje) {
+        lblMsg.setForeground(COLOR_ERROR);       // 🎨 Color de los mensajes de error
+        lblMsg.setText("❌ " + mensaje);
+       
     }
 }

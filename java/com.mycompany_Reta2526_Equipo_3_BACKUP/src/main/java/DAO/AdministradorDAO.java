@@ -436,6 +436,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 System.out.println("No se ha insertado correctamente en material fungible.");
             }
         } catch (SQLException ex) {
+         
             System.out.println("ERROR: " + ex.getMessage());
         }
     }
