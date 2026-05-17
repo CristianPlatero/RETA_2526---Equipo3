@@ -4,6 +4,7 @@
  */
 package AccesoBD;
 
+import Utilidades.LoggerApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,11 +37,11 @@ public class AccesoBaseDatos {
             properties.setProperty("serverTimezone", "Europe/Madrid");
 
             conn = DriverManager.getConnection(URL, properties);
-            System.out.println("Conexión correcta a la base de datos.");
+            LoggerApp.log("Conexión correcta a la base de datos.");
 
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos.");
-            System.out.println("Mensaje: " + ex.getMessage());
+            LoggerApp.log("Error al conectar con la base de datos.");
+            LoggerApp.log("Mensaje: " + ex.getMessage());
             conn = null;
         }
     }
@@ -67,8 +68,8 @@ public class AccesoBaseDatos {
                 abrirConexion();
             }
         } catch (SQLException ex) {
-            System.out.println("Error al comprobar el estado de la conexión.");
-            System.out.println("Mensaje: " + ex.getMessage());
+            LoggerApp.log("Error al comprobar el estado de la conexión.");
+            LoggerApp.log("Mensaje: " + ex.getMessage());
         }
         return conn;
     }
@@ -86,8 +87,8 @@ public class AccesoBaseDatos {
             conn.close();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error al cerrar la conexión.");
-            System.out.println("Mensaje: " + ex.getMessage());
+            LoggerApp.log("Error al cerrar la conexión.");
+            LoggerApp.log("Mensaje: " + ex.getMessage());
             return false;
         }
     }

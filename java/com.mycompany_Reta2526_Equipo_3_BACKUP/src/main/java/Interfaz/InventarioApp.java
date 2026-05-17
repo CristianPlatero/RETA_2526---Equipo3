@@ -13,6 +13,7 @@ import Objetos.Herramientas;           // Subclase: herramienta (soldador...)
 import Objetos.Material_Fungible;      // Subclase: material fungible (pasta térmica...)
 import Objetos.Equipos_en_red;         // Subclase: equipo de red (switch, router...)
 import Excepciones.*;                  // Todas las excepciones personalizadas del Validador
+import Utilidades.LoggerApp;
 
 import javax.swing.*;                  // Todo lo visual de Swing: JFrame, JPanel, JButton...
 import javax.swing.border.*;           // Bordes especiales: EmptyBorder, TitledBorder...
@@ -104,6 +105,14 @@ public class InventarioApp extends JFrame {
     private JButton botonActivo = null;
 
     // ══════════════════════════════════════════════════════════════════════
+    //  Area de Logs
+    //  Compartido por todos los paneles para mostrar/parsear fechas igual.
+    //  Es un JTextArea para mostrar mensajes de error de consola y mensajes de validación sin abrir un Jdialog
+    // ══════════════════════════════════════════════════════════════════════
+    private JTextArea areaLogs;
+    
+    
+    // ══════════════════════════════════════════════════════════════════════
     //  DAO — Punto de acceso a la base de datos
     //  Se crea una sola vez aquí y se reutiliza en todos los paneles.
     //  Todos los métodos que guardan, listan o eliminan de la BD pasan por aquí.
@@ -119,6 +128,7 @@ public class InventarioApp extends JFrame {
     //    "dd 'de' MMMM 'de' yyyy" → 17 de mayo de 2025 (requiere Locale)
     // ══════════════════════════════════════════════════════════════════════
     private static final DateTimeFormatter FMT_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
     // ══════════════════════════════════════════════════════════════════════
     //  CONSTRUCTOR
@@ -143,7 +153,7 @@ public class InventarioApp extends JFrame {
         add(crearMenuLateral(), BorderLayout.WEST);    // Panel de botones de la izquierda
         areaTrabajoContenedor = crearAreaTrabajo();       // Panel vacío del centro
         add(areaTrabajoContenedor, BorderLayout.CENTER);
-
+        add(crearPanelLogs(), BorderLayout.SOUTH); // Panel de Logs abajo
         // Paso 3: al abrir, mostramos la pantalla de bienvenida en el centro
         mostrarPanel(crearPanelBienvenida());
     }
@@ -567,6 +577,42 @@ public class InventarioApp extends JFrame {
         panel.add(contenido);
         return panel;
     }
+    
+    
+    
+    
+    private JPanel crearPanelLogs() {
+
+    JPanel panel = new JPanel(new BorderLayout());
+
+    panel.setBorder(BorderFactory.createMatteBorder(
+            1, 0, 0, 0,
+            new Color(180,180,200)));
+
+    areaLogs = new JTextArea(4, 20);
+
+    LoggerApp.inicializar(areaLogs);
+    
+    areaLogs.setEditable(false);
+
+    areaLogs.setFont(new Font("Consolas", Font.PLAIN, 12));
+
+    areaLogs.setBackground(new Color(35, 35, 35));
+
+    areaLogs.setForeground(new Color(220, 220, 220));
+
+    areaLogs.setLineWrap(true);
+
+    areaLogs.setWrapStyleWord(true);
+
+    areaLogs.setText("Sistema iniciado...\n");
+
+    JScrollPane scroll = new JScrollPane(areaLogs);
+
+    panel.add(scroll, BorderLayout.CENTER);
+
+    return panel;
+}
 
     // ══════════════════════════════════════════════════════════════════════
     //  PANEL LISTAR
@@ -2074,9 +2120,5 @@ public class InventarioApp extends JFrame {
         }
     }
     
-    private void mostrarError(JLabel lblMsg, String mensaje) {
-        lblMsg.setForeground(COLOR_ERROR);       // 🎨 Color de los mensajes de error
-        lblMsg.setText("❌ " + mensaje);
-       
-    }
+   
 }

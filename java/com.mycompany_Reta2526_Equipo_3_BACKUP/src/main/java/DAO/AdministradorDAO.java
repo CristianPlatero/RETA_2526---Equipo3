@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Utilidades.LoggerApp;
 
 /**
  *
@@ -60,19 +61,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             }
             
         } catch (SQLException ex) {
-            System.out.println("Error al listar materiales"+ex.getMessage());
+           LoggerApp.log("Error al listar materiales"+ex.getMessage());
         } catch (IdInvalidoException ex) {
-            System.out.println("Error con el id "+ex.getMessage());
+            LoggerApp.log("Error con el id "+ex.getMessage());
         } catch (NombreInvalidoException ex) {
-            System.out.println("Error con el nombre "+ex.getMessage());
+            LoggerApp.log("Error con el nombre "+ex.getMessage());
         } catch (CantidadInvalidaException ex) {
-            System.out.println("Error con la cantidad "+ex.getMessage());
+            LoggerApp.log("Error con la cantidad "+ex.getMessage());
         } catch (DescripcionInvalidaException ex) {
-            System.out.println("Error con la descripcion "+ex.getMessage());
+            LoggerApp.log("Error con la descripcion "+ex.getMessage());
         } catch (EstadoInvalidoException ex) {
-            System.out.println("Error con el estado "+ex.getMessage());
+            LoggerApp.log("Error con el estado "+ex.getMessage());
         } catch (FechaInvalidaException ex) {
-            System.out.println("Error con la fecha "+ex.getMessage());
+            LoggerApp.log("Error con la fecha "+ex.getMessage());
         }
         
         
@@ -124,7 +125,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             int filas = ps.executeUpdate();
             
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en materialesTaller");
+                LoggerApp.log("No se ha insertado correctamente en materialesTaller");
             }
             
             ResultSet rs = ps.getGeneratedKeys();
@@ -147,13 +148,13 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 case Equipos_en_red er ->
                     guardarEquipoRed(er, idAI);
                 default -> {
-                    System.out.println("Ha ocurrido un error.");
+                    LoggerApp.log("Ha ocurrido un error.");
                 }
             }
-                System.out.println("Se ha insertado correctamente");
+                LoggerApp.log("Se ha insertado correctamente");
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
 
     }
@@ -182,9 +183,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             int filas = ps.executeUpdate();
             
             if (filas == 0) {
-                System.out.println("No se ha eliminado ningun registro en materialesTaller");
+                LoggerApp.log("No se ha eliminado ningun registro en materialesTaller");
             }else if(filas > 1){
-                System.out.println("Se han eliminado inesperadamente mas de un registro");
+                LoggerApp.log("Se han eliminado inesperadamente mas de un registro");
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -296,7 +297,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en perifericos.");
+                LoggerApp.log("No se ha insertado correctamente en perifericos.");
             }
 
             String sql2 = "INSERT INTO perifericos_pcs (id_periferico, id_pc) VALUES (?,?)";
@@ -307,14 +308,14 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
                 int filas2 = ps2.executeUpdate();
                 if (filas != 1) {
-                    System.out.println("No se ha insertado correctamente en perifericos_pcs");
+                    LoggerApp.log("No se ha insertado correctamente en perifericos_pcs");
                 }
 
             } catch (SQLException ex) {
-                System.out.println("ERROR: " + ex.getMessage());
+                LoggerApp.log("ERROR: " + ex.getMessage());
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
 
     }
@@ -350,7 +351,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 System.out.println("No se ha insertado correctamente en componentes");
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
     }
 
@@ -382,10 +383,10 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en equiops_red.");
+                LoggerApp.log("No se ha insertado correctamente en equiops_red.");
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
     }
 
@@ -405,10 +406,10 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en cableado");
+                LoggerApp.log("No se ha insertado correctamente en cableado");
             }
         }catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
     }
 
@@ -426,10 +427,10 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en herramientas.");
+                LoggerApp.log("No se ha insertado correctamente en herramientas.");
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
     }
 
@@ -447,11 +448,11 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en material fungible.");
+                LoggerApp.log("No se ha insertado correctamente en material fungible.");
             }
         } catch (SQLException ex) {
          
-            System.out.println("ERROR: " + ex.getMessage());
+            LoggerApp.log("ERROR: " + ex.getMessage());
         }
     }
 
