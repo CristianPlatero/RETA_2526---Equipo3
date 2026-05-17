@@ -11,6 +11,7 @@ import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 import AccesoBD.AccesoBaseDatos;
+import Enum.Estados;
 import Objetos.Cableado;
 import Objetos.Componentes;
 import Objetos.Equipos_en_red;
@@ -232,19 +233,32 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     
     
     
-    private MaterialInventario crearMaterialBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, EstadoInvalidoException, FechaInvalidaException {
-//        Estados estado = Estados.valueOf(rs.getString("estado"));
+    
+       
+        private MaterialInventario crearMaterialBD(ResultSet rs)
+        throws SQLException, IdInvalidoException, NombreInvalidoException,
+               CantidadInvalidaException, DescripcionInvalidaException,
+               EstadoInvalidoException, FechaInvalidaException {
+ // Estados estado = Estados.valueOf(rs.getString("estado"));
+        //Estados estado = Estados.valueOf(rs.getString("estado").toUpperCase().trim();
+    Estados estado = Estados.valueOf(
+            rs.getString("estado")
+              .toUpperCase()
+              .replace(" ", "_")
+    );
 
-        return new MaterialInventario(rs.getString("id_matTa"),
-                rs.getString("nombre"),
-                rs.getString("descripcion"),
-                rs.getString("estado"),
-                rs.getString("cantidad"),
-                rs.getString("id_armario"),
-                rs.getString("id_balda"),
-                rs.getString("fecha_alta"),
-                rs.getString("observaciones"));
-    }
+    return new MaterialInventario(
+            rs.getString("id_matTa"),
+            rs.getString("nombre"),
+            rs.getString("descripcion"),
+            estado.name(),
+            rs.getString("cantidad"),
+            rs.getString("id_ubi"),
+            rs.getString("id_balda"),
+            rs.getString("fecha_alta"),
+            rs.getString("observaciones")
+    );
+}
 //=====================================================================
     //METODOS DE GUARDADO ENCAPSULADOS
     

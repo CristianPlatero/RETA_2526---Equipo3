@@ -266,10 +266,20 @@ public class MaterialInventario {
      * @param fecha_alta
      * @throws FechaInvalidaException
      */
+//    public void setFecha_alta(String fecha_alta) throws FechaInvalidaException {
+//        Validador.validaFecha(fecha_alta);
+//        this.fecha_alta = LocalDate.parse(fecha_alta, formato);
+//    }
     public void setFecha_alta(String fecha_alta) throws FechaInvalidaException {
-        Validador.validaFecha(fecha_alta);
-        this.fecha_alta = LocalDate.parse(fecha_alta, formato);
+    Validador.validaFecha(fecha_alta);
+
+    // acepta formato BD yyyy-MM-dd
+    if (fecha_alta.contains("-") && fecha_alta.length() == 10) {
+        this.fecha_alta = LocalDate.parse(fecha_alta); // formato automático BD
+    } else {
+        this.fecha_alta = LocalDate.parse(fecha_alta, formato); // dd-MM-yyyy
     }
+}
 
     /**
      *

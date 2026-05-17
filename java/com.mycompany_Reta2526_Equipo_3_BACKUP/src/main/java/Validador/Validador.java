@@ -79,7 +79,9 @@ public class Validador {
      */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
-            throw new DescripcionInvalidaException("La descripcion no puede estar vacía.");
+            descripcion = "Sin descripción";
+            // throw new DescripcionInvalidaException("La descripcion no puede estar vacía.");
+            
         }
         if (descripcion.length() < 2 || descripcion.length() > 50) {
             throw new DescripcionInvalidaException("La descripcion debe tener entre 2 y 50 caracteres.");
@@ -472,16 +474,33 @@ public class Validador {
      * @throws FechaInvalidaException
      */
     public static void validaFecha(String fecha) throws FechaInvalidaException {
-        if (fecha == null || fecha.isBlank()) {
-            throw new FechaInvalidaException("Debe introducir una fecha.");
-        }
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        try {
-            LocalDate.parse(fecha, formato);
-        } catch (DateTimeParseException e) {
-            throw new FechaInvalidaException("La fecha debe tener el formato dd-MM-yyyy.");
-        }
+    if (fecha == null || fecha.isBlank()) {
+        throw new FechaInvalidaException("Debe introducir una fecha.");
     }
+
+    // Intentamos formato BD (yyyy-MM-dd)
+    DateTimeFormatter formatoBD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    // Intentamos formato usuario (dd-MM-yyyy)
+    DateTimeFormatter formatoUI = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+    try {
+        LocalDate.parse(fecha, formatoBD);
+        return;
+    } catch (DateTimeParseException ignored) {}
+
+    try {
+        LocalDate.parse(fecha, formatoUI);
+    } catch (DateTimeParseException e) {
+        throw new FechaInvalidaException(
+            "La fecha debe tener formato yyyy-MM-dd o dd-MM-yyyy."
+        );
+    }
+}
+    
+    
+    
+  
 
     /**
      *
