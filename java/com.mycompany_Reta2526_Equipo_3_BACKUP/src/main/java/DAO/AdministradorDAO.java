@@ -413,7 +413,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             int filas = ps.executeUpdate();
             if (filas != 1) {
-                System.out.println("No se ha insertado correctamente en componentes");
+                LoggerApp.log("No se ha insertado correctamente en componentes");
             }
         } catch (SQLException ex) {
             LoggerApp.log("ERROR: " + ex.getMessage());

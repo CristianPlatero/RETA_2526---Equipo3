@@ -94,13 +94,13 @@ public class LoginDialog extends JDialog {
 
         // Título
         JLabel lblTitulo = new JLabel("Acceso al sistema");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        lblTitulo.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
         lblTitulo.setForeground(COLOR_TEXTO);
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Subtítulo
         JLabel lblSub = new JLabel("Inventario Taller");
-        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblSub.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         lblSub.setForeground(COLOR_GRIS);
         lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -117,7 +117,7 @@ public class LoginDialog extends JDialog {
 
         // ── Mensaje de error (oculto hasta que falle) ──────────────────
         lblError = new JLabel(" ");   // espacio para que no colapse el layout
-        lblError.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblError.setFont(new Font("Segoe UI Emoji", Font.BOLD, 12));
         lblError.setForeground(COLOR_ERROR);
         lblError.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -129,7 +129,7 @@ public class LoginDialog extends JDialog {
         JLabel lblHint = new JLabel("<html><center><font color='#9090aa'>"
                 + "admin / admin123 &nbsp;|&nbsp; profesor / profesor123"
                 + "</font></center></html>");
-        lblHint.setFont(new Font("Segoe UI", Font.ITALIC, 11));
+        lblHint.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 11));
         lblHint.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // ── Montaje de la tarjeta ──────────────────────────────────────
@@ -238,7 +238,7 @@ public class LoginDialog extends JDialog {
     // ======================================================================
     private JLabel crearEtiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 12));
         lbl.setForeground(COLOR_GRIS);
         lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         return lbl;
@@ -256,7 +256,7 @@ public class LoginDialog extends JDialog {
      * Aplica el estilo oscuro a cualquier JTextField o JPasswordField
      */
     private void estilizarCampo(JTextField campo, String placeholder) {
-        campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        campo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
         campo.setBackground(COLOR_CAMPO_BG);
         campo.setForeground(COLOR_TEXTO);
         campo.setCaretColor(COLOR_TEXTO);
@@ -292,7 +292,7 @@ public class LoginDialog extends JDialog {
 
     private JButton crearBotonEntrar() {
         JButton btn = new JButton("Entrar →");
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 14));
         btn.setBackground(COLOR_ACENTO);
         btn.setForeground(COLOR_TEXTO);
         btn.setFocusPainted(false);

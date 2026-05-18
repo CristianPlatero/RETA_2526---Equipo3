@@ -146,7 +146,8 @@ public class InventarioApp extends JFrame {
      * determina qué botones aparecen en el menú.
      */
     public InventarioApp(Rol rol) {
-        this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
+        
+       this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
 
         configurarVentana();            // Paso 1: tamaño, título, comportamiento al cerrar
 
@@ -253,7 +254,7 @@ public class InventarioApp extends JFrame {
         // 🎨 Cambia 90, 90 por el tamaño en píxeles que quieras para tu logo.
         JLabel lblImagen = new JLabel("[TU IMAGEN]", SwingConstants.CENTER);
         lblImagen.setForeground(COLOR_TEXTO_GRIS);
-        lblImagen.setFont(new Font("Monospaced", Font.ITALIC, 11));
+        lblImagen.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 11));
         lblImagen.setPreferredSize(new Dimension(110, ALTO_BANNER)); // 🎨 Ancho del hueco para imagen
         // Borde punteado decorativo alrededor del placeholder
         lblImagen.setBorder(BorderFactory.createDashedBorder(COLOR_MENU_HOVER, 2, 4));
@@ -266,21 +267,21 @@ public class InventarioApp extends JFrame {
         panelTitulo.setBorder(new EmptyBorder(16, 20, 10, 0)); // margen interno: top, left, bottom, right
 
         // Título principal
-        // 🎨 Cambia el texto, la fuente ("Segoe UI") o el tamaño (24)
+        // 🎨 Cambia el texto, la fuente ("Segoe UI Emoji") o el tamaño (24)
         JLabel lblTitulo = new JLabel("Sistema de Inventario");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 24)); // 🎨 Fuente y tamaño del título
+        lblTitulo.setFont(new Font("Segoe UI Emoji", Font.BOLD, 24)); // 🎨 Fuente y tamaño del título
         lblTitulo.setForeground(COLOR_TEXTO_CLARO);
 
         // Subtítulo (texto pequeño debajo del título)
         // 🎨 Cambia el texto o tamaño (12)
         JLabel lblSub = new JLabel("Gestión de materiales y Pcs del Taller de Informática del IES Miguel Herrero");
-        lblSub.setFont(new Font("Segoe UI", Font.PLAIN, 12)); // 🎨 Fuente del subtítulo
+        lblSub.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12)); // 🎨 Fuente del subtítulo
         lblSub.setForeground(COLOR_TEXTO_GRIS);
 
         // Pastilla coloreada que muestra el rol activo (ej: "ADMINISTRADOR")
         // 🎨 El color cambia automáticamente según el rol (morado/verde), definido en las constantes
         JLabel lblBadge = new JLabel("  " + nombreRol().toUpperCase() + "  ");
-        lblBadge.setFont(new Font("Segoe UI", Font.BOLD, 11)); // 🎨 Tamaño del texto del badge
+        lblBadge.setFont(new Font("Segoe UI Emoji", Font.BOLD, 11)); // 🎨 Tamaño del texto del badge
         lblBadge.setForeground(COLOR_TEXTO_CLARO);
         lblBadge.setOpaque(true); // necesario para que setBackground() funcione en un JLabel
         // Elige el color según el rol:
@@ -300,8 +301,8 @@ public class InventarioApp extends JFrame {
 
         // ── ZONA DERECHA: botón "Cerrar sesión" ────────────────────────────
         // 🎨 Puedes cambiar el icono (⏻), el texto o los colores del botón
-        JButton btnLogout = new JButton("⏻  Cerrar sesión");
-        btnLogout.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        JButton btnLogout = new JButton("↩  Cerrar sesión");
+        btnLogout.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 11));
         btnLogout.setForeground(COLOR_TEXTO_GRIS);
         btnLogout.setBackground(new Color(55, 55, 75)); // 🎨 Color del botón de logout
         btnLogout.setBorderPainted(false);  // sin borde visible
@@ -424,7 +425,7 @@ public class InventarioApp extends JFrame {
      */
     private JLabel crearEtiquetaSeccion(String texto) {
         JLabel lbl = new JLabel("  " + texto); // dos espacios de sangría
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 10)); // 🎨 Fuente y tamaño del encabezado de sección
+        lbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 10)); // 🎨 Fuente y tamaño del encabezado de sección
         lbl.setForeground(COLOR_TEXTO_GRIS);              // 🎨 Color del texto (gris suave)
         lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         lbl.setBorder(new EmptyBorder(14, 8, 6, 0));      // 🎨 Espaciado: top 14px, left 8px
@@ -455,7 +456,7 @@ public class InventarioApp extends JFrame {
      * nuevo
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones del
-     * menú: - Fuente: new Font("Segoe UI", Font.PLAIN, 13) → tamaño, negrita...
+     * menú: - Fuente: new Font("Segoe UI Emoji", Font.PLAIN, 13) → tamaño, negrita...
      * - Alto de cada botón: setMaximumSize y setPreferredSize (actualmente
      * 42px) - Sangría del texto: new EmptyBorder(0, 16, 0, 0) → los 16px del
      * lado izquierdo
@@ -465,7 +466,7 @@ public class InventarioApp extends JFrame {
      */
     private JButton crearBotonMenu(String texto, ActionListener accion) {
         JButton btn = new JButton(texto);
-        btn.setFont(new Font("Segoe UI", Font.PLAIN, 13)); // 🎨 Fuente de los botones del menú
+        btn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13)); // 🎨 Fuente de los botones del menú
         btn.setForeground(COLOR_TEXTO_CLARO);
         btn.setBackground(COLOR_MENU_BG);
         btn.setOpaque(true);
@@ -574,7 +575,7 @@ public class InventarioApp extends JFrame {
 
         // Texto "Bienvenido, Administrador/Profesor"
         JLabel lblBien = new JLabel("Bienvenido, " + nombreRol());
-        lblBien.setFont(new Font("Segoe UI", Font.BOLD, 20)); // 🎨 Tamaño del saludo
+        lblBien.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20)); // 🎨 Tamaño del saludo
         lblBien.setForeground(new Color(60, 60, 80));         // 🎨 Color del saludo
         lblBien.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -584,7 +585,7 @@ public class InventarioApp extends JFrame {
                 : "Acceso de solo lectura: listar, buscar, filtrar y generar informes.";
         // <html><center> permite texto multilínea y centrado en un JLabel
         JLabel lblPermisos = new JLabel("<html><center>" + permisos + "</center></html>");
-        lblPermisos.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        lblPermisos.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         lblPermisos.setForeground(new Color(130, 130, 160)); // 🎨 Color del texto de permisos
         lblPermisos.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -685,7 +686,7 @@ public class InventarioApp extends JFrame {
 
         // ── Zona inferior: contador y botón actualizar ────────────────────
         JLabel lblTotal = new JLabel("Total registros: " + lista.size());
-        lblTotal.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        lblTotal.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 12));
         lblTotal.setForeground(new Color(120, 120, 140)); // 🎨 Color del contador
 
         JButton btnActualizar = crearBotonAccion("🔄 Actualizar");
@@ -736,7 +737,7 @@ public class InventarioApp extends JFrame {
         barra.setOpaque(false);
         barra.add(etiqueta("ID (número entre 0 y 99):"));
         JTextField txtId = new JTextField(10);
-        txtId.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtId.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         txtId.setPreferredSize(new Dimension(120, 30));
         JButton btnBuscar = crearBotonAccion("Buscar");
         barra.add(txtId);
@@ -848,7 +849,7 @@ public class InventarioApp extends JFrame {
                 BorderFactory.createLineBorder(new Color(200, 200, 215)), // 🎨 Color del borde del recuadro
                 "Criterios de filtro", // 🎨 Texto del título del recuadro
                 0, 0,
-                new Font("Segoe UI", Font.BOLD, 12), // 🎨 Fuente del título del recuadro
+                new Font("Segoe UI Emoji", Font.BOLD, 12), // 🎨 Fuente del título del recuadro
                 new Color(80, 80, 100)));              // 🎨 Color del título del recuadro
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -864,7 +865,7 @@ public class InventarioApp extends JFrame {
         // 🎨 Cambia "Todos" por otro texto si prefieres otro nombre para la opción por defecto
         String[] estados = {"Todos", "OPERATIVO", "REPARACION", "OBSOLETO"};
         JComboBox<String> comboEstado = new JComboBox<>(estados);
-        comboEstado.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        comboEstado.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         filtros.add(comboEstado, gbc);
 
         // Fila 1: etiqueta + spinner de cantidad mínima
@@ -892,7 +893,7 @@ public class InventarioApp extends JFrame {
             comboUbicacion.addItem(ubi);
         }
 
-        comboUbicacion.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        comboUbicacion.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         filtros.add(comboUbicacion, gbc);
 
         // Fila 3: botón de filtrar (ocupa 2 columnas)
@@ -911,7 +912,7 @@ public class InventarioApp extends JFrame {
 
         // Contador de resultados
         JLabel lblResultados = new JLabel("Resultados: 0 materiales");
-        lblResultados.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        lblResultados.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 12));
         lblResultados.setForeground(new Color(100, 100, 130)); // 🎨 Color del contador de resultados
 
         // ── Lógica del botón Aplicar filtros ──────────────────────────────
@@ -1005,14 +1006,14 @@ public class InventarioApp extends JFrame {
         opciones.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 215)),
                 "Tipo de informe", 0, 0,
-                new Font("Segoe UI", Font.BOLD, 12), new Color(80, 80, 100)));
+                new Font("Segoe UI Emoji", Font.BOLD, 12), new Color(80, 80, 100)));
 
         // ButtonGroup agrupa los radios para que solo uno pueda estar seleccionado a la vez
         ButtonGroup grupo = new ButtonGroup();
         JRadioButton rbCompleto = new JRadioButton("Inventario completo", true); // seleccionado por defecto
         JRadioButton rbEstado = new JRadioButton("Filtrado por estado");
         for (JRadioButton rb : new JRadioButton[]{rbCompleto, rbEstado}) {
-            rb.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            rb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
             rb.setOpaque(false);
             grupo.add(rb);   // los añadimos al grupo
             opciones.add(rb); // los añadimos al panel visual
@@ -1145,7 +1146,7 @@ public class InventarioApp extends JFrame {
         String[] tipos = {"MaterialInventario", "Periférico", "Cableado", "Componente",
             "Herramienta", "Material Fungible", "Equipo en red"};
         JComboBox<String> comboTipo = new JComboBox<>(tipos);
-        comboTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        comboTipo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         barraSelector.add(comboTipo);
 
         // ── Panel que contiene el formulario (cambia según el tipo) ───────
@@ -1217,7 +1218,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1; // weightx=1: el campo sí se estira
         JTextField txtNombre = new JTextField(20); // 🎨 Ancho base del campo (20 columnas)
-        txtNombre.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtNombre.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtNombre, gbc);
 
         gbc.gridx = 0;
@@ -1227,7 +1228,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JTextField txtDesc = new JTextField(20);
-        txtDesc.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtDesc.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtDesc, gbc);
 
         gbc.gridx = 0;
@@ -1239,7 +1240,7 @@ public class InventarioApp extends JFrame {
         gbc.weightx = 1;
         // JComboBox con los valores del enum Estados (deben ser exactamente iguales al enum)
         JComboBox<String> comboEstado = new JComboBox<>(new String[]{"OPERATIVO", "REPARACION", "OBSOLETO"});
-        comboEstado.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        comboEstado.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(comboEstado, gbc);
 
         gbc.gridx = 0;
@@ -1249,7 +1250,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JTextField txtCantidad = new JTextField(10);
-        txtCantidad.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtCantidad.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtCantidad, gbc);
 
         gbc.gridx = 0;
@@ -1259,7 +1260,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JTextField txtUbi = new JTextField(10);
-        txtUbi.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtUbi.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtUbi, gbc);
 
         gbc.gridx = 0;
@@ -1269,7 +1270,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JTextField txtBalda = new JTextField(10);
-        txtBalda.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtBalda.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtBalda, gbc);
 
         gbc.gridx = 0;
@@ -1280,7 +1281,7 @@ public class InventarioApp extends JFrame {
         gbc.weightx = 1;
         // Prellenamos con la fecha de hoy como valor por defecto
         JTextField txtFecha = new JTextField(LocalDate.now().format(FMT_FECHA), 10);
-        txtFecha.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtFecha.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtFecha, gbc);
 
         gbc.gridx = 0;
@@ -1290,7 +1291,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JTextField txtObs = new JTextField(20);
-        txtObs.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtObs.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(txtObs, gbc);
 
         // ── CAMPOS ESPECÍFICOS ─────────────────────────────────────────────
@@ -1315,7 +1316,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Conexión (INALAMBRICA / CABLE):"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                comboConexion.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                comboConexion.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(comboConexion, gbc);
 
                 gbc.gridx = 0;
@@ -1324,7 +1325,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("ID del PC asociado:"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtIdPcPeri.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtIdPcPeri.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtIdPcPeri, gbc);
             }
             case "Cableado" -> {
@@ -1334,7 +1335,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Longitud (metros, ej: 1.5):"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtLongitud.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtLongitud.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtLongitud, gbc);
 
                 gbc.gridx = 0;
@@ -1343,7 +1344,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Conector extremo 1:"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtConector1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtConector1.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtConector1, gbc);
 
                 gbc.gridx = 0;
@@ -1352,7 +1353,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Conector extremo 2:"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtConector2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtConector2.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtConector2, gbc);
             }
             case "Componente" -> {
@@ -1362,7 +1363,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("ID del PC al que pertenece:"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtIdPcComp.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtIdPcComp.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtIdPcComp, gbc);
             }
             case "Herramienta" -> {
@@ -1372,7 +1373,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Tipo (SOLDADURA / GENERALES):"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                comboTipoH.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                comboTipoH.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(comboTipoH, gbc);
             }
             case "Material Fungible" -> {
@@ -1382,7 +1383,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Estado fungible (LLENO / VACIO / MEDIO):"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                comboEstadoF.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                comboEstadoF.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(comboEstadoF, gbc);
             }
             case "Equipo en red" -> {
@@ -1392,7 +1393,7 @@ public class InventarioApp extends JFrame {
                 form.add(etiqueta("Número de puertos:"), gbc);
                 gbc.gridx = 1;
                 gbc.weightx = 1;
-                txtNumPuertos.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                txtNumPuertos.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
                 form.add(txtNumPuertos, gbc);
             }
             // Caso "MaterialInventario": no añade campos extra, los comunes son suficientes
@@ -1401,7 +1402,7 @@ public class InventarioApp extends JFrame {
         // ── Botón guardar + etiqueta de estado ────────────────────────────
         JButton btnGuardar = crearBotonAccion("✅ Guardar material");
         JLabel lblMsg = new JLabel(" "); // mensaje de éxito o error (empieza vacío)
-        lblMsg.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
 
         // ── Lógica del botón Guardar ──────────────────────────────────────
         btnGuardar.addActionListener(e -> {
@@ -1570,7 +1571,7 @@ public class InventarioApp extends JFrame {
         barraId.setOpaque(false);
         barraId.add(etiqueta("ID a modificar:"));
         JTextField txtId = new JTextField(8);
-        txtId.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtId.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         txtId.setPreferredSize(new Dimension(100, 30));
         JButton btnCargar = crearBotonAccion("Cargar datos");
         barraId.add(txtId);
@@ -1600,14 +1601,14 @@ public class InventarioApp extends JFrame {
             gbc.gridx = 1;
             gbc.weightx = 1;
             campos[i] = new JTextField(20);
-            campos[i].setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            campos[i].setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
             campos[i].setEnabled(false); // deshabilitados hasta que se cargue un material
             form.add(campos[i], gbc);
         }
 
         // Etiqueta para mensajes de error/éxito
         JLabel lblMsg = new JLabel(" ");
-        lblMsg.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
 
         // ── Lógica del botón "Cargar datos" ───────────────────────────────
         btnCargar.addActionListener(e -> {
@@ -1756,7 +1757,7 @@ public class InventarioApp extends JFrame {
 
         // Aviso de acción irreversible (fila 0, ocupa 2 columnas)
         JLabel lblAviso = new JLabel("⚠️  Esta acción elimina el registro de forma permanente.");
-        lblAviso.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblAviso.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
         lblAviso.setForeground(COLOR_ERROR); // 🎨 Color del texto de aviso de eliminación
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -1770,13 +1771,13 @@ public class InventarioApp extends JFrame {
         centro.add(etiqueta("ID del material a eliminar:"), gbc);
         gbc.gridx = 1;
         JTextField txtId = new JTextField(12);
-        txtId.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        txtId.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         txtId.setPreferredSize(new Dimension(140, 30));
         centro.add(txtId, gbc);
 
         // Etiqueta de mensaje de estado (fila 2)
         JLabel lblMsg = new JLabel(" ");
-        lblMsg.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
@@ -1785,7 +1786,7 @@ public class InventarioApp extends JFrame {
         // Botón de eliminar con estilo rojo llamativo
         // 🎨 Cambia el color de este botón: new Color(200, 60, 60) = rojo
         JButton btnEliminar = new JButton("🗑️  Eliminar definitivamente");
-        btnEliminar.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnEliminar.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
         btnEliminar.setBackground(new Color(200, 60, 60)); // 🎨 Fondo rojo del botón eliminar
         btnEliminar.setForeground(Color.WHITE);
         btnEliminar.setFocusPainted(false);
@@ -2061,13 +2062,13 @@ public class InventarioApp extends JFrame {
 
         // Título del panel
         JLabel lblTitulo = new JLabel("Web del proyecto");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20)); // 🎨 Tamaño del título
+        lblTitulo.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20)); // 🎨 Tamaño del título
         lblTitulo.setForeground(new Color(60, 60, 80));          // 🎨 Color del título
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Muestra la URL configurada
         JLabel lblUrl = new JLabel(URL_WEB_LOCAL);
-        lblUrl.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        lblUrl.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 13));
         lblUrl.setForeground(new Color(100, 100, 180)); // 🎨 Color del texto de la URL (azul suave)
         lblUrl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -2075,7 +2076,7 @@ public class InventarioApp extends JFrame {
         JLabel lblInfo = new JLabel(
                 "<html><center>Se abrirá tu navegador predeterminado en la URL indicada.<br>"
                 + "Asegúrate de que el servidor local esté en ejecución.</center></html>");
-        lblInfo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        lblInfo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
         lblInfo.setForeground(new Color(130, 130, 160)); // 🎨 Color del texto de ayuda
         lblInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -2086,7 +2087,7 @@ public class InventarioApp extends JFrame {
 
         // Etiqueta de estado (éxito o error al abrir)
         JLabel lblMsg = new JLabel(" ");
-        lblMsg.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 12));
         lblMsg.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // ── Lógica del botón Abrir ────────────────────────────────────────
@@ -2122,11 +2123,11 @@ public class InventarioApp extends JFrame {
         JPanel panelUrl = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 4));
         panelUrl.setOpaque(false);
         JLabel lblCambia = new JLabel("URL:");
-        lblCambia.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        lblCambia.setFont(new Font("Segoe UI Emoji", Font.BOLD, 12));
         JTextField txtUrlEditable = new JTextField(URL_WEB_LOCAL, 22);
-        txtUrlEditable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        txtUrlEditable.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
         JButton btnActualizar = new JButton("Actualizar");
-        btnActualizar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        btnActualizar.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
         btnActualizar.addActionListener(e -> {
             String nuevaUrl = txtUrlEditable.getText().trim();
             if (!nuevaUrl.isEmpty()) {
@@ -2181,7 +2182,7 @@ public class InventarioApp extends JFrame {
      * Se usa al inicio de cada panel de trabajo para identificarlo.
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los títulos de
-     * panel: - Fuente: new Font("Segoe UI", Font.BOLD, 18) - Color del texto:
+     * panel: - Fuente: new Font("Segoe UI Emoji", Font.BOLD, 18) - Color del texto:
      * new Color(50, 50, 70) - Color de la línea: new Color(200, 190, 230) -
      * Separación inferior: new EmptyBorder(0, 0, 14, 0)
      *
@@ -2192,7 +2193,7 @@ public class InventarioApp extends JFrame {
         p.setOpaque(false);
         p.setBorder(new EmptyBorder(0, 0, 14, 0)); // 🎨 Margen debajo del título (14px)
         JLabel lbl = new JLabel(texto);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 18)); // 🎨 Tamaño del título de panel
+        lbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18)); // 🎨 Tamaño del título de panel
         lbl.setForeground(new Color(50, 50, 70));         // 🎨 Color del título de panel
         JSeparator sep = new JSeparator();
         sep.setForeground(new Color(200, 190, 230));       // 🎨 Color de la línea bajo el título
@@ -2214,7 +2215,7 @@ public class InventarioApp extends JFrame {
      */
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
-        lbl.setFont(new Font("Segoe UI", Font.BOLD, 13)); // 🎨 Fuente de las etiquetas de formulario
+        lbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13)); // 🎨 Fuente de las etiquetas de formulario
         return lbl;
     }
 
@@ -2227,7 +2228,7 @@ public class InventarioApp extends JFrame {
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones de
      * acción: - Color normal: COLOR_MENU_ACTIVO (morado) - Color hover:
-     * COLOR_MENU_HOVER (morado más oscuro) - Fuente: new Font("Segoe UI",
+     * COLOR_MENU_HOVER (morado más oscuro) - Fuente: new Font("Segoe UI Emoji",
      * Font.BOLD, 13) - Tamaño: setPreferredSize(new Dimension(180, 34)) Los
      * 180px son el ancho base; cada botón puede sobreescribirlo con otro
      * setPreferredSize()
@@ -2236,7 +2237,7 @@ public class InventarioApp extends JFrame {
      */
     private JButton crearBotonAccion(String texto) {
         JButton btn = new JButton(texto);
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 13)); // 🎨 Fuente de los botones de acción
+        btn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13)); // 🎨 Fuente de los botones de acción
         btn.setBackground(COLOR_MENU_ACTIVO);             // 🎨 Color de fondo (morado)
         btn.setForeground(Color.WHITE);                   // 🎨 Color del texto (blanco)
         btn.setFocusPainted(false);
@@ -2268,8 +2269,8 @@ public class InventarioApp extends JFrame {
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODAS las tablas: -
      * Altura de fila: setRowHeight(28) → sube para filas más altas - Fuente del
-     * cuerpo: new Font("Segoe UI", Font.PLAIN, 13) - Fuente de la cabecera: new
-     * Font("Segoe UI", Font.BOLD, 13) - Color de selección:
+     * cuerpo: new Font("Segoe UI Emoji", Font.PLAIN, 13) - Fuente de la cabecera: new
+     * Font("Segoe UI Emoji", Font.BOLD, 13) - Color de selección:
      * setSelectionBackground(new Color(200, 190, 240)) - Color de las líneas de
      * la cuadrícula: setGridColor(new Color(220, 220, 230))
      *
@@ -2285,8 +2286,8 @@ public class InventarioApp extends JFrame {
             }
         };
         tabla.setRowHeight(28);                                          // 🎨 Alto de cada fila
-        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));            // 🎨 Fuente del contenido
-        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13)); // 🎨 Fuente de la cabecera
+        tabla.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));            // 🎨 Fuente del contenido
+        tabla.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.BOLD, 13)); // 🎨 Fuente de la cabecera
         tabla.setSelectionBackground(new Color(200, 190, 240));          // 🎨 Color al seleccionar una fila
         tabla.setGridColor(new Color(220, 220, 230));                    // 🎨 Color de las líneas de la rejilla
         tabla.setAutoCreateRowSorter(true); // permite ordenar columnas haciendo clic en la cabecera
