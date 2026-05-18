@@ -9,5 +9,5 @@ package Enum;
  * @author DAW120
  */
 public enum Tipos {
-    PRUEBAS,REPARACION,EN_USO
+    PRUEBAS,REPARACION,OPERATIVO
 }
