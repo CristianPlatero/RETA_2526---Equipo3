@@ -61,7 +61,7 @@ CREATE TABLE if not exists materialesTaller(
 id_matTa int not null auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(150) not null,
-estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
+estado enum('operativo','averiado','reparacion', 'obsoleto') not null DEFAULT 'operativo',
 cantidad int not null,
 -- categoria enum('cableado','equipo de red','herramientas','perifericos','componentes','consumibles') not null,
 
@@ -106,7 +106,7 @@ CREATE TABLE if not exists pcs (
 id_pc int not null auto_increment,
 nombre varchar(50) not null,
 descripcion varchar(150) not null,
-estado enum('operativo','averiado','en reparacion', 'obsoleto') not null DEFAULT 'operativo',
+estado enum('operativo','averiado','reparacion', 'obsoleto') not null DEFAULT 'operativo',
 
 categoria enum('portatil', 'sobremesa') not null,
 
