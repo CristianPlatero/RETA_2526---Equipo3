@@ -6,19 +6,21 @@ package DAO;
 
 import AccesoBD.AccesoBaseDatos;
 import Objetos.Pc;
+import Repositorio.RepositorioPc;
 import Utilidades.LoggerApp;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PcDAO {
+public class PcDAO implements RepositorioPc<Pc>{
 
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
 
-    public List<Pc> listarPCs() {
+    @Override
+    public List<Pc> listarPc() {
 
         List<Pc> lista = new ArrayList<>();
 
@@ -54,7 +56,8 @@ public class PcDAO {
         return lista;
     }
 
-    public void guardarPC(Pc pc) {
+    @Override
+    public void guardarPc(Pc pc) {
 
         String sql = """
             INSERT INTO pcs
@@ -92,5 +95,19 @@ public class PcDAO {
                     + e.getMessage()
             );
         }
+    }
+
+   
+
+    @Override
+    public Pc porIdPc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   
+
+    @Override
+    public void eliminarPc(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

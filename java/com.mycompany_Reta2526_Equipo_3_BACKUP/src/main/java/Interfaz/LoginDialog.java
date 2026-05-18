@@ -9,38 +9,36 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * =====================================================================
- *  VENTANA DE LOGIN
- * =====================================================================
- *  Es un JDialog (no un JFrame) porque es una ventana auxiliar modal:
- *  bloquea la ejecución hasta que el usuario inicia sesión o cancela.
+ * ===================================================================== VENTANA
+ * DE LOGIN
+ * ===================================================================== Es un
+ * JDialog (no un JFrame) porque es una ventana auxiliar modal: bloquea la
+ * ejecución hasta que el usuario inicia sesión o cancela.
  *
- *  Flujo:
- *    1. Main crea LoginDialog y llama a setVisible(true) → bloquea.
- *    2. Usuario escribe credenciales y pulsa "Entrar".
- *    3. Si son correctas, se guarda el rol en this.rolAutenticado.
- *    4. Main recupera getRolAutenticado() y abre InventarioApp con ese rol.
+ * Flujo: 1. Main crea LoginDialog y llama a setVisible(true) → bloquea. 2.
+ * Usuario escribe credenciales y pulsa "Entrar". 3. Si son correctas, se guarda
+ * el rol en this.rolAutenticado. 4. Main recupera getRolAutenticado() y abre
+ * InventarioApp con ese rol.
  *
- *  Credenciales hardcodeadas (para un proyecto de 1º de Java):
- *    · admin   / admin123   → Rol.ADMINISTRADOR
- *    · profesor / profe123  → Rol.PROFESOR
+ * Credenciales hardcodeadas (para un proyecto de 1º de Java): · admin /
+ * admin123 → Rol.ADMINISTRADOR · profesor / profe123 → Rol.PROFESOR
  *
- *  TODO (para proyectos más avanzados):
- *    - Mover la validación a una clase UsuarioDAO que consulte BD o fichero.
- *    - Guardar contraseñas como hash (BCrypt, SHA-256), nunca en plano.
+ * TODO (para proyectos más avanzados): - Mover la validación a una clase
+ * UsuarioDAO que consulte BD o fichero. - Guardar contraseñas como hash
+ * (BCrypt, SHA-256), nunca en plano.
  * =====================================================================
  */
 public class LoginDialog extends JDialog {
 
     // ── Colores (misma paleta que InventarioApp para coherencia) ──────
-    private static final Color COLOR_FONDO      = new Color(30, 30, 46);
-    private static final Color COLOR_TARJETA    = new Color(44, 44, 64);
-    private static final Color COLOR_ACENTO     = new Color(114, 90, 200);
-    private static final Color COLOR_HOVER      = new Color(90, 90, 140);
-    private static final Color COLOR_ERROR      = new Color(220, 80, 80);
-    private static final Color COLOR_TEXTO      = Color.WHITE;
-    private static final Color COLOR_GRIS       = new Color(180, 180, 200);
-    private static final Color COLOR_CAMPO_BG   = new Color(55, 55, 80);
+    private static final Color COLOR_FONDO = new Color(30, 30, 46);
+    private static final Color COLOR_TARJETA = new Color(44, 44, 64);
+    private static final Color COLOR_ACENTO = new Color(114, 90, 200);
+    private static final Color COLOR_HOVER = new Color(90, 90, 140);
+    private static final Color COLOR_ERROR = new Color(220, 80, 80);
+    private static final Color COLOR_TEXTO = Color.WHITE;
+    private static final Color COLOR_GRIS = new Color(180, 180, 200);
+    private static final Color COLOR_CAMPO_BG = new Color(55, 55, 80);
     private static final Color COLOR_CAMPO_BORDE = new Color(90, 90, 130);
 
     // ── Resultado del diálogo ──────────────────────────────────────────
@@ -49,15 +47,15 @@ public class LoginDialog extends JDialog {
     private Rol rolAutenticado = null;
 
     // ── Componentes que necesitamos fuera de sus métodos ──────────────
-    private JTextField     txtUsuario;
+    private JTextField txtUsuario;
     private JPasswordField txtContrasena;
-    private JLabel         lblError;
+    private JLabel lblError;
 
     // ======================================================================
     //  CONSTRUCTOR
     // ======================================================================
     /**
-     * @param parent  Ventana padre (puede ser null si aún no existe JFrame)
+     * @param parent Ventana padre (puede ser null si aún no existe JFrame)
      */
     public LoginDialog(Frame parent) {
         // true = modal: bloquea al padre hasta que este diálogo se cierre
@@ -85,8 +83,8 @@ public class LoginDialog extends JDialog {
         tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
         tarjeta.setBackground(COLOR_TARJETA);
         tarjeta.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(80, 80, 120), 1),
-            new EmptyBorder(30, 35, 30, 35)
+                BorderFactory.createLineBorder(new Color(80, 80, 120), 1),
+                new EmptyBorder(30, 35, 30, 35)
         ));
 
         // Icono / emoji de acceso
@@ -129,8 +127,8 @@ public class LoginDialog extends JDialog {
         // ── Hint de credenciales (útil en fase de desarrollo) ─────────
         // TODO: eliminar este bloque cuando el proyecto sea definitivo
         JLabel lblHint = new JLabel("<html><center><font color='#9090aa'>"
-            + "admin / admin123 &nbsp;|&nbsp; profesor / profe123"
-            + "</font></center></html>");
+                + "admin / admin123 &nbsp;|&nbsp; profesor / profesor123"
+                + "</font></center></html>");
         lblHint.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         lblHint.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -162,48 +160,48 @@ public class LoginDialog extends JDialog {
     //  LÓGICA DE AUTENTICACIÓN
     // ======================================================================
     /**
-     * Valida las credenciales introducidas.
-     * Si son correctas guarda el rol y cierra el diálogo.
-     * Si no, muestra el mensaje de error sin cerrar.
+     * Valida las credenciales introducidas. Si son correctas guarda el rol y
+     * cierra el diálogo. Si no, muestra el mensaje de error sin cerrar.
      *
-     * TODO: reemplaza este método por una consulta a BD o fichero cuando
-     *       tu proyecto lo requiera. La firma no cambia, solo el interior.
+     * TODO: reemplaza este método por una consulta a BD o fichero cuando tu
+     * proyecto lo requiera. La firma no cambia, solo el interior.
      */
     private void intentarLogin() {
-        String usuario    = txtUsuario.getText().trim();
+        String usuario = txtUsuario.getText().trim();
         String contrasena = new String(txtContrasena.getPassword());
 
         // ── Tabla de credenciales ──────────────────────────────────────
         // Para añadir más usuarios añade más else-if aquí,
         // o mejor aún: extrae esto a un método validar(usuario, pass) → Rol
-        
-        GestionUsuarios gestor= new GestionUsuarios();
+        GestionUsuarios gestor = new GestionUsuarios();
         Usuario u = gestor.login(usuario, contrasena);
-        
-        if (u != null){
-            if(u instanceof Administrador){
-            rolAutenticado = Rol.ADMINISTRADOR;    
+
+        if (u != null) {
+            if (u instanceof Administrador) {
+                rolAutenticado = Rol.ADMINISTRADOR;
+            }
+            {
+
+                rolAutenticado = Rol.PROFESOR;
+
             }
             dispose();
-            
-            
-            
-        }else {
+
+        } else {
             lblError.setText("Usuario o contraseña incorrectos.");
             txtContrasena.setText("");
             txtUsuario.requestFocus();
-            
+
             // Sacudir la ventana (efecto "shake") para indicar error
             sacudirVentana();
-            
+
         }
-        
-       
+
     }
 
     /**
-     * Efecto visual de sacudida horizontal cuando el login falla.
-     * Usa un Timer de Swing para no bloquear el hilo de eventos.
+     * Efecto visual de sacudida horizontal cuando el login falla. Usa un Timer
+     * de Swing para no bloquear el hilo de eventos.
      */
     private void sacudirVentana() {
         final int[] pasos = {0};
@@ -255,15 +253,17 @@ public class LoginDialog extends JDialog {
         return campo;
     }
 
-    /** Aplica el estilo oscuro a cualquier JTextField o JPasswordField */
+    /**
+     * Aplica el estilo oscuro a cualquier JTextField o JPasswordField
+     */
     private void estilizarCampo(JTextField campo, String placeholder) {
         campo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         campo.setBackground(COLOR_CAMPO_BG);
         campo.setForeground(COLOR_TEXTO);
         campo.setCaretColor(COLOR_TEXTO);
         campo.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(COLOR_CAMPO_BORDE, 1),
-            new EmptyBorder(6, 10, 6, 10)
+                BorderFactory.createLineBorder(COLOR_CAMPO_BORDE, 1),
+                new EmptyBorder(6, 10, 6, 10)
         ));
         campo.setPreferredSize(new Dimension(260, 38));
         campo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
@@ -273,13 +273,16 @@ public class LoginDialog extends JDialog {
         campo.setText(placeholder);
         campo.setForeground(COLOR_GRIS);
         campo.addFocusListener(new FocusAdapter() {
-            @Override public void focusGained(FocusEvent e) {
+            @Override
+            public void focusGained(FocusEvent e) {
                 if (campo.getText().equals(placeholder)) {
                     campo.setText("");
                     campo.setForeground(COLOR_TEXTO);
                 }
             }
-            @Override public void focusLost(FocusEvent e) {
+
+            @Override
+            public void focusLost(FocusEvent e) {
                 if (campo.getText().isEmpty()) {
                     campo.setText(placeholder);
                     campo.setForeground(COLOR_GRIS);
@@ -301,8 +304,15 @@ public class LoginDialog extends JDialog {
         btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
 
         btn.addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { btn.setBackground(COLOR_HOVER); }
-            @Override public void mouseExited(MouseEvent e)  { btn.setBackground(COLOR_ACENTO); }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btn.setBackground(COLOR_HOVER);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btn.setBackground(COLOR_ACENTO);
+            }
         });
 
         btn.addActionListener(e -> intentarLogin());

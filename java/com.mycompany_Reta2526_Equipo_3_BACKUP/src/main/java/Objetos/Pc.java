@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Pc {
 
-    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private int id_pc;
     private String nombre;
     private String descripcion;
@@ -161,7 +161,7 @@ public class Pc {
      */
     public void setEstado(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         Validador.validaEstado(estado);
-        this.estado = Estados.valueOf(estado);
+        this.estado = Estados.valueOf(estado.toUpperCase().trim());
     }
 
     /**
@@ -180,7 +180,7 @@ public class Pc {
      */
     public void setCategoria(String categoria) throws CategoriaInvalidaException, DescripcionInvalidaException {
         Validador.validaCategoria(categoria);
-        this.categoria = Categorias.valueOf(categoria);
+       this.categoria = Categorias.valueOf(categoria.toUpperCase().trim());
     }
 
     /**

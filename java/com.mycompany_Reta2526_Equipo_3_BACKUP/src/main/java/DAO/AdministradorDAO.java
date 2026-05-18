@@ -18,10 +18,10 @@ import Objetos.Equipos_en_red;
 import Objetos.Herramientas;
 import Objetos.MaterialInventario;
 import Objetos.Material_Fungible;
-import Objetos.Pc;
+
 import Objetos.Perifericos;
 import Repositorio.RepositorioMaterial;
-import Repositorio.RepositorioPc;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,7 +37,7 @@ import Utilidades.LoggerApp;
  *
  * @author DAW120
  */
-public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
+public class AdministradorDAO implements RepositorioMaterial<MaterialInventario> {
 
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
@@ -106,6 +106,36 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      * @param t
      */
     @Override
+    
+    
+    // SUGERENCIA DE CAMBIO DE METODO
+    // Para invocar mensajes correctos de guardado o fallo: 
+    // ==========================================
+    //    public boolean guardarMaterial(MaterialInventario t)
+    //Y en el catch del método:
+    //java} catch (SQLException ex) {
+    //    LoggerApp.log("ERROR: " + ex.getMessage());
+    //    return false;   // ← añadir esto
+    //}
+    //// Al final del método (si todo fue bien):
+    //return true;
+    // =========================================
+    //  Luego en InventarioApp.java, en el ActionListener del botón Guardar:
+    //java// ANTES
+    //dao.guardarMaterial(material);
+    //lblMsg.setForeground(COLOR_OK);
+    //lblMsg.setText("✅ Material guardado correctamente.");
+    //
+    //// DESPUÉS
+    //boolean ok = dao.guardarMaterial(material);
+    //if (ok) {
+    //    lblMsg.setForeground(COLOR_OK);
+    //    lblMsg.setText("✅ Material guardado correctamente.");
+    //} else {
+    //    lblMsg.setForeground(COLOR_ERROR);
+    //    lblMsg.setText("❌ Error al guardar. Revisa los logs.");
+    //}
+    //==============================================
     public void guardarMaterial(MaterialInventario t) {
            // comando de insercion en Mysql
         String sql = "INSERT INTO materialesTaller (nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones) VALUES (?,?,?,?,?,?,?,?)";
@@ -132,7 +162,25 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             if(rs.next()){
             int idAI = rs.getInt(1);
                 
-            
+            // Error al mostrar mensaje de guardado correcto, hay que aplicar un booleano
+            //comprobación de guardado en las tablas hijas
+            //            boolean exito = true;
+            //    try {
+            //        switch (t) {
+            //            case Perifericos pe  -> guardarPeriferico(pe, idAI);
+            //            case Cableado ca     -> guardarCableado(ca, idAI);
+            //            case Componentes co  -> guardarComponente(co, idAI);
+            //            case Herramientas he -> guardarHerramienta(he, idAI);
+            //            case Material_Fungible mf -> guardarMaterialFungible(mf, idAI);
+            //            case Equipos_en_red er    -> guardarEquipoRed(er, idAI);
+            //            default -> { }
+            //        }
+            //    } catch (Exception ex) {
+            //        exito = false;
+            //        LoggerApp.log("❌ Error en tabla hija: " + ex.getMessage());
+            //    }
+            //    if (exito) LoggerApp.log("✅ Se ha insertado correctamente.");
+            //}
             switch (t) {
                 case Perifericos pe ->
                     guardarPeriferico(pe, idAI);
@@ -193,43 +241,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         
     }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public List<Pc> listarPc() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public Pc porIdPc(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     *
-     * @param t
-     */
-    @Override
-    public void guardarPc(Pc t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    /**
-     *
-     * @param id
-     */
-    @Override
-    public void eliminarPc(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     // =========================================================================
     
     

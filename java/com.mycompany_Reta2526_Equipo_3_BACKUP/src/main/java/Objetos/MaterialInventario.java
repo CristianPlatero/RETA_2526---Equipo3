@@ -168,7 +168,7 @@ public class MaterialInventario {
      */
     public void setEstado(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         Validador.validaEstado(estado);
-        this.estado = Estados.valueOf(estado);
+        this.estado = Estados.valueOf(estado.toUpperCase().trim());
     }
 
     /**
@@ -274,7 +274,7 @@ public class MaterialInventario {
     Validador.validaFecha(fecha_alta);
 
     // acepta formato BD yyyy-MM-dd
-    if (fecha_alta.contains("-") && fecha_alta.length() == 10) {
+    if (fecha_alta.matches("\\d{4}-\\d{2}-\\d{2}")) {
         this.fecha_alta = LocalDate.parse(fecha_alta); // formato automático BD
     } else {
         this.fecha_alta = LocalDate.parse(fecha_alta, formato); // dd-MM-yyyy

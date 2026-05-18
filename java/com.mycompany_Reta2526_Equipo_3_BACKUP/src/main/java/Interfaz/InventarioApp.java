@@ -4,6 +4,7 @@ package Interfaz;
 //  IMPORTS — Aquí indicamos a Java qué clases externas vamos a usar.
 //  Sin estos imports el compilador no encontraría las clases.
 // ══════════════════════════════════════════════════════════════════════════════
+import AccesoBD.AccesoBaseDatos;
 import DAO.AdministradorDAO;           // Clase que conecta con la base de datos
 import DAO.PcDAO;
 import DAO.UbicacionDAO;
@@ -156,6 +157,16 @@ public class InventarioApp extends JFrame {
         areaTrabajoContenedor = crearAreaTrabajo();       // Panel vacío del centro
         add(areaTrabajoContenedor, BorderLayout.CENTER);
         add(crearPanelLogs(), BorderLayout.SOUTH); // Panel de Logs abajo
+        // Arrancar con el Logger cargado: 
+        // forzar la inicialización del singleton DESPUÉS de que LoggerApp esté listo
+        SwingUtilities.invokeLater(() -> {
+        AccesoBaseDatos db = AccesoBaseDatos.getInstance();
+            if (db.getConn() != null) {
+                LoggerApp.log("✅ Conexión activa con la base de datos.");
+            } else {
+                LoggerApp.log("❌ Sin conexión a la base de datos.");
+            }
+        });
         // Paso 3: al abrir, mostramos la pantalla de bienvenida en el centro
         mostrarPanel(crearPanelBienvenida());
     }
@@ -1878,7 +1889,7 @@ public class InventarioApp extends JFrame {
             "Estación"
         };
 
-        java.util.List<Pc> lista = pcDao.listarPCs();
+        java.util.List<Pc> lista = pcDao.listarPc();
 
         Object[][] datos = new Object[lista.size()][cols.length];
 
@@ -2030,7 +2041,7 @@ public class InventarioApp extends JFrame {
                         txtObs.getText()
                 );
 
-                pcDao.guardarPC(pc);
+                pcDao.guardarPc(pc);
 
             } catch (CategoriaInvalidaException | DescripcionInvalidaException | EstadoInvalidoException | FechaInvalidaException | IdInvalidoException | NombreInvalidoException ex) {
                 LoggerApp.log(
