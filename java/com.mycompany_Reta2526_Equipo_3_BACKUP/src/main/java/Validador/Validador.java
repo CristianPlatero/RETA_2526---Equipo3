@@ -47,8 +47,8 @@ public class Validador {
         }
         try {
             int valor = Integer.parseInt(inventario.trim());
-            if (valor < 0 || valor > 99) {
-                throw new IdInvalidoException("El ID de inventario debe ser entre 0 y 99.");
+            if (valor < 0) {
+                throw new IdInvalidoException("El ID de inventario debe ser mayor de 0.");
             }
         } catch (NumberFormatException e) {
             throw new IdInvalidoException("El ID de inventario debe ser un número entero válido.");
@@ -67,8 +67,8 @@ public class Validador {
         if (nombre.length() < 2 || nombre.length() > 50) {
             throw new NombreInvalidoException("El nombre debe tener entre 2 y 50 caracteres.");
         }
-        if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s\\-]+$")) {
-            throw new NombreInvalidoException("El nombre solo puede contener letras, espacios y guiones.");
+        if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\d\\s\\-]+$")) {
+            throw new NombreInvalidoException("El nombre solo puede contener letras, espacios, digitos y guiones.");
         }
     }
 
@@ -464,8 +464,8 @@ public class Validador {
         }
         try {
             int valor = Integer.parseInt(pc.trim());
-            if (valor < 0 || valor > 99) {
-                throw new IdInvalidoException("El ID del PC debe ser entre 0 y 99.");
+            if (valor < 0) {
+                throw new IdInvalidoException("El ID del PC debe ser mayor de 0.");
             }
         } catch (NumberFormatException e) {
             throw new IdInvalidoException("El ID del PC debe ser un número entero válido.");
