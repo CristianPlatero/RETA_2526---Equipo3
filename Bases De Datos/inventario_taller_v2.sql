@@ -45,7 +45,7 @@ FOREIGN KEY (id_armario) REFERENCES armario(id_ubi)
 DROP TABLE if exists estacion;
 CREATE TABLE if not exists estacion (
 id_ubi VARCHAR(25) not null,
-tipo enum('operativo', 'reparacion','operativo') not null DEFAULT 'operativo',
+tipo enum('operativo', 'reparacion') not null DEFAULT 'operativo',
 
 PRIMARY KEY (id_ubi),
 FOREIGN KEY (id_ubi) REFERENCES ubicacion(id_ubi),
