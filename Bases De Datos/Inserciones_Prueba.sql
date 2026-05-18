@@ -8,7 +8,7 @@ begin;
 insert into pcs (nombre,descripcion,estado,categoria,id_estacion,observaciones)
 values  ('pc01', 'ninguno','operativo','sobremesa','EST01', 'Op'),
 		('pc02', 'ninguno','operativo','sobremesa','EST01', 'Op'),
-		('pc03', 'ninguno','en reparacion','portatil','EST03', 'ER'),
+		('pc03', 'ninguno','reparacion','portatil','EST03', 'ER'),
 		('pc04', 'ninguno','obsoleto','sobremesa','EST04', 'Ob'),
      --   ('pc06', 'ninguno','obsoleto','sobremesa','ARM04', 'Ob'), -- arm04 no existe en la tabla estacion
 		('pc05', 'ninguno','averiado','portatil','EST02', 'Ob');
@@ -37,7 +37,7 @@ insert into componentes(id_matTa,id_pc)
 values(last_insert_id(),5);
 
 INSERT INTO materialestaller(nombre,descripcion,estado,cantidad,id_ubi,id_balda,observaciones)
-VALUES ('componente4','es un comp','en reparacion',9,'ARM02',2,'no funciona');
+VALUES ('componente4','es un comp','reparacion',9,'ARM02',2,'no funciona');
 
 insert into componentes(id_matTa,id_pc)
 values(last_insert_id(),null);
