@@ -126,6 +126,10 @@ public class Validador {
             case "REPARACION" -> {
 
             }
+            case "AVERIADO" -> {
+
+            }
+            
             default -> {
                 throw new EstadoInvalidoException("El estado debe ser OBSOLETO, OPERATIVO O REPARACION");
             }
@@ -150,7 +154,7 @@ public class Validador {
             case "PRUEBAS" -> {
 
             }
-            case "EN_USO" -> {
+            case "OPERATIVO" -> {
 
             }
             case "REPARACION" -> {
