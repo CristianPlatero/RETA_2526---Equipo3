@@ -49,4 +49,16 @@ public interface RepositorioMaterial<T> {
      * 
      */
     public void eliminarMaterial( int  id);
+    
+    
+    
+    /**
+     *método para actualizar un objeto por su ID
+     * @param id
+     * 
+     * nos permite actualizar un registro de la base de datos por clave primaria
+     * 
+     */
+    public void actualizarPorID(T t);
+    
 }

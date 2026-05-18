@@ -20,7 +20,7 @@ public class App {
 
         // Inicializamos los usuarios para su login correcto
         InicializadorUsuarios.inicializarUsuariosBase();
-System.out.println("CONN: " + AccesoBaseDatos.getInstance().getConn());
+
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName()

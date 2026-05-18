@@ -19,7 +19,7 @@ public class AccesoBaseDatos {
     private static final String URL = "jdbc:mysql://192.168.10.10:3306/" + BD +"?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC\";";
 
     // Mejor dejar estos datos en constantes separadas y claras
-    private static final String USUARIO = "root";
+    private static final String USUARIO = "admin";
     private static final String CLAVE = "mysql";
 
     private Connection conn;

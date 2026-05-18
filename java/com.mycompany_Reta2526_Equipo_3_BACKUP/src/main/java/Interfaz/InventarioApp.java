@@ -160,7 +160,7 @@ public class InventarioApp extends JFrame {
         // Arrancar con el Logger cargado: 
         // forzar la inicialización del singleton DESPUÉS de que LoggerApp esté listo
         SwingUtilities.invokeLater(() -> {
-        AccesoBaseDatos db = AccesoBaseDatos.getInstance();
+            AccesoBaseDatos db = AccesoBaseDatos.getInstance();
             if (db.getConn() != null) {
                 LoggerApp.log("✅ Conexión activa con la base de datos.");
             } else {
@@ -1565,21 +1565,6 @@ public class InventarioApp extends JFrame {
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
         panel.add(crearTituloPanel("Modificar material"), BorderLayout.NORTH);
 
-        // ── Aviso temporal (elimínalo cuando implementes el DAO) ──────────
-        // 🎨 Cuando termines de implementar modificarMaterial() en el DAO,
-        //    elimina este JLabel y su añadido al panel 'norte'
-        JLabel lblAviso = new JLabel(
-                "<html><b>⚠️ PENDIENTE:</b> Necesitas implementar <code>modificarMaterial()</code>"
-                + " en <code>AdministradorDAO</code>.<br>"
-                + "Ver comentario en el código de este panel para saber qué SQL usar.</html>");
-        lblAviso.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lblAviso.setForeground(new Color(160, 100, 0));   // 🎨 Color del texto del aviso (naranja)
-        lblAviso.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 180, 60)), // 🎨 Borde del aviso (amarillo)
-                new EmptyBorder(8, 10, 8, 10)));
-        lblAviso.setOpaque(true);
-        lblAviso.setBackground(new Color(255, 250, 220)); // 🎨 Fondo del aviso (amarillo claro)
-
         // ── Barra para introducir el ID ───────────────────────────────────
         JPanel barraId = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         barraId.setOpaque(false);
@@ -1641,15 +1626,8 @@ public class InventarioApp extends JFrame {
                 return;
             }
 
-            // Buscamos el material en la lista (porIdMaterial no está implementado)
-            List<MaterialInventario> lista = dao.listarMaterial();
-            MaterialInventario encontrado = null;
-            for (MaterialInventario m : lista) {
-                if (m.getId_matTa() == id) {
-                    encontrado = m;
-                    break;
-                }
-            }
+            // Buscamos el material en la lista 
+            MaterialInventario encontrado = dao.porIdMaterial(id);
 
             if (encontrado == null) {
                 lblMsg.setForeground(COLOR_ERROR);
@@ -1687,54 +1665,46 @@ public class InventarioApp extends JFrame {
                 lblMsg.setText("⚠ Primero carga un material.");
                 return;
             }
-            // ══════════════════════════════════════════════════════════════
-            // TODO: Cuando implementes modificarMaterial() en AdministradorDAO,
-            //       añade el método con este SQL:
-            //
-            //   public void modificarMaterial(MaterialInventario t) {
-            //       String sql = "UPDATE materialesTaller SET nombre=?, descripcion=?, "
-            //                  + "estado=?, cantidad=?, id_ubi=?, id_balda=?, "
-            //                  + "fecha_alta=?, observaciones=? WHERE id_matTa=?";
-            //       try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            //           ps.setString(1, t.getNombre());
-            //           ps.setString(2, t.getDescripcion());
-            //           ps.setString(3, t.getEstado().toString().toLowerCase());
-            //           ps.setInt(4, t.getCantidad());
-            //           ps.setString(5, t.getId_ubi());
-            //           ps.setObject(6, t.getId_balda());        // null si no tiene balda
-            //           ps.setString(7, t.getFecha_alta().toString());
-            //           ps.setString(8, t.getObservaciones());
-            //           ps.setInt(9, t.getId_matTa());           // el WHERE
-            //           ps.executeUpdate();
-            //       } catch (SQLException ex) { System.out.println("ERROR: " + ex.getMessage()); }
-            //   }
-            //
-            // Y luego sustituye el JOptionPane de abajo por:
-            //   try {
-            //       MaterialInventario m = new MaterialInventario(
-            //           idTexto, campos[0].getText(), campos[1].getText(),
-            //           campos[2].getText(), campos[3].getText(),
-            //           campos[4].getText(), campos[5].getText(),
-            //           campos[6].getText(), campos[7].getText()
-            //       );
-            //       dao.modificarMaterial(m);
-            //       lblMsg.setForeground(COLOR_OK);
-            //       lblMsg.setText("✅ Material modificado correctamente.");
-            //   } catch (NombreInvalidoException ex) { mostrarErrorCampo(...) } ... etc
-            // ══════════════════════════════════════════════════════════════
-            lblMsg.setForeground(new Color(160, 100, 0));
-            lblMsg.setText("⚠ modificarMaterial() pendiente de implementar en el DAO.");
-            JOptionPane.showMessageDialog(this,
-                    "Para que funcione este botón necesitas implementar\n"
-                    + "modificarMaterial() en AdministradorDAO.\n\n"
-                    + "El SQL necesario está en el comentario del código de este panel.",
-                    "Método pendiente", JOptionPane.WARNING_MESSAGE);
+
+            try {
+                MaterialInventario m = new MaterialInventario(
+                        idTexto, // id_matTa
+                        campos[0].getText(), // nombre
+                        campos[1].getText(), // descripcion
+                        campos[2].getText(), // estado
+                        campos[3].getText(), // cantidad
+                        campos[4].getText(), // id_ubi
+                        campos[5].getText(), // id_balda
+                        campos[6].getText(), // fecha_alta
+                        campos[7].getText() // observaciones
+                );
+                dao.actualizarPorID(m);
+                lblMsg.setForeground(COLOR_OK);
+                lblMsg.setText("✅ Material modificado correctamente.");
+            } catch (IdInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ ID inválido: " + ex.getMessage());
+            } catch (NombreInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Nombre inválido: " + ex.getMessage());
+            } catch (DescripcionInvalidaException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Descripción inválida: " + ex.getMessage());
+            } catch (EstadoInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Estado inválido: " + ex.getMessage());
+            } catch (CantidadInvalidaException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Cantidad inválida: " + ex.getMessage());
+            } catch (FechaInvalidaException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Fecha inválida: " + ex.getMessage());
+            }
         });
 
         // ── Montaje del panel ──────────────────────────────────────────────
         JPanel norte = new JPanel(new BorderLayout(0, 8));
         norte.setOpaque(false);
-        norte.add(lblAviso, BorderLayout.NORTH); // aviso temporal arriba
         norte.add(barraId, BorderLayout.SOUTH); // barra de ID debajo del aviso
 
         JPanel sur = new JPanel(new BorderLayout());
