@@ -59,7 +59,7 @@ public class ExportadorCSV {
      * Si quieres que la web la lea directamente, cámbiala por la ruta
      * absoluta de tu servidor: p.ej. "C:/xampp/htdocs/inventario/exports"
      */
-    private static final String DIRECTORIO_SALIDA = "exports";
+    private static final String DIRECTORIO_SALIDA = "./exports";
 
     /**
      * Codificación usada para escribir los CSV.
@@ -89,19 +89,33 @@ public class ExportadorCSV {
      * 
      */
     public static void exportarTodo() {
-        LoggerApp.log("Iniciando exportacion CSV...");
 
-        // 1. Crear la carpeta de salida si no existe todavía
-        crearDirectorioSalida();
+    System.out.println(">>> EXPORTADOR INICIADO");
 
-        // 2. Exportar un CSV por cada armario registrado en la BD
-        exportarPorTipoUbicacion("armario");
+    crearDirectorioSalida();
 
-        // 3. Exportar un CSV por cada estación registrada en la BD
-        exportarPorTipoUbicacion("estacion");
+    System.out.println(">>> CARPETA OK");
 
-        LoggerApp.log("Exportacion CSV finalizada. Carpeta: " + DIRECTORIO_SALIDA + "/");
-    }
+    exportarPorTipoUbicacion("armario");
+
+    exportarPorTipoUbicacion("estacion");
+
+    System.out.println(">>> EXPORTADOR FINALIZADO");
+}
+//    public static void exportarTodo() {
+//        LoggerApp.log("Iniciando exportacion CSV...");
+//
+//        // 1. Crear la carpeta de salida si no existe todavía
+//        crearDirectorioSalida();
+//
+//        // 2. Exportar un CSV por cada armario registrado en la BD
+//        exportarPorTipoUbicacion("armario");
+//
+//        // 3. Exportar un CSV por cada estación registrada en la BD
+//        exportarPorTipoUbicacion("estacion");
+//
+//        LoggerApp.log("Exportacion CSV finalizada. Carpeta: " + DIRECTORIO_SALIDA + "/");
+//    }
 
     // -------------------------------------------------------------------------
     // MÉTODOS PRIVADOS — ESTRUCTURA GENERAL
@@ -113,6 +127,11 @@ public class ExportadorCSV {
      * (los intentos de escritura posteriores fallarán con su propio mensaje).
      */
     private static void crearDirectorioSalida() {
+        
+       
+        
+        
+        
         try {
             Files.createDirectories(Paths.get(DIRECTORIO_SALIDA));
         } catch (IOException e) {
@@ -142,19 +161,26 @@ public class ExportadorCSV {
         }
 
         try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+     ResultSet rs = ps.executeQuery()) {
 
-            // Cada fila del ResultSet es una ubicación distinta
-            while (rs.next()) {
-                String idUbicacion = rs.getString("id_ubi");
+    boolean hayDatos = false;
 
-                // Generamos el CSV de esa ubicación concreta
-                exportarUbicacion(idUbicacion, conn);
-            }
+    while (rs.next()) {
+        hayDatos = true;
 
-        } catch (SQLException e) {
-            LoggerApp.log("Error al listar '" + tablaUbicacion + "': " + e.getMessage());
-        }
+        String idUbicacion = rs.getString("id_ubi");
+        System.out.println("UBICACION: " + idUbicacion);
+
+        exportarUbicacion(idUbicacion, conn);
+    }
+
+    if (!hayDatos) {
+        System.out.println("NO HAY UBICACIONES EN: " + tablaUbicacion);
+    }
+
+} catch (SQLException e) {
+    e.printStackTrace();
+}
     }
 
     // -------------------------------------------------------------------------

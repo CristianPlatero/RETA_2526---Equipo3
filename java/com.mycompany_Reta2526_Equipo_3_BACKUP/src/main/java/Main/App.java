@@ -4,6 +4,7 @@
  */
 package Main;
 
+import AccesoBD.AccesoBaseDatos;
 import Interfaz.InventarioApp;
 import Interfaz.LoginDialog;
 import Interfaz.Rol;
@@ -19,7 +20,7 @@ public class App {
 
         // Inicializamos los usuarios para su login correcto
         InicializadorUsuarios.inicializarUsuariosBase();
-
+System.out.println("CONN: " + AccesoBaseDatos.getInstance().getConn());
         try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName()
@@ -34,7 +35,7 @@ public class App {
             Rol rol = login.getRolAutenticado();
 
             if (rol != null) {
-                //ExportadorCSV.exportarTodo();
+                ExportadorCSV.exportarTodo();
                 InventarioApp app = new InventarioApp(rol);
                 app.setVisible(true);
 

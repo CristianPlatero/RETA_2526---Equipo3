@@ -179,8 +179,7 @@ public class LoginDialog extends JDialog {
         if (u != null) {
             if (u instanceof Administrador) {
                 rolAutenticado = Rol.ADMINISTRADOR;
-            }
-            {
+            }else{
 
                 rolAutenticado = Rol.PROFESOR;
 

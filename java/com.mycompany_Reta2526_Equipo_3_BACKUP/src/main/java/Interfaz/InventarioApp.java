@@ -72,7 +72,7 @@ public class InventarioApp extends JFrame {
     //    "http://localhost:3000"   → servidor Node.js típico
     //    "http://127.0.0.1:80"     → misma cosa que localhost
     // ══════════════════════════════════════════════════════════════════════
-    private static final String URL_WEB_LOCAL = "http://localhost";
+    private static final String URL_WEB_LOCAL = "http://10.0.10.69";
 
     // ══════════════════════════════════════════════════════════════════════
     //  PALETA DE COLORES
