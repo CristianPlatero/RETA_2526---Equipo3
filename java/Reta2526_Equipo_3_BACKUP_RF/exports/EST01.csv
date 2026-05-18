@@ -1,0 +1,6 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+3,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,componente
+4,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,componente
+5,nombre,descripcion,reparacion,3,EST01,,2010-12-12,observaciones,componente
+6,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,componente
+7,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,componente
