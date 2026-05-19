@@ -44,8 +44,25 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO PARA CREAR UNA LISTA DE MATERIALES
      * @return
+     * Devuelve una lista de Objetos 'MaterialInventario'
+     * 
+     * Crea una lista llamada (materiales)
+     * Crea una sentencia SQL para crear una consulta con todos los campos de la tabla materialesTaller
+     * 
+     * Lanza un try
+     * *Se conecta a la base y se prepara para lanzarle la sentencia
+     * *Crea un ResultSet(rs) que guarda el resultado de la sentencia al lanzarse como una tabla
+     * 
+     * Mientras el rs tenga una fila despues 
+     * **empezando desde antes de la primera fila de la tabla que genera la consulta
+     * *Añade a (materiales) el return del METODO crearMaterialBD() con rs como atributo
+     * **El return es un Objeto 'MaterialInventario'
+     * 
+     * Si ocurre algun error se lanza una excepcion
+     * 
+     * Devuelve (materiales)
      */
     @Override
     public List<MaterialInventario> listarMaterial() {
@@ -79,9 +96,26 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO QUE BUSCA UN MATERIAL POR SU ID
      * @param id
-     * @return
+     * El valor por el que se busca
+     * 
+     * @return 
+     * Devuelve un Objeto 'MaterialInventario'
+     * 
+     * Inicializa un Objeto 'MaterialInventario'(m) como NULL
+     * 
+     * Crea una sentencia SQL incompleta para mostrar todos los campos en la tabla 'materialesTaller' donde el id_matTa sea igual a (?)
+     * 
+     * Se conecta a la base y se prepara para lanzarle la sentencia
+     * Cambia el primer (?) de la sentencia por el id
+     * Crea un ResultSet(rs) que guarda el resultado de la sentencia al lanzarse como una tabla
+     * Si tiene una fila 
+     * *(m) es igual al RETURN DEL METODO crearMaterialBD() con (rs) como atributo
+     * 
+     * En caso de fallo lanza una excepcion
+     * 
+     * Devuelve (m)
      */
     @Override
     public MaterialInventario porIdMaterial(int id) {
@@ -266,6 +300,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     }
     
+    /**
+     *METODO QUE MODIFICA UN OBJETO DE LA BD POR SU ID
+     * @param t
+     * Un Objeto 'MaterialInventario'
+     * 
+     * Se crea una sentencia SQL incompleta para modificar los campos de una fila en la tabla 'materialesTaller'
+     * *Los valores de los campos cambian a (?)(x8)
+     * *El cambio se realiza en la fila donde el campo id_matTa sea (?)
+     * 
+     * Se conecta a la BD y se prepara para lanzar la sentencia
+     * *Sustituye los 8 primeros (?) por los atributes de t y el ultimo (?) por el id_matTa de t
+     * Ejecuta la sentencia
+     * 
+     */
     @Override
     public void actualizarPorID(MaterialInventario t) {
        String sql = "UPDATE  materialesTaller SET "
@@ -387,8 +435,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     * METODO PARA INSERTAR UN OBJETO COMPONENTE EN LA TABLA componentes DE LA
-     * BD
+     * METODO PARA INSERTAR UN OBJETO COMPONENTE EN LA TABLA componentes DE LA BD
      *
      * @param t Es el Objeto Componente que se va a insertar
      * @param id Es el id con el que va a ser insertado
@@ -455,9 +502,18 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO QUE GUARDA UN CABLE EN LA TABLA cableado DE LA BD
      * @param t
+     * Es el Objeto Cableado del que saca los datos a insertar
      * @param id
+     * Es el id con el que se guarda
+     * 
+     * Crea una sentencia SQL de Insercion incompleta
+     * *Los 4 datos a insertar son(?)x4
+     * 
+     * Se conecta a la BD y se prepara para lanzar la sentencia
+     * *Sustituye el primer (?) por el id y el resto (?) por los atributos de t
+     * Ejecuta la sentencia
      */
     public void guardarCableado(Cableado t, int id) {
         String sql = "INSERT INTO cableado (id_matTa, longitud, conector1, conector2) VALUES (?,?,?,?)";
@@ -478,9 +534,18 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO QUE GUARDA UNA HERRAMIENTA EN LA TABLA herramientas DE LA BD
      * @param t
+     * Es el Objeto Herramientas del que saca los datos a insertar
      * @param id
+     * Es el id con el que se guarda
+     * 
+     * Crea una sentencia SQL de Insercion incompleta
+     * *Los 2 datos a insertar son(?)x2
+     * 
+     * Se conecta a la BD y se prepara para lanzar la sentencia
+     * *Sustituye el primer (?) por el id y el segundo (?) por el atributo tipo de t convertido a String en minusculas
+     * Ejecuta la sentencia
      */
     public void guardarHerramienta(Herramientas t, int id) {
         String sql = "INSERT INTO herramientas (id_matTa, tipo) VALUES (?,?)";
@@ -499,9 +564,18 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO QUE GUARDA UN MATERIAL fUNGIBLE EN LA TABLA material_fungible DE LA BD
      * @param t
+     * Es el Objeto Material_Fungible del que saca los datos a insertar
      * @param id
+     * Es el id con el que se guarda
+     * 
+     * Crea una sentencia SQL de Insercion incompleta
+     * *Los 2 datos a insertar son(?)x2
+     * 
+     * Se conecta a la BD y se prepara para lanzar la sentencia
+     * *Sustituye el primer (?) por el id y el segundo (?) por el atributo tipo de t convertido a String en minusculas
+     * Ejecuta la sentencia
      */
     public void guardarMaterialFungible(Material_Fungible t, int id) {
         String sql = "INSERT INTO material_fungible (id_matTa, estado) VALUES (?,?)";

@@ -19,6 +19,11 @@ public class PcDAO implements RepositorioPc<Pc>{
         return AccesoBaseDatos.getInstance().getConn();
     }
 
+    /**
+     *METODO PARA CREAR UNA LISTA DE PCS
+     * @return
+     * 
+     */
     @Override
     public List<Pc> listarPc() {
 
@@ -81,10 +86,7 @@ public class PcDAO implements RepositorioPc<Pc>{
             stmt.setString(3, pc.getEstado().toString());
             stmt.setString(4, pc.getCategoria().toString());
             stmt.setString(5, pc.getId_estacion());
-            stmt.setDate(
-                    6,
-                    java.sql.Date.valueOf(pc.getFecha_alta())
-            );
+            stmt.setDate(6,java.sql.Date.valueOf(pc.getFecha_alta()));
             stmt.setString(7, pc.getObservaciones());
             stmt.executeUpdate();
             LoggerApp.log("✅ PC guardado correctamente.");

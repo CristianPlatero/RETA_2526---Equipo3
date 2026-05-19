@@ -37,7 +37,7 @@ public class Validador {
      * 
      * Se crea un try
      * Se crea un int llamado valor que es el inventario convertido en int
-     * Si valor es negativo o supera a 99
+     * Si valor es negativo 
      * *Lanza una excepcion
      * Si hay un problema con el parseo lanza una excepcion
      */
@@ -56,9 +56,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO PARA VALIDAR EL nombre
      * @param nombre
+     * El nombre a validar
      * @throws NombreInvalidoException
+     * 
+     * Comprueba que el nombre:
+     * *exista y no este vacio
+     * *Tenga entre 2 y 50 caractereres
+     * *Que solo tenga letras, digitos, espacios o guiones
+     * 
+     * En caso de que no sea asi lanza una excepcion
      */
     public static void validaNombre(String nombre) throws NombreInvalidoException {
         if (nombre == null || nombre.isBlank()) {
@@ -73,9 +81,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO PARA VALIDAR LA descripcion
      * @param descripcion
+     * La descripcion que debe validar
+     * 
      * @throws DescripcionInvalidaException
+     * 
+     * Comprueba que el nombre:
+     * *exista y no este vacio
+     * *Tenga entre 2 y 50 caractereres
+     * 
+     * En caso de que no sea asi lanza una excepcion
      */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
