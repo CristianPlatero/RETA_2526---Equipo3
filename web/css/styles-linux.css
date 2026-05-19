@@ -1,57 +1,89 @@
 /*
-Paleta de colores
-
-Arena #ece4d7
-Azul oscuro #20293c
+====================================================
+ESTILO MODERNO COMPATIBLE UBUNTU / LINUX
+====================================================
 */
 
-/* Diseño página principal */
+/* ==========================================
+   VARIABLES
+========================================== */
 
 :root {
   --bg-main: #0f172a;
   --bg-surface: #111827;
   --bg-soft: #1e293b;
+
   --accent: #38bdf8;
   --accent-hover: #0ea5e9;
-  --text-main: #0f172a;
+
+  /* IMPORTANTE: texto claro */
+  --text-main: #f8fafc;
   --text-secondary: #cbd5e1;
+
   --border-color: rgba(255, 255, 255, 0.08);
+
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.35);
+
   --radius-lg: 18px;
   --radius-md: 12px;
+
   --transition: 0.25s ease;
 }
+
+/* ==========================================
+   RESET
+========================================== */
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
+
+  font-family:
+    "Inter",
+    "Ubuntu",
+    "Noto Sans",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
   background:
     radial-gradient(circle at top left, #1e3a8a 0%, transparent 25%),
     radial-gradient(circle at bottom right, #0f766e 0%, transparent 25%),
     var(--bg-main);
+
   color: var(--text-main);
+
   min-height: 100vh;
 }
+
 /* ==========================================
    HEADER
 ========================================== */
+
 header {
   width: min(92%, 1400px);
+
   margin: 20px auto;
-  background: rgba(17, 24, 39, 0.88);
+
+  background: #ece4d7;
+
   border: 1px solid var(--border-color);
+
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+
   box-shadow: var(--shadow-lg);
+
   overflow: hidden;
-  padding: 0;
 }
+
 header img {
   width: 100%;
   display: block;
@@ -59,17 +91,22 @@ header img {
 }
 
 /* ==========================================
-   NAVEGACIÓN
+   NAV
 ========================================== */
+
 nav {
   width: min(92%, 1400px);
+
   margin: 20px auto;
+
   padding: 14px;
-  background: rgba(36, 50, 82, 0.88);
+
+  background: rgba(36, 50, 82, 0.95);
+
   border: 1px solid var(--border-color);
+
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+
   box-shadow: var(--shadow-lg);
 }
 
@@ -77,29 +114,46 @@ nav .navegador {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 16px;
+
   flex-wrap: wrap;
 }
+
+/* ==========================================
+   BOTONES
+========================================== */
+
 .boton {
   background: linear-gradient(135deg, #0ea5e9, #2563eb);
+
   color: white;
+
   border: none;
+
   border-radius: 999px;
+
   padding: 12px 24px;
+
   min-width: 140px;
+
   font-weight: 600;
-  letter-spacing: 0.3px;
+
   cursor: pointer;
+
   transition:
     transform var(--transition),
     box-shadow var(--transition),
     background var(--transition);
+
   box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
 }
 
 .boton:hover {
   transform: translateY(-3px);
+
   box-shadow: 0 12px 24px rgba(37, 99, 235, 0.45);
+
   background: linear-gradient(135deg, #38bdf8, #2563eb);
 }
 
@@ -107,66 +161,96 @@ nav .navegador {
   transform: scale(0.98);
 }
 
+/* ==========================================
+   FOOTER
+========================================== */
+
 footer {
-  display: flex;
-  justify-content: center;
-  margin: 10px auto;
-  max-width: 60%;
+  width: min(92%, 1400px);
+
+  margin: 20px auto;
+
+  background: rgba(17, 24, 39, 0.95);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+
+  overflow: hidden;
+
   height: 140px;
-  background: #ece4d7;
-  border-radius: 20px;
-  box-shadow: 0 8px 14px #7c7468;
 }
 
 footer img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: block;
-  opacity: 0.92;
 }
 
-/* CONTENEDOR CENTRAL, DONDE VA EL MAPA */
+/* ==========================================
+   CARD CENTRAL
+========================================== */
+
 .card {
-  display: flex;
-  justify-content: center;
-  margin: 10px auto;
-  max-width: 60%;
-  max-height: fit-content;
-  background: #ece4d7;
-  border-radius: 20px;
-  box-shadow: 0 8px 14px #7c7468;
+  width: min(92%, 1400px);
+
+  margin: 20px auto;
+
+  background: rgba(17, 24, 39, 0.95);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-lg);
+
+  padding: 24px;
 }
 
-/* mapa interactivo */
+/* ==========================================
+   MAPA
+========================================== */
 
 .map-wrap {
   position: relative;
+
   width: 100%;
-  max-width: 680px;
+
+  max-width: 900px;
+
   margin: auto;
 }
+
 .map-wrap img {
   width: 100%;
+
   display: block;
-  border-radius: var(--border-radius-lg);
-  box-sizing: border-box;
+
   height: auto;
-  border-radius: 8px;
+
+  border-radius: var(--radius-lg);
 }
 
 /* ==========================================
    HOTSPOTS
 ========================================== */
+
 .hotspot {
   position: absolute;
+
   cursor: pointer;
-  border-radius: 6px;
+
+  border-radius: 8px;
+
   border: 2px solid transparent;
+
   transition:
     background var(--transition),
     border-color var(--transition),
     transform var(--transition);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,131 +258,274 @@ footer img {
 
 .hotspot:hover {
   background: rgba(55, 138, 221, 0.18);
+
   border-color: #378add;
 }
+
 .hotspot.active {
   background: rgba(55, 138, 221, 0.25);
-  border-color: var(--accent);
+
   border-color: #185fa5;
 }
+
 .hotspot-label {
   font-size: 11px;
+
   font-weight: 700;
+
   color: white;
+
   background: rgba(15, 23, 42, 0.82);
+
   padding: 4px 8px;
+
   border-radius: 999px;
+
   border: 1px solid rgba(255, 255, 255, 0.1);
+
   white-space: nowrap;
 }
+
 /* ==========================================
-   OVERLAY / TARJETAS DESPLEGABLES
+   OVERLAY
 ========================================== */
+
 .card-overlay {
   position: absolute;
+
   display: none;
+
   flex-direction: column;
+
   gap: 0.85rem;
+
   width: clamp(250px, 28vw, 340px);
+
   padding: 1rem;
-  background: rgba(15, 23, 42, 0.96);
+
+  background: rgba(15, 23, 42, 0.98);
+
   border: 1px solid rgba(255, 255, 255, 0.08);
+
   border-radius: 20px;
+
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+
   z-index: 20;
-  color: var(--text-main);
+
   overflow: hidden;
 }
 
-/* TARJETAS MODIFICADDAS PARA VERSIÓN MOVIL 
-.card-overlay {
-  position: absolute;
-  display: none;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: clamp(220px, 80vw, 320px);
-  max-width: 90vw;
-  padding: 1rem;
-  background: #27272a;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  z-index: 20;
-  color: #d9d9d9;
-  transform: translateX(0);
-
-}
-
-@media (max-width: 768px) {
-  .card-overlay {
-    width: 90vw;
-    left: 5% !important;  evita que se salga 
-    right: 5%;
-    transform: none;
-  }
-}
-
-
-.card-overlay img {
-  width: 100%;
-  height: auto;
-  max-height: 180px;
-  object-fit: cover;
-  border-radius: 0.5rem;
-}
-
-*/
-
 .card-overlay.visible {
   display: flex;
+
   animation: fadeIn 0.25s ease;
 }
 
 .card-overlay img {
   width: 100%;
+
   max-height: 220px;
+
   object-fit: cover;
+
   border-radius: 14px;
 }
 
 .card-overlay h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
   margin: 0;
+
+  font-size: 1.1rem;
+
   color: white;
 }
 
 .card-overlay p {
-  font-size: 0.9rem;
   margin: 0;
+
+  font-size: 0.9rem;
+
   color: var(--text-secondary);
+
   line-height: 1.6;
 }
 
 .card-overlay a {
   color: #7dd3fc;
-  text-decoration: none;
-}
-
-.card-overlay a:hover {
-  text-decoration: underline;
 }
 
 .card-close {
   position: absolute;
+
   top: 10px;
   right: 12px;
+
   width: 32px;
   height: 32px;
+
   border-radius: 50%;
+
   border: none;
+
   background: rgba(255, 255, 255, 0.08);
+
   color: white;
+
   cursor: pointer;
-  transition: background var(--transition);
 }
 
-.card-close:hover {
-  background: rgba(255, 255, 255, 0.16);
+/* ==========================================
+   GALERÍA
+========================================== */
+
+.card-foto {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 25px;
+
+  justify-content: center;
+
+  width: min(92%, 1400px);
+
+  margin: 20px auto;
+
+  background: rgba(17, 24, 39, 0.95);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius-lg);
+
+  padding: 24px;
+
+  box-shadow: var(--shadow-lg);
+}
+
+.tarjeta-foto {
+  background: #ece4d7;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  width: calc(25% - 20px);
+
+  transition: transform 0.2s ease;
+
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.25);
+}
+
+.tarjeta-foto:hover {
+  transform: scale(1.03);
+}
+
+.tarjeta-foto img {
+  width: 100%;
+
+  height: 180px;
+
+  object-fit: cover;
+}
+
+.tarjeta-foto p {
+  margin: 0;
+
+  padding: 12px;
+
+  color: #20293c;
+}
+
+/* ==========================================
+   INVENTARIO
+========================================== */
+
+.card-inventario {
+  width: min(92%, 1400px);
+
+  margin: 30px auto;
+
+  background: rgba(17, 24, 39, 0.95);
+
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius-lg);
+
+  padding: 24px;
+
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================
+   TABLAS
+========================================== */
+
+.table-wrap {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+table {
+  width: 100%;
+
+  border-collapse: separate;
+
+  border-spacing: 0;
+
+  min-width: 700px;
+}
+
+/* CABECERA */
+
+thead {
+  background: linear-gradient(135deg, #0f172a, #0f766e);
+}
+
+thead th {
+  padding: 16px;
+
+  text-align: left;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: white;
+
+  text-transform: uppercase;
+}
+
+/* FILAS */
+
+tbody tr {
+  background: rgba(30, 41, 59, 0.92);
+
+  transition: background 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(51, 65, 85, 0.9);
+}
+
+tbody tr:hover {
+  background: rgba(14, 165, 233, 0.18);
+}
+
+/* CELDAS */
+
+tbody td {
+  padding: 14px 16px;
+
+  color: #e2e8f0;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  font-size: 14px;
 }
 
 /* ==========================================
@@ -307,37 +534,39 @@ footer img {
 
 .badge {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
-  width: fit-content;
-  font-size: 0.72rem;
+
   padding: 6px 10px;
+
   border-radius: 999px;
+
+  font-size: 12px;
+
   font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
 }
 
 .badge-armario {
   background: rgba(34, 197, 94, 0.2);
+
   color: #86efac;
-  border: 1px solid rgba(34, 197, 94, 0.35);
 }
 
 .badge-estacion {
   background: rgba(59, 130, 246, 0.2);
+
   color: #93c5fd;
-  border: 1px solid rgba(59, 130, 246, 0.35);
 }
 
 .badge-taller {
   background: rgba(168, 85, 247, 0.2);
+
   color: #d8b4fe;
-  border: 1px solid rgba(168, 85, 247, 0.35);
 }
 
 /* ==========================================
-   ANIMACIONES
+   ANIMACIÓN
 ========================================== */
 
 @keyframes fadeIn {
@@ -345,6 +574,7 @@ footer img {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -359,165 +589,29 @@ footer img {
   header,
   nav,
   footer,
-  .card {
+  .card,
+  .card-foto,
+  .card-inventario {
     width: 95%;
-  }
-
-  .card {
-    padding: 14px;
   }
 
   .boton {
     width: 100%;
-    text-align: center;
   }
 
   .card-overlay {
     width: 90vw;
+
     left: 5% !important;
+
     right: 5%;
   }
 
-  .hotspot-label {
-    font-size: 9px;
+  .tarjeta-foto {
+    width: 100%;
   }
-}
 
-/* Galería */
-
-.card-foto {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 25px;
-  justify-content: center;
-  margin: 10px auto;
-  max-width: 80%;
-  max-height: fit-content;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 14px #7c7468;
-}
-
-.tarjeta-foto {
-  background-color: #ece4d7;
-  border-radius: 8px;
-  box-shadow: 0 8px 14px #7c7468;
-  overflow: hidden;
-  text-align: center;
-  /* 4 tarjetas por fila */
-  width: calc(25% - 20px);
-  transition: transform 0.2s;
-}
-
-/* EFECTO HOVER */
-.tarjeta-foto:hover {
-  transform: scale(1.03);
-}
-
-/* IMAGEN */
-.tarjeta-foto img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  display: block;
-}
-
-/* TEXTO */
-.tarjeta-foto p {
-  background-color: #ece4d7;
-  padding: 10px;
-  font-size: 14px;
-  color: #333;
-}
-
-/* INVENTARIO */
-
-.card-inventario {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin: 30px auto;
-  max-width: 70%;
-  max-height: fit-content;
-  background: #ece4d7;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
-}
-
-/* ==========================================
-   TABLAS
-========================================== */
-
-.table-wrap {
-  width: 100%;
-  overflow-x: auto;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  overflow: hidden;
-  min-width: 900px;
-}
-
-/* CABECERA */
-
-thead {
-  background: linear-gradient(135deg, #0f172a, #0f766e);
-}
-
-thead th {
-  padding: 16px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  color: white;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* FILAS */
-
-tbody tr {
-  background: rgba(30, 41, 59, 0.92);
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-/* Alternar colores */
-
-tbody tr:nth-child(even) {
-  background: rgba(51, 65, 85, 0.9);
-}
-
-/* Hover */
-
-tbody tr:hover {
-  background: rgba(14, 165, 233, 0.18);
-}
-
-/* CELDAS */
-
-tbody td {
-  padding: 14px 16px;
-  color: #e2e8f0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  vertical-align: middle;
-  font-size: 14px;
-}
-
-/* Última fila */
-
-tbody tr:last-child td {
-  border-bottom: none;
+  table {
+    min-width: 600px;
+  }
 }
