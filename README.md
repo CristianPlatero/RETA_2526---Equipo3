@@ -7,7 +7,7 @@
 
 
 > ![image](docs/assets/img/RETAMH.png)
-> ![image](docs/assets/img/Equipo3logo.png)
+> ![image](docs/assets/img/EquipoTRESlogo.png)
 
 
 
@@ -174,8 +174,8 @@ Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 - [ ] Script con disparadores de la base de datos, en repositorio GitHub. 
 - [ ] Diagrama de clases completo (en repositorio y documentación). 
 - [x] Diagrama de casos de uso (en repositorio y documentación). 
-- [ ] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
-- [ ] Ejecutable de la aplicación de escritorio Java (.jar). 
+- [x] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
+- [x] Ejecutable de la aplicación de escritorio Java (.jar). 
 - [x] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
 - [ ] (Opcional) Código de las hojas de estilos XSLT en repositorio GitHub. 
 - [ ] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
