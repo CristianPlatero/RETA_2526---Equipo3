@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventario Taller Informática</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <!-- enlace necesario a css  -->
+    <script src="../js/main.js" defer></script>
+    <!-- enlace necesario a javascript-->
+  </head>
+  <body>
+    <header>
+      <div class="img">
+        <img
+          src="../assets/RETAMH.png"
+          alt="logo del equipo"
+          style="border-radius: 14px"
+        />
+      </div>
+    </header>
+
+    <nav>
+      <div class="navegador">
+        <div>
+          <a href="index.html">
+            <button class="boton">inicio</button>
+          </a>
+        </div>
+        |
+        <div>
+          <a href="../pages/contacto.html">
+            <button class="boton">contacto</button>
+          </a>
+        </div>
+        |
+        <div>
+          <a href="../pages/galeria.html">
+            <button class="boton">galeria</button>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="card">
+      <section>
+        <h2 class="sr-only">
+          Plano interactivo del Taller de Informática con armarios y estaciones
+          clicables
+        </h2>
+
+        <div class="map-wrap" id="mapWrap">
+          <img
+            src="../assets/plano-taller-trans.png"
+            alt="Plano Taller de Informática"
+            id="mapImg"
+            style="border-radius: 14px; margin-bottom: 60px"
+          />
+
+          <div
+            class="hotspot"
+            id="hs-a1"
+            style="left: 43%; top: 10%; width: 9%; height: 14%"
+            data-id="a1"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-a2"
+            style="left: 52%; top: 10%; width: 8%; height: 14%"
+            data-id="a2"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-a3"
+            style="left: 60%; top: 10%; width: 10%; height: 14%"
+            data-id="a3"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-a4"
+            style="left: 70%; top: 10%; width: 9%; height: 14%"
+            data-id="a4"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-a5"
+            style="left: 79%; top: 10%; width: 12%; height: 14%"
+            data-id="a5"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-a6"
+            style="left: 69%; top: 27%; width: 10%; height: 7%"
+            data-id="a6"
+          ></div>
+
+          <div
+            class="hotspot"
+            id="hs-e1"
+            style="left: 11%; top: 25%; width: 23%; height: 7%"
+            data-id="e1"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e2"
+            style="left: 12%; top: 35%; width: 7%; height: 12%"
+            data-id="e2"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e3"
+            style="left: 12%; top: 47%; width: 7%; height: 11%"
+            data-id="e3"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e4"
+            style="left: 82%; top: 28%; width: 7%; height: 11%"
+            data-id="e4"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e5"
+            style="left: 82%; top: 39%; width: 7%; height: 11%"
+            data-id="e5"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e6"
+            style="left: 12%; top: 61%; width: 19%; height: 7%"
+            data-id="e6"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e7"
+            style="left: 34%; top: 61%; width: 19%; height: 7%"
+            data-id="e7"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-e8"
+            style="left: 56%; top: 61%; width: 19%; height: 7%"
+            data-id="e8"
+          ></div>
+          <div
+            class="hotspot"
+            id="hs-t1"
+            style="left: 30%; top: 40%; width: 35%; height: 11%"
+            data-id="t1"
+          ></div>
+          <div class="card-overlay" id="infoCard">
+            <button class="card-close" id="cardClose" aria-label="Cerrar">
+              ×
+            </button>
+            <span class="badge" id="cardBadge"></span>
+            <img id="cardImage" class="card-img" />
+            <h3 id="cardTitle"></h3>
+            <p id="cardDesc"></p>
+            <a
+              href="#"
+              id="cardLink"
+              target="_blank"
+              style="color: rgb(126, 163, 212)"
+            ></a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="img">
+        <a
+          href="https://github.com/CristianPlatero/RETA_2526---Equipo3"
+          target="_blank"
+          ><img
+            src="../assets/footer.png"
+            alt="Logo del equipo"
+            style="border-radius: 8px"
+        /></a>
+      </div>
+    </footer>
+  </body>
+</html>
