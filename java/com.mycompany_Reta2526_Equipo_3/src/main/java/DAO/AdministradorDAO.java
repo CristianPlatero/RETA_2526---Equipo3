@@ -12,19 +12,15 @@ import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 import AccesoBD.AccesoBaseDatos;
 import Enum.Estados;
-import Excepciones.CategoriaInvalidaException;
 import Objetos.Cableado;
 import Objetos.Componentes;
 import Objetos.Equipos_en_red;
 import Objetos.Herramientas;
 import Objetos.MaterialInventario;
 import Objetos.Material_Fungible;
-import Objetos.Pc;
 
 import Objetos.Perifericos;
-
 import Repositorio.RepositorioMaterial;
-import Repositorio.RepositorioPc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,21 +29,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import Utilidades.LoggerApp;
 
 /**
  *
  * @author DAW120
  */
-public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
+public class AdministradorDAO implements RepositorioMaterial<MaterialInventario> {
 
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
 
-    //====================================================
-    // MATERIALES
-    //====================================================
     /**
      *
      * @return
@@ -98,9 +93,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                m = crearMaterialBD(rs);
-            }
+            if (rs.next()) {  
+            m = crearMaterialBD(rs);
+        }
 
         } catch (SQLException ex) {
             LoggerApp.log("Error al listar materiales" + ex.getMessage());
@@ -266,28 +261,26 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 LoggerApp.log("Se han eliminado inesperadamente mas de un registro");
             }
         } catch (SQLException ex) {
-            LoggerApp.log(
-                    "❌ Error en la Base de Datos: "
-                    + ex.getMessage());
+            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
+    
     @Override
     public void actualizarPorID(MaterialInventario t) {
-        String sql = "UPDATE  materialesTaller SET "
-                + "nombre = ?,"
-                + "descripcion = ?,"
-                + "estado = ?,"
-                + "cantidad = ?,"
-                + "id_ubi = ?,"
-                + "id_balda = ?,"
-                + "fecha_alta = ?,"
-                + "observaciones = ?"
-                + " WHERE id_matTa = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-
+       String sql = "UPDATE  materialesTaller SET "
+               + "nombre = ?,"
+               + "descripcion = ?,"
+               + "estado = ?,"
+               + "cantidad = ?,"
+               + "id_ubi = ?,"
+               + "id_balda = ?,"
+               + "fecha_alta = ?,"
+               + "observaciones = ?"
+               + " WHERE id_matTa = ?";
+       
+        try(PreparedStatement ps = getConnection().prepareStatement(sql)){
+           
             ps.setString(1, t.getNombre());
             ps.setString(2, t.getDescripcion());
             ps.setString(3, t.getEstado().toString().toLowerCase());
@@ -297,20 +290,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             ps.setString(7, t.getFecha_alta().toString());
             ps.setString(8, t.getObservaciones());
             ps.setInt(9, t.getId_matTa());
-
+           
             int filas = ps.executeUpdate();
-
+           
             if (filas == 0) {
                 LoggerApp.log("No se ha actualizado ningun registro en materialesTaller");
-            } else if (filas > 1) {
+            }else if(filas > 1){
                 LoggerApp.log("Se han actualizado inesperadamente mas de un registro");
             }
         } catch (SQLException ex) {
-            LoggerApp.log(
-                    "❌ Error en la Base de Datos: "
-                    + ex.getMessage());
+            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+       
+        
     }
 
     // =========================================================================
@@ -528,243 +520,4 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
-    //====================================================
-    // PCS
-    //====================================================
-    @Override
-    public List<Pc> listarPc() {
-
-        List<Pc> lista = new ArrayList<>();
-
-        String sql = """
-            SELECT *
-            FROM pcs
-        """;
-
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-
-                Pc pc = new Pc(
-                        String.valueOf(rs.getInt("id_pc")),
-                        rs.getString("nombre"),
-                        rs.getString("descripcion"),
-                        rs.getString("estado"),
-                        rs.getString("categoria"),
-                        rs.getString("id_estacion"),
-                        rs.getDate("fecha_alta").toLocalDate()
-                                .format(java.time.format.DateTimeFormatter
-                                        .ofPattern("dd-MM-yyyy")),
-                        rs.getString("observaciones")
-                );
-                lista.add(pc);
-            }
-        } catch (Exception e) {
-            LoggerApp.log(
-                    "❌ Error listando PCs: "
-                    + e.getMessage()
-            );
-        }
-        return lista;
-    }
-
-    @Override
-    public Pc porIdPc(int id) {
-
-        String sql = "SELECT id_pc, nombre, descripcion, estado, categoria, id_estacion, fecha_alta, observaciones FROM pcs WHERE id_pc = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-
-                Pc pc = new Pc(
-                        String.valueOf(rs.getInt("id_pc")),
-                        rs.getString("nombre"),
-                        rs.getString("descripcion"),
-                        rs.getString("estado"),
-                        rs.getString("categoria"),
-                        rs.getString("id_estacion"),
-                        rs.getDate("fecha_alta").toLocalDate()
-                                .format(java.time.format.DateTimeFormatter
-                                        .ofPattern("dd-MM-yyyy")),
-                        rs.getString("observaciones")
-                );
-                return pc;
-            }
-
-        } catch (SQLException ex) {
-            LoggerApp.log("Error al listar Pcs" + ex.getMessage());
-        } catch (IdInvalidoException ex) {
-            LoggerApp.log("Error con el id " + ex.getMessage());
-        } catch (NombreInvalidoException ex) {
-            LoggerApp.log("Error con el nombre " + ex.getMessage());
-        } catch (DescripcionInvalidaException ex) {
-            LoggerApp.log("Error con la descripcion " + ex.getMessage());
-        } catch (EstadoInvalidoException ex) {
-            LoggerApp.log("Error con el estado " + ex.getMessage());
-        } catch (FechaInvalidaException ex) {
-            LoggerApp.log("Error con la fecha " + ex.getMessage());
-        } catch (CategoriaInvalidaException ex) {
-            LoggerApp.log("Error con la categoria " + ex.getMessage());
-        }
-        return null;
-
-    }
-
-    public void actualizarPcPorID(Pc t) {
-        String sql = "UPDATE  pcs SET "
-                + "nombre = ?,"
-                + "descripcion = ?,"
-                + "estado = ?,"
-                + "id_estacion = ?,"
-                + "fecha_alta = ?,"
-                + "observaciones = ?"
-                + " WHERE id_pc = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            
-            ps.setString(1, t.getNombre());
-            ps.setString(2, t.getDescripcion());
-            ps.setString(3, t.getEstado().toString().toLowerCase());
-            ps.setString(4, t.getId_estacion());
-            ps.setString(5, t.getFecha_alta().toString());
-            ps.setString(6, t.getObservaciones());
-            ps.setInt(7, t.getId_pc());
-
-            int filas = ps.executeUpdate();
-
-            if (filas == 0) {
-                LoggerApp.log("No se ha actualizado ningun registro en Pcs");
-            } else if (filas > 1) {
-                LoggerApp.log("Se han actualizado inesperadamente mas de un registro de Pcs");
-            }
-        } catch (SQLException ex) {
-            LoggerApp.log(
-                    "❌ Error en la Base de Datos: "
-                    + ex.getMessage());
-        }
-
-    }
-
-    @Override
-    public void guardarPc(Pc pc) {
-
-        String sql = """
-            INSERT INTO pcs
-            (
-                nombre,
-                descripcion,
-                estado,
-                categoria,
-                id_estacion,
-                fecha_alta,
-                observaciones
-            )
-            VALUES
-            (?, ?, ?, ?, ?, ?, ?)
-        """;
-
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
-
-            stmt.setString(1, pc.getNombre());
-            stmt.setString(2, pc.getDescripcion());
-            stmt.setString(3, pc.getEstado().toString());
-            stmt.setString(4, pc.getCategoria().toString());
-            stmt.setString(5, pc.getId_estacion());
-            stmt.setDate(
-                    6,
-                    java.sql.Date.valueOf(pc.getFecha_alta())
-            );
-            stmt.setString(7, pc.getObservaciones());
-            stmt.executeUpdate();
-            LoggerApp.log("✅ PC guardado correctamente.");
-
-        } catch (SQLException e) {
-            LoggerApp.log(
-                    "❌ Error guardando PC: "
-                    + e.getMessage()
-            );
-        }
-    }
-
-    @Override
-    public void eliminarPc(int id) {
-        String sql = "DELETE FROM pcs WHERE id_pc = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-
-            int filas = ps.executeUpdate();
-
-            if (filas == 0) {
-                LoggerApp.log("No se ha eliminado ningun Pc del inventario");
-            } else if (filas > 1) {
-                LoggerApp.log("Se han eliminado inesperadamente mas de un Pc");
-            }
-        } catch (SQLException ex) {
-            LoggerApp.log(
-                    "❌ Error en la Base de Datos: "
-                    + ex.getMessage());
-
-        }
-
-    }
-
-    //====================================================
-    // UBICACIONES 
-    //====================================================
-    public List<String> listarUbicaciones() {
-
-        List<String> lista = new ArrayList<>();
-
-        String sql = """
-            SELECT id_ubi
-            FROM ubicacion
-            ORDER BY id_ubi
-        """;
-
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                lista.add(
-                        rs.getString("id_ubi")
-                );
-            }
-        } catch (SQLException e) {
-            LoggerApp.log(
-                    "❌ Error listando ubicaciones: "
-                    + e.getMessage()
-            );
-        }
-        return lista;
-    }
-
-    public List<String> listarEstaciones() {
-
-        List<String> lista = new ArrayList<>();
-
-        String sql = """
-            SELECT id_ubi
-            FROM estacion
-            ORDER BY id_ubi
-        """;
-
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                lista.add(
-                        rs.getString("id_ubi")
-                );
-            }
-        } catch (SQLException e) {
-            LoggerApp.log(
-                    "❌ Error listando estaciones: "
-                    + e.getMessage()
-            );
-        }
-        return lista;
-    }
 }
