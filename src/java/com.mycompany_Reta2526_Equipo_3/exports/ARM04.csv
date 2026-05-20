@@ -1,1 +1,2 @@
 id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+3,tuerca,es una tuerca,operativo,25,ARM04,5,2026-05-20,muchas tuercas,fungible

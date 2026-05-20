@@ -96,6 +96,20 @@ public class InventarioApp extends JFrame {
     private static final Color COLOR_ERROR = new Color(180, 60, 60);  // 🎨 Texto de error (rojo oscuro)
     private static final Color COLOR_OK = new Color(40, 140, 80);  // 🎨 Texto de éxito (verde)
 
+    // PALETA COLORES PARA PROFESOR
+    private static final Color COLOR_BANNER_PROF = new Color(20, 38, 30);      // Verde pino muy oscuro (Gran contraste con el original)
+    private static final Color COLOR_MENU_BG_PROF = new Color(32, 54, 44);     // Verde oliva oscuro para el fondo del menú
+    private static final Color COLOR_MENU_BTN_PROF = new Color(48, 80, 66);    // Separadores en tono verde apagado
+    private static final Color COLOR_MENU_HOVER_PROF = new Color(64, 110, 90); // Al pasar el ratón se ilumina en verde medio
+    private static final Color COLOR_MENU_ACTIVO_PROF = new Color(50, 140, 100); // Selección activa: Verde Esmeralda vibrante (igual que tu BADGE)
+    
+    // variables para metodo cargarTema();
+    private static Color colorBannerActual;
+    private static Color colorMenuBgActual;
+    private static Color colorMenuBtnActual;
+    private static Color colorMenuHoverActual;
+    private static Color colorMenuActivoActual;
+
     // ══════════════════════════════════════════════════════════════════════
     //  ATRIBUTOS DE ESTADO
     //  Variables que guardan información mientras la aplicación está abierta.
@@ -147,7 +161,7 @@ public class InventarioApp extends JFrame {
     public InventarioApp(Rol rol) {
 
         this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
-
+        cargarTema();                   // carga el tema según el rol asignado
         configurarVentana();            // Paso 1: tamaño, título, comportamiento al cerrar
 
         // Paso 2: añadimos las tres zonas principales de la ventana.
@@ -169,6 +183,27 @@ public class InventarioApp extends JFrame {
         });
         // Paso 3: al abrir, mostramos la pantalla de bienvenida en el centro
         mostrarPanel(crearPanelBienvenida());
+    }
+
+    // ELECCION DE TEMAS SEGUN ROL
+    private void cargarTema() {
+
+        if (rolActual == Rol.PROFESOR) {
+
+            colorBannerActual = COLOR_BANNER_PROF;
+            colorMenuBgActual = COLOR_MENU_BG_PROF;
+            colorMenuBtnActual = COLOR_MENU_BTN_PROF;
+            colorMenuHoverActual = COLOR_MENU_HOVER_PROF;
+            colorMenuActivoActual = COLOR_MENU_ACTIVO_PROF;
+
+        } else {
+
+            colorBannerActual = COLOR_BANNER;
+            colorMenuBgActual = COLOR_MENU_BG;
+            colorMenuBtnActual = COLOR_MENU_BTN;
+            colorMenuHoverActual = COLOR_MENU_HOVER;
+            colorMenuActivoActual = COLOR_MENU_ACTIVO;
+        }
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -202,6 +237,9 @@ public class InventarioApp extends JFrame {
 
         // Definimos que la ventana usa BorderLayout para organizar sus zonas
         setLayout(new BorderLayout());
+        Image icono = Toolkit.getDefaultToolkit()
+                .getImage(getClass().getResource("/icon.png"));
+        setIconImage(icono);
     }
 
     /**
@@ -233,13 +271,15 @@ public class InventarioApp extends JFrame {
     private JPanel crearBanner() {
         // Panel raíz del banner con BorderLayout
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(COLOR_BANNER);  // 🎨 Fondo oscuro del banner
+        
+            panel.setBackground(colorBannerActual);  
+        
         panel.setPreferredSize(new Dimension(ANCHO_VENTANA, ALTO_BANNER));
 
         // Borde: solo por debajo (bottom), con 2 píxeles de grosor y color morado
         // createMatteBorder(arriba, izq, abajo, der, color)
         // 🎨 Cambia el grosor (2) o el color (COLOR_MENU_ACTIVO) de esta línea decorativa
-        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, COLOR_MENU_ACTIVO));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, colorMenuActivoActual));
 
         // ── ZONA IZQUIERDA: imagen / logo ──────────────────────────────────
         // Actualmente muestra un placeholder con texto "[TU IMAGEN]".
@@ -256,7 +296,7 @@ public class InventarioApp extends JFrame {
         JLabel lblImagen = new JLabel(new ImageIcon(imgEscalada));
         lblImagen.setPreferredSize(new Dimension(110, ALTO_BANNER));
         // Borde punteado decorativo alrededor del placeholder
-        lblImagen.setBorder(BorderFactory.createDashedBorder(COLOR_MENU_HOVER, 2, 4));
+        lblImagen.setBorder(BorderFactory.createDashedBorder(colorMenuHoverActual, 2, 4));
 
         // ── ZONA CENTRAL: título + subtítulo + pastilla de rol ─────────────
         // Usamos BoxLayout en Y para apilar los elementos verticalmente
@@ -367,11 +407,11 @@ public class InventarioApp extends JFrame {
         JPanel panel = new JPanel();
         // BoxLayout en Y: apila los elementos uno encima de otro (verticalmente)
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(COLOR_MENU_BG);
+        panel.setBackground(colorMenuBgActual);
         // setPreferredSize fija el ancho; el alto (0) lo gestiona el layout
         panel.setPreferredSize(new Dimension(ANCHO_MENU, 0));
         // Borde de 1px a la derecha para separar visualmente el menú del área de trabajo
-        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, COLOR_MENU_BTN));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, colorMenuBtnActual));
 
         // ── Sección CONSULTA: visible para todos ──────────────────────────
         panel.add(crearEtiquetaSeccion("CONSULTA")); // título de la sección
@@ -396,10 +436,11 @@ public class InventarioApp extends JFrame {
         panel.add(crearSeparador());
         panel.add(crearEtiquetaSeccion("PCS"));
         panel.add(crearBotonMenu("🖥️  Listar PCs", e -> mostrarPanel(crearPanelListarPCs())));
-        panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
-        panel.add(crearBotonMenu("✏️  Modificar PC", e -> mostrarPanel(crearPanelModificarPc())));
-        panel.add(crearBotonMenu("🗑️  Eliminar PC", e -> mostrarPanel(crearPanelEliminarPC())));
-        
+        if (rolActual == Rol.ADMINISTRADOR) {
+            panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
+            panel.add(crearBotonMenu("✏️  Modificar PC", e -> mostrarPanel(crearPanelModificarPc())));
+            panel.add(crearBotonMenu("🗑️  Eliminar PC", e -> mostrarPanel(crearPanelEliminarPC())));
+        }
         // ── Sección OTROS: visible para todos ─────────────────────────────
         panel.add(Box.createVerticalStrut(6));
         panel.add(crearSeparador());
@@ -439,7 +480,7 @@ public class InventarioApp extends JFrame {
      */
     private JSeparator crearSeparador() {
         JSeparator sep = new JSeparator();
-        sep.setForeground(COLOR_MENU_BTN); // 🎨 Color de la línea separadora
+        sep.setForeground(colorMenuBtnActual); // 🎨 Color de la línea separadora
         // La línea ocupa el ancho del menú menos 20px de margen a cada lado
         sep.setMaximumSize(new Dimension(ANCHO_MENU - 20, 1)); // 🎨 Grosor: cambia el 1 por 2 para más visible
         sep.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -467,7 +508,7 @@ public class InventarioApp extends JFrame {
         JButton btn = new JButton(texto);
         btn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13)); // 🎨 Fuente de los botones del menú
         btn.setForeground(COLOR_TEXTO_CLARO);
-        btn.setBackground(COLOR_MENU_BG);
+        btn.setBackground(colorMenuBgActual);
         btn.setOpaque(true);
         btn.setBorderPainted(false);  // sin borde
         btn.setFocusPainted(false);   // sin rectángulo de foco
@@ -484,7 +525,7 @@ public class InventarioApp extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 // Solo cambia a hover si NO es el botón actualmente activo
                 if (btn != botonActivo) {
-                    btn.setBackground(COLOR_MENU_HOVER);
+                    btn.setBackground(colorMenuHoverActual);
                 }
             }
 
@@ -492,7 +533,7 @@ public class InventarioApp extends JFrame {
             public void mouseExited(MouseEvent e) {
                 // Al salir, solo restaura si NO es el activo
                 if (btn != botonActivo) {
-                    btn.setBackground(COLOR_MENU_BG);
+                    btn.setBackground(colorMenuBgActual);
                 }
             }
         });
@@ -501,11 +542,11 @@ public class InventarioApp extends JFrame {
         btn.addActionListener(e -> {
             // Des-resalta el botón que estaba activo antes
             if (botonActivo != null) {
-                botonActivo.setBackground(COLOR_MENU_BG);
+                botonActivo.setBackground(colorMenuBgActual);
             }
             // Marca este como el nuevo activo
             botonActivo = btn;
-            btn.setBackground(COLOR_MENU_ACTIVO); // 🎨 Color del botón activo (morado)
+            btn.setBackground(colorMenuActivoActual); // 🎨 Color del botón activo (morado)
             // Ejecuta la acción que se pasó como parámetro (abre el panel)
             accion.actionPerformed(e);
         });
@@ -571,6 +612,8 @@ public class InventarioApp extends JFrame {
                 rolActual == Rol.ADMINISTRADOR ? "🛠️" : "📚", SwingConstants.CENTER);
         lblEmoji.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 40)); // 🎨 Tamaño del emoji
         lblEmoji.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblEmoji.setPreferredSize(new Dimension(60, 55));
+        lblEmoji.setMaximumSize(new Dimension(60, 55));
 
         // Texto "Bienvenido, Administrador/Profesor"
         JLabel lblBien = new JLabel("Bienvenido, " + nombreRol());
@@ -1325,7 +1368,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.weightx = 0;
-        form.add(etiqueta("ID Ubicación (ej: A1, B2...):"), gbc);
+        form.add(etiqueta("ID Ubicación:"), gbc);
         gbc.gridx = 1;
         gbc.weightx = 1;
         JComboBox<String> comboUbi = new JComboBox<>(new String[]{"ARM01", "ARM02", "ARM03", "ARM04", "ARM05",
@@ -2093,13 +2136,18 @@ public class InventarioApp extends JFrame {
                 = crearBotonAccion(
                         "💾 Guardar PC"
                 );
-
+        JLabel lblMsg = new JLabel(" "); // mensaje de éxito o error (empieza vacío)
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
         y++;
 
         gbc.gridx = 1;
         gbc.gridy = y;
 
         panel.add(btnGuardar, gbc);
+        y++;
+        gbc.gridx = 1;
+        gbc.gridy = y;
+        panel.add(lblMsg, gbc);
 
         btnGuardar.addActionListener(e -> {
             try {
@@ -2120,12 +2168,12 @@ public class InventarioApp extends JFrame {
                 );
 
                 dao.guardarPc(pc);
-
+                lblMsg.setForeground(COLOR_OK);
+                lblMsg.setText("✅ Pc \"" + txtNombre.getText() + "\" guardado correctamente.");
             } catch (CategoriaInvalidaException | DescripcionInvalidaException | EstadoInvalidoException | FechaInvalidaException | IdInvalidoException | NombreInvalidoException ex) {
-                LoggerApp.log(
-                        "❌ Error creando PC: "
-                        + ex.getMessage()
-                );
+                LoggerApp.log("❌ Error creando PC: " + ex.getMessage());
+                lblMsg.setForeground(COLOR_ERROR);         // ← el usuario ve qué falló
+                lblMsg.setText("⚠ " + ex.getMessage());
             }
         });
 
@@ -2294,8 +2342,8 @@ public class InventarioApp extends JFrame {
         return panel;
     }
 
-        private JPanel crearPanelEliminarPC() {
-            
+    private JPanel crearPanelEliminarPC() {
+
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(COLOR_TRABAJO_BG);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -2379,8 +2427,7 @@ public class InventarioApp extends JFrame {
                 lblMsg.setText("✅ Material con ID " + id + " eliminado.");
                 txtId.setText(""); // limpiamos el campo
             }
-            
-            
+
         });
 
         // Atajo: pulsar Enter en el campo dispara el botón
@@ -2391,11 +2438,7 @@ public class InventarioApp extends JFrame {
         panel.add(centro, BorderLayout.CENTER);
         return panel;
     }
-        
-        
-        
-        
-        
+
     // ══════════════════════════════════════════════════════════════════════
     //  PANEL WEB
     //  Abre la web local del proyecto en el navegador predeterminado del sistema.
@@ -2430,6 +2473,8 @@ public class InventarioApp extends JFrame {
         JLabel lblIcono = new JLabel("🌐", SwingConstants.CENTER);
         lblIcono.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 48)); // 🎨 Tamaño del icono emoji
         lblIcono.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblIcono.setPreferredSize(new Dimension(60, 55));
+        lblIcono.setMaximumSize(new Dimension(60, 55));
 
         // Título del panel
         JLabel lblTitulo = new JLabel("Web del proyecto");
@@ -2609,7 +2654,7 @@ public class InventarioApp extends JFrame {
     private JButton crearBotonAccion(String texto) {
         JButton btn = new JButton(texto);
         btn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13)); // 🎨 Fuente de los botones de acción
-        btn.setBackground(COLOR_MENU_ACTIVO);             // 🎨 Color de fondo (morado)
+        btn.setBackground(colorMenuActivoActual);             // 🎨 Color de fondo (morado)
         btn.setForeground(Color.WHITE);                   // 🎨 Color del texto (blanco)
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
@@ -2620,12 +2665,12 @@ public class InventarioApp extends JFrame {
         btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                btn.setBackground(COLOR_MENU_HOVER);
+                btn.setBackground(colorMenuHoverActual);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                btn.setBackground(COLOR_MENU_ACTIVO);
+                btn.setBackground(colorMenuActivoActual);
             }
         });
         return btn;

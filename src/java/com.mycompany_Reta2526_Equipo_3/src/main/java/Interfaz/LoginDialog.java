@@ -91,6 +91,8 @@ public class LoginDialog extends JDialog {
         JLabel lblIcono = new JLabel("🔐", SwingConstants.CENTER);
         lblIcono.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 36));
         lblIcono.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblIcono.setPreferredSize(new Dimension(60,55));
+        lblIcono.setMaximumSize(new Dimension(60,55));
 
         // Título
         JLabel lblTitulo = new JLabel("Acceso al sistema");
@@ -126,11 +128,11 @@ public class LoginDialog extends JDialog {
 
         // ── Hint de credenciales (útil en fase de desarrollo) ─────────
         // TODO: eliminar este bloque cuando el proyecto sea definitivo
-        JLabel lblHint = new JLabel("<html><center><font color='#9090aa'>"
-                + "admin / admin123 &nbsp;|&nbsp; profesor / profesor123"
-                + "</font></center></html>");
-        lblHint.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 11));
-        lblHint.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        JLabel lblHint = new JLabel("<html><center><font color='#9090aa'>"
+//                + "admin / admin123 &nbsp;|&nbsp; profesor / profesor123"
+//                + "</font></center></html>");
+//        lblHint.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 11));
+//        lblHint.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // ── Montaje de la tarjeta ──────────────────────────────────────
         tarjeta.add(lblIcono);
@@ -151,7 +153,7 @@ public class LoginDialog extends JDialog {
         tarjeta.add(Box.createVerticalStrut(16));
         tarjeta.add(btnEntrar);
         tarjeta.add(Box.createVerticalStrut(18));
-        tarjeta.add(lblHint);
+//        tarjeta.add(lblHint);
 
         fondo.add(tarjeta);
     }
