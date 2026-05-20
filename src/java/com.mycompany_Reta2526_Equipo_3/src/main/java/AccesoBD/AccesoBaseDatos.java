@@ -5,6 +5,8 @@
 package AccesoBD;
 
 import Utilidades.LoggerApp;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,12 +17,8 @@ import java.util.Properties;
  * @author DAW126
  */
 public class AccesoBaseDatos {
-     private static final String BD = "inventario_taller";
-    private static final String URL = "jdbc:mysql://localhost:3306/" + BD;
 
-    // Mejor dejar estos datos en constantes separadas y claras
-    private static final String USUARIO = "root";
-    private static final String CLAVE = "mysql";
+    private static final String CONFIG_FILE = "/db.properties";
 
     private Connection conn;
 
@@ -29,14 +27,44 @@ public class AccesoBaseDatos {
     }
 
     private void abrirConexion() {
-        try {
-            Properties properties = new Properties();
-            properties.setProperty("user", USUARIO);
-            properties.setProperty("password", CLAVE);
-            properties.setProperty("useSSL", "false");
-            properties.setProperty("serverTimezone", "Europe/Madrid");
+        Properties config = new Properties();
 
-            conn = DriverManager.getConnection(URL, properties);
+        try (InputStream input = AccesoBaseDatos.class.getResourceAsStream(CONFIG_FILE);) {
+
+            if (input == null) {
+                LoggerApp.log("No se encontró el archivo" + CONFIG_FILE);
+                conn = null;
+                return;
+            }
+            config.load(input);
+
+        } catch (IOException ex) {
+            LoggerApp.log("Error al leer el archivo de configuración.");
+            LoggerApp.log("Mensaje: " + ex.getMessage());
+            conn = null;
+            return;
+        }
+
+        // ahora se construye la URL con los valores del .properties
+        String host = config.getProperty("db.host");
+        String puerto = config.getProperty("db.puerto");
+        String nombre = config.getProperty("db.nombre");
+        String timezone = config.getProperty("db.serverTimezone");
+
+        //LA URL FINAL
+        String url = "jdbc:mysql://" + host + ":" + puerto + "/" + nombre
+                + "?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone="
+                + timezone;
+
+        // CREDENCIALES
+        Properties properties = new Properties();
+        properties.setProperty("user", config.getProperty("db.usuario"));
+        properties.setProperty("password", config.getProperty("db.clave"));
+        properties.setProperty("useSSL", "false");
+        properties.setProperty("serverTimezone", timezone);
+
+        try {
+            conn = DriverManager.getConnection(url, properties);
             LoggerApp.log("Conexión correcta a la base de datos.");
 
         } catch (SQLException ex) {
@@ -55,6 +83,7 @@ public class AccesoBaseDatos {
     }
 
     private static class AccesoBaseDatosHolder {
+
         private static final AccesoBaseDatos INSTANCE = new AccesoBaseDatos();
     }
 
