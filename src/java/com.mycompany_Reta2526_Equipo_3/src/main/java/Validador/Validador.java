@@ -143,7 +143,7 @@ public class Validador {
             }
             
             default -> {
-                throw new EstadoInvalidoException("El estado debe ser OBSOLETO, OPERATIVO O REPARACION");
+                throw new EstadoInvalidoException("El estado debe ser OBSOLETO, OPERATIVO, REPARACION O AVERIADO");
             }
         }
     }

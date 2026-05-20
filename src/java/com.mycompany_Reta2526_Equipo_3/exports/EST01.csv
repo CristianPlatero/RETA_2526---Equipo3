@@ -1,1 +1,3 @@
 id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+4,router,es un router,operativo,1,EST01,,2026-05-20,ninguna,periferico
+5,router2,es otro router,operativo,1,EST01,,2026-05-20,nada,periferico
