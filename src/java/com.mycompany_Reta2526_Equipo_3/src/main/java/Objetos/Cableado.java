@@ -6,6 +6,7 @@ package Objetos;
 
 import Validador.Validador;
 import Excepciones.CantidadInvalidaException;
+import Excepciones.ConectorInvalidoException;
 import Excepciones.DescripcionInvalidaException;
 import Excepciones.EstadoInvalidoException;
 import Excepciones.FechaInvalidaException;
@@ -45,11 +46,11 @@ public class Cableado extends MaterialInventario{
      * @throws FechaInvalidaException
      * @throws LongitudInvalidaException
      */
-    public Cableado(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, LongitudInvalidaException {
+    public Cableado(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
         super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
         setLongitud(longitud);
-        this.conector1 = conector1;
-        this.conector2 = conector2;
+        setConector1(conector1);
+        setConector2(conector2);
     }
 
     /**
@@ -73,11 +74,11 @@ public class Cableado extends MaterialInventario{
      * @throws FechaInvalidaException
      * @throws LongitudInvalidaException
      */
-    public Cableado(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, LongitudInvalidaException {
+    public Cableado(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String longitud, String conector1, String conector2) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
         super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
          setLongitud(longitud);
-        this.conector1 = conector1;
-        this.conector2 = conector2;
+        setConector1(conector1);
+        setConector2(conector2);
     }
     
     /**
@@ -111,7 +112,8 @@ public class Cableado extends MaterialInventario{
      *
      * @param conector1
      */
-    public void setConector1(String conector1) {
+    public void setConector1(String conector1) throws ConectorInvalidoException {
+        Validador.validaConector(conector1);
         this.conector1 = conector1;
     }
 
@@ -127,7 +129,8 @@ public class Cableado extends MaterialInventario{
      *
      * @param conector2
      */
-    public void setConector2(String conector2) {
+    public void setConector2(String conector2) throws ConectorInvalidoException {
+        Validador.validaConector(conector2);
         this.conector2 = conector2;
     }
     

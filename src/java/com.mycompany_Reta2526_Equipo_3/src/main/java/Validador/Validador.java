@@ -37,7 +37,7 @@ public class Validador {
      * 
      * Se crea un try
      * Se crea un int llamado valor que es el inventario convertido en int
-     * Si valor es negativo 
+     * Si valor es negativo o supera a 99
      * *Lanza una excepcion
      * Si hay un problema con el parseo lanza una excepcion
      */
@@ -47,7 +47,7 @@ public class Validador {
         }
         try {
             int valor = Integer.parseInt(inventario.trim());
-            if (valor < 0 ) {
+            if (valor < 0) {
                 throw new IdInvalidoException("El ID de inventario debe ser mayor de 0.");
             }
         } catch (NumberFormatException e) {
@@ -56,17 +56,9 @@ public class Validador {
     }
 
     /**
-     *METODO ESTATICO PARA VALIDAR EL nombre
+     *
      * @param nombre
-     * El nombre a validar
      * @throws NombreInvalidoException
-     * 
-     * Comprueba que el nombre:
-     * *exista y no este vacio
-     * *Tenga entre 2 y 50 caractereres
-     * *Que solo tenga letras, digitos, espacios o guiones
-     * 
-     * En caso de que no sea asi lanza una excepcion
      */
     public static void validaNombre(String nombre) throws NombreInvalidoException {
         if (nombre == null || nombre.isBlank()) {
@@ -81,17 +73,9 @@ public class Validador {
     }
 
     /**
-     *METODO PARA VALIDAR LA descripcion
+     *
      * @param descripcion
-     * La descripcion que debe validar
-     * 
      * @throws DescripcionInvalidaException
-     * 
-     * Comprueba que el nombre:
-     * *exista y no este vacio
-     * *Tenga entre 2 y 50 caractereres
-     * 
-     * En caso de que no sea asi lanza una excepcion
      */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
@@ -104,6 +88,18 @@ public class Validador {
         }
 
     }
+    
+    public static void validaObservacion(String descripcion) throws DescripcionInvalidaException {
+        
+        if (descripcion != null && descripcion.length() > 50) {
+            throw new DescripcionInvalidaException("Las observaciones deben tener maximo 50 caracteres.");
+        }
+
+    }
+    
+    
+    
+    
 
     //=================================================
     //VALIDACION DE ENUM
@@ -487,6 +483,23 @@ public class Validador {
             throw new IdInvalidoException("El ID del PC debe ser un número entero válido.");
         }
     }
+    
+    public static void validaPcPerifericos(String pc) throws IdInvalidoException {
+        
+        
+        if(pc != null && !pc.isEmpty()){
+           try {
+            int valor = Integer.parseInt(pc.trim());
+            if (valor < 0) {
+                throw new IdInvalidoException("El ID del PC debe ser mayor de 0.");
+            }
+        } catch (NumberFormatException e) {
+            throw new IdInvalidoException("El ID del PC debe ser un número entero válido.");
+        } 
+        }
+        
+    }
+    
 
     /**
      *

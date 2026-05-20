@@ -12,15 +12,19 @@ import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 import AccesoBD.AccesoBaseDatos;
 import Enum.Estados;
+import Excepciones.CategoriaInvalidaException;
 import Objetos.Cableado;
 import Objetos.Componentes;
 import Objetos.Equipos_en_red;
 import Objetos.Herramientas;
 import Objetos.MaterialInventario;
 import Objetos.Material_Fungible;
+import Objetos.Pc;
 
 import Objetos.Perifericos;
+
 import Repositorio.RepositorioMaterial;
+import Repositorio.RepositorioPc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,40 +33,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import Utilidades.LoggerApp;
 
 /**
  *
  * @author DAW120
  */
-public class AdministradorDAO implements RepositorioMaterial<MaterialInventario> {
+public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
 
     private Connection getConnection() {
         return AccesoBaseDatos.getInstance().getConn();
     }
 
+    //====================================================
+    // MATERIALES
+    //====================================================
     /**
-     *METODO PARA CREAR UNA LISTA DE MATERIALES
+     *
      * @return
-     * Devuelve una lista de Objetos 'MaterialInventario'
-     * 
-     * Crea una lista llamada (materiales)
-     * Crea una sentencia SQL para crear una consulta con todos los campos de la tabla materialesTaller
-     * 
-     * Lanza un try
-     * *Se conecta a la base y se prepara para lanzarle la sentencia
-     * *Crea un ResultSet(rs) que guarda el resultado de la sentencia al lanzarse como una tabla
-     * 
-     * Mientras el rs tenga una fila despues 
-     * **empezando desde antes de la primera fila de la tabla que genera la consulta
-     * *Añade a (materiales) el return del METODO crearMaterialBD() con rs como atributo
-     * **El return es un Objeto 'MaterialInventario'
-     * 
-     * Si ocurre algun error se lanza una excepcion
-     * 
-     * Devuelve (materiales)
      */
     @Override
     public List<MaterialInventario> listarMaterial() {
@@ -96,26 +84,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *METODO QUE BUSCA UN MATERIAL POR SU ID
+     *
      * @param id
-     * El valor por el que se busca
-     * 
-     * @return 
-     * Devuelve un Objeto 'MaterialInventario'
-     * 
-     * Inicializa un Objeto 'MaterialInventario'(m) como NULL
-     * 
-     * Crea una sentencia SQL incompleta para mostrar todos los campos en la tabla 'materialesTaller' donde el id_matTa sea igual a (?)
-     * 
-     * Se conecta a la base y se prepara para lanzarle la sentencia
-     * Cambia el primer (?) de la sentencia por el id
-     * Crea un ResultSet(rs) que guarda el resultado de la sentencia al lanzarse como una tabla
-     * Si tiene una fila 
-     * *(m) es igual al RETURN DEL METODO crearMaterialBD() con (rs) como atributo
-     * 
-     * En caso de fallo lanza una excepcion
-     * 
-     * Devuelve (m)
+     * @return
      */
     @Override
     public MaterialInventario porIdMaterial(int id) {
@@ -127,9 +98,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {  
-            m = crearMaterialBD(rs);
-        }
+            if (rs.next()) {
+                m = crearMaterialBD(rs);
+            }
 
         } catch (SQLException ex) {
             LoggerApp.log("Error al listar materiales" + ex.getMessage());
@@ -295,40 +266,28 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 LoggerApp.log("Se han eliminado inesperadamente mas de un registro");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LoggerApp.log(
+                    "❌ Error en la Base de Datos: "
+                    + ex.getMessage());
         }
 
     }
-    
-    /**
-     *METODO QUE MODIFICA UN OBJETO DE LA BD POR SU ID
-     * @param t
-     * Un Objeto 'MaterialInventario'
-     * 
-     * Se crea una sentencia SQL incompleta para modificar los campos de una fila en la tabla 'materialesTaller'
-     * *Los valores de los campos cambian a (?)(x8)
-     * *El cambio se realiza en la fila donde el campo id_matTa sea (?)
-     * 
-     * Se conecta a la BD y se prepara para lanzar la sentencia
-     * *Sustituye los 8 primeros (?) por los atributes de t y el ultimo (?) por el id_matTa de t
-     * Ejecuta la sentencia
-     * 
-     */
+
     @Override
     public void actualizarPorID(MaterialInventario t) {
-       String sql = "UPDATE  materialesTaller SET "
-               + "nombre = ?,"
-               + "descripcion = ?,"
-               + "estado = ?,"
-               + "cantidad = ?,"
-               + "id_ubi = ?,"
-               + "id_balda = ?,"
-               + "fecha_alta = ?,"
-               + "observaciones = ?"
-               + " WHERE id_matTa = ?";
-       
-        try(PreparedStatement ps = getConnection().prepareStatement(sql)){
-           
+        String sql = "UPDATE  materialesTaller SET "
+                + "nombre = ?,"
+                + "descripcion = ?,"
+                + "estado = ?,"
+                + "cantidad = ?,"
+                + "id_ubi = ?,"
+                + "id_balda = ?,"
+                + "fecha_alta = ?,"
+                + "observaciones = ?"
+                + " WHERE id_matTa = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+
             ps.setString(1, t.getNombre());
             ps.setString(2, t.getDescripcion());
             ps.setString(3, t.getEstado().toString().toLowerCase());
@@ -338,19 +297,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             ps.setString(7, t.getFecha_alta().toString());
             ps.setString(8, t.getObservaciones());
             ps.setInt(9, t.getId_matTa());
-           
+
             int filas = ps.executeUpdate();
-           
+
             if (filas == 0) {
                 LoggerApp.log("No se ha actualizado ningun registro en materialesTaller");
-            }else if(filas > 1){
+            } else if (filas > 1) {
                 LoggerApp.log("Se han actualizado inesperadamente mas de un registro");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdministradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            LoggerApp.log(
+                    "❌ Error en la Base de Datos: "
+                    + ex.getMessage());
         }
-       
-        
+
     }
 
     // =========================================================================
@@ -413,10 +373,12 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             if (filas != 1) {
                 LoggerApp.log("No se ha insertado correctamente en perifericos.");
             }
-
-            String sql2 = "INSERT INTO perifericos_pcs (id_periferico, id_pc) VALUES (?,?)";
-
-            try (PreparedStatement ps2 = getConnection().prepareStatement(sql2)) {
+            
+            if(t.getId_pc() != null){
+//              if(!t.getPcs().isEmpty()){
+//                for(int pc : t.getPcs()){
+                    String sql2 = "INSERT INTO perifericos_pcs (id_periferico, id_pc) VALUES (?,?)";
+                  try (PreparedStatement ps2 = getConnection().prepareStatement(sql2)) {
                 ps2.setInt(1, id);
                 ps2.setInt(2, t.getId_pc());
 
@@ -427,7 +389,17 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
             } catch (SQLException ex) {
                 LoggerApp.log("ERROR: " + ex.getMessage());
+            }  
+                    
+                    
+//                }
+//            }  
             }
+//            
+            
+        
+
+            
         } catch (SQLException ex) {
             LoggerApp.log("ERROR: " + ex.getMessage());
         }
@@ -435,7 +407,8 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     * METODO PARA INSERTAR UN OBJETO COMPONENTE EN LA TABLA componentes DE LA BD
+     * METODO PARA INSERTAR UN OBJETO COMPONENTE EN LA TABLA componentes DE LA
+     * BD
      *
      * @param t Es el Objeto Componente que se va a insertar
      * @param id Es el id con el que va a ser insertado
@@ -502,18 +475,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *METODO QUE GUARDA UN CABLE EN LA TABLA cableado DE LA BD
+     *
      * @param t
-     * Es el Objeto Cableado del que saca los datos a insertar
      * @param id
-     * Es el id con el que se guarda
-     * 
-     * Crea una sentencia SQL de Insercion incompleta
-     * *Los 4 datos a insertar son(?)x4
-     * 
-     * Se conecta a la BD y se prepara para lanzar la sentencia
-     * *Sustituye el primer (?) por el id y el resto (?) por los atributos de t
-     * Ejecuta la sentencia
      */
     public void guardarCableado(Cableado t, int id) {
         String sql = "INSERT INTO cableado (id_matTa, longitud, conector1, conector2) VALUES (?,?,?,?)";
@@ -534,18 +498,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *METODO QUE GUARDA UNA HERRAMIENTA EN LA TABLA herramientas DE LA BD
+     *
      * @param t
-     * Es el Objeto Herramientas del que saca los datos a insertar
      * @param id
-     * Es el id con el que se guarda
-     * 
-     * Crea una sentencia SQL de Insercion incompleta
-     * *Los 2 datos a insertar son(?)x2
-     * 
-     * Se conecta a la BD y se prepara para lanzar la sentencia
-     * *Sustituye el primer (?) por el id y el segundo (?) por el atributo tipo de t convertido a String en minusculas
-     * Ejecuta la sentencia
      */
     public void guardarHerramienta(Herramientas t, int id) {
         String sql = "INSERT INTO herramientas (id_matTa, tipo) VALUES (?,?)";
@@ -564,18 +519,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *METODO QUE GUARDA UN MATERIAL fUNGIBLE EN LA TABLA material_fungible DE LA BD
+     *
      * @param t
-     * Es el Objeto Material_Fungible del que saca los datos a insertar
      * @param id
-     * Es el id con el que se guarda
-     * 
-     * Crea una sentencia SQL de Insercion incompleta
-     * *Los 2 datos a insertar son(?)x2
-     * 
-     * Se conecta a la BD y se prepara para lanzar la sentencia
-     * *Sustituye el primer (?) por el id y el segundo (?) por el atributo tipo de t convertido a String en minusculas
-     * Ejecuta la sentencia
      */
     public void guardarMaterialFungible(Material_Fungible t, int id) {
         String sql = "INSERT INTO material_fungible (id_matTa, estado) VALUES (?,?)";
@@ -594,4 +540,242 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
+    //====================================================
+    // PCS
+    //====================================================
+    @Override
+    public List<Pc> listarPc() {
+
+        List<Pc> lista = new ArrayList<>();
+
+        String sql = 
+            "SELECT id_pc,nombre,descripcion,estado,categoria,id_estacion,fecha_alta,observaciones "
+                + "FROM pcs";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                Pc pc = new Pc(
+                        String.valueOf(rs.getInt("id_pc")),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getString("estado"),
+                        rs.getString("categoria"),
+                        rs.getString("id_estacion"),
+                        rs.getDate("fecha_alta").toLocalDate()
+                                .format(java.time.format.DateTimeFormatter
+                                        .ofPattern("dd-MM-yyyy")),
+                        rs.getString("observaciones")
+                );
+                lista.add(pc);
+            }
+        } catch (Exception e) {
+            LoggerApp.log(
+                    "❌ Error listando PCs: "
+                    + e.getMessage()
+            );
+        }
+        return lista;
+    }
+
+    @Override
+    public Pc porIdPc(int id) {
+
+        String sql = "SELECT id_pc, nombre, descripcion, estado, categoria, id_estacion, fecha_alta, observaciones FROM pcs WHERE id_pc = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                Pc pc = new Pc(
+                        String.valueOf(rs.getInt("id_pc")),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getString("estado"),
+                        rs.getString("categoria"),
+                        rs.getString("id_estacion"),
+                        rs.getDate("fecha_alta").toLocalDate()
+                                .format(java.time.format.DateTimeFormatter
+                                        .ofPattern("dd-MM-yyyy")),
+                        rs.getString("observaciones")
+                );
+                return pc;
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar Pcs" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        } catch (CategoriaInvalidaException ex) {
+            LoggerApp.log("Error con la categoria " + ex.getMessage());
+        }
+        return null;
+
+    }
+
+    public void actualizarPcPorID(Pc t) {
+        String sql = "UPDATE  pcs SET "
+                + "nombre = ?,"
+                + "descripcion = ?,"
+                + "estado = ?,"
+                + "id_estacion = ?,"
+                + "fecha_alta = ?,"
+                + "observaciones = ?"
+                + " WHERE id_pc = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+            
+            ps.setString(1, t.getNombre());
+            ps.setString(2, t.getDescripcion());
+            ps.setString(3, t.getEstado().toString().toLowerCase());
+            ps.setString(4, t.getId_estacion());
+            ps.setString(5, t.getFecha_alta().toString());
+            ps.setString(6, t.getObservaciones());
+            ps.setInt(7, t.getId_pc());
+
+            int filas = ps.executeUpdate();
+
+            if (filas == 0) {
+                LoggerApp.log("No se ha actualizado ningun registro en Pcs");
+            } else if (filas > 1) {
+                LoggerApp.log("Se han actualizado inesperadamente mas de un registro de Pcs");
+            }
+        } catch (SQLException ex) {
+            LoggerApp.log(
+                    "❌ Error en la Base de Datos: "
+                    + ex.getMessage());
+        }
+
+    }
+
+    @Override
+    public void guardarPc(Pc pc) {
+
+        String sql = """
+            INSERT INTO pcs
+            (
+                nombre,
+                descripcion,
+                estado,
+                categoria,
+                id_estacion,
+                fecha_alta,
+                observaciones
+            )
+            VALUES
+            (?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setString(1, pc.getNombre());
+            stmt.setString(2, pc.getDescripcion());
+            stmt.setString(3, pc.getEstado().toString());
+            stmt.setString(4, pc.getCategoria().toString());
+            stmt.setString(5, pc.getId_estacion());
+            stmt.setDate(
+                    6,
+                    java.sql.Date.valueOf(pc.getFecha_alta())
+            );
+            stmt.setString(7, pc.getObservaciones());
+            stmt.executeUpdate();
+            LoggerApp.log("✅ PC guardado correctamente.");
+
+        } catch (SQLException e) {
+            LoggerApp.log(
+                    "❌ Error guardando PC: "
+                    + e.getMessage()
+            );
+        }
+    }
+
+    @Override
+    public void eliminarPc(int id) {
+        String sql = "DELETE FROM pcs WHERE id_pc = ?";
+
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            int filas = ps.executeUpdate();
+
+            if (filas == 0) {
+                LoggerApp.log("No se ha eliminado ningun Pc del inventario");
+            } else if (filas > 1) {
+                LoggerApp.log("Se han eliminado inesperadamente mas de un Pc");
+            }
+        } catch (SQLException ex) {
+            LoggerApp.log(
+                    "❌ Error en la Base de Datos: "
+                    + ex.getMessage());
+
+        }
+
+    }
+
+    //====================================================
+    // UBICACIONES 
+    //====================================================
+    public List<String> listarUbicaciones() {
+
+        List<String> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT id_ubi
+            FROM ubicacion
+            ORDER BY id_ubi
+        """;
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                lista.add(
+                        rs.getString("id_ubi")
+                );
+            }
+        } catch (SQLException e) {
+            LoggerApp.log(
+                    "❌ Error listando ubicaciones: "
+                    + e.getMessage()
+            );
+        }
+        return lista;
+    }
+
+    public List<String> listarEstaciones() {
+
+        List<String> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT id_ubi
+            FROM estacion
+            ORDER BY id_ubi
+        """;
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                lista.add(
+                        rs.getString("id_ubi")
+                );
+            }
+        } catch (SQLException e) {
+            LoggerApp.log(
+                    "❌ Error listando estaciones: "
+                    + e.getMessage()
+            );
+        }
+        return lista;
+    }
 }

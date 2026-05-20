@@ -3,7 +3,6 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mycompany</groupId>
   <artifactId>Reta2526_Equipo_3</artifactId>
-  <name>&lt;partially loaded Maven project&gt;</name>
   <version>1.0-SNAPSHOT</version>
   <build>
     <plugins>

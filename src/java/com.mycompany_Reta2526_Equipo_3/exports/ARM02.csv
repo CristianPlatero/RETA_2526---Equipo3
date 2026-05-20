@@ -1,1 +1,12 @@
 id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+1,no,desc,obsoleto,1,ARM02,1,2010-12-12,obs,periferico
+2,no,des,obsoleto,1,ARM02,1,2010-12-12,obs,periferico
+8,no,des,obsoleto,1,ARM02,1,2010-12-12,obs,periferico
+9,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,equipo_red
+10,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,cableado
+11,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,cableado
+12,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,cableado
+14,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,material
+15,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,herramienta
+16,nombre,descripcion,operativo,3,ARM02,2,2010-12-12,observaciones,material
+17,nombre,descripcion,operativo,3,ARM02,1,2010-12-12,observaciones,material

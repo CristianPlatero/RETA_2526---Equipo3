@@ -295,7 +295,7 @@ public class MaterialInventario {
      * @throws DescripcionInvalidaException
      */
     public void setObservaciones(String observaciones) throws DescripcionInvalidaException {
-        Validador.validaDescripcion(observaciones);
+        Validador.validaObservacion(observaciones);
         this.observaciones = observaciones;
     }
 

@@ -74,5 +74,5 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.mycompany.reta2526_equipo_3.Reta2526_Equipo_3</exec.mainClass>
     </properties>
-    <name>&lt;partially loaded Maven project&gt;</name>
+    <name>Reta2526_Equipo_3</name>
 </project>

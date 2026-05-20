@@ -6,8 +6,7 @@ package Interfaz;
 // ══════════════════════════════════════════════════════════════════════════════
 import AccesoBD.AccesoBaseDatos;
 import DAO.AdministradorDAO;           // Clase que conecta con la base de datos
-import DAO.PcDAO;
-import DAO.UbicacionDAO;
+
 import Objetos.MaterialInventario;     // Clase padre de todos los materiales
 import Objetos.Perifericos;            // Subclase: periférico (ratón, teclado...)
 import Objetos.Cableado;               // Subclase: cable (HDMI, USB...)
@@ -27,7 +26,10 @@ import java.awt.Desktop;               // Permite abrir el navegador del sistema
 import java.net.URI;                   // Representa una URL (usada para abrir la web)
 import java.time.LocalDate;            // Fecha actual del sistema
 import java.time.format.DateTimeFormatter; // Para formatear fechas como "dd-MM-yyyy"
+import java.util.ArrayList;
 import java.util.List;                 // Para trabajar con listas de objetos
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * ══════════════════════════════════════════════════════════════════════════════
@@ -121,15 +123,10 @@ public class InventarioApp extends JFrame {
     //  Todos los métodos que guardan, listan o eliminan de la BD pasan por aquí.
     // ══════════════════════════════════════════════════════════════════════
     private final AdministradorDAO dao = new AdministradorDAO();
-    private final PcDAO pcDao = new PcDAO();
-    private final UbicacionDAO ubiDao = new UbicacionDAO();
+    
     // ══════════════════════════════════════════════════════════════════════
     //  FORMATO DE FECHA
-    //  Compartido por todos los paneles para mostrar/parsear fechas igual.
-    //  🎨 DISEÑO: Cambia el patrón para otro formato:
-    //    "dd/MM/yyyy"  → 17/05/2025
-    //    "yyyy-MM-dd"  → 2025-05-17  (formato ISO, útil para la BD)
-    //    "dd 'de' MMMM 'de' yyyy" → 17 de mayo de 2025 (requiere Locale)
+    //  Compartido por todos los paneles para mostrar/parsear fechas igual
     // ══════════════════════════════════════════════════════════════════════
     private static final DateTimeFormatter FMT_FECHA = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -400,6 +397,7 @@ public class InventarioApp extends JFrame {
         panel.add(crearEtiquetaSeccion("PCS"));
         panel.add(crearBotonMenu("🖥️  Listar PCs", e -> mostrarPanel(crearPanelListarPCs())));
         panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
+        panel.add(crearBotonMenu("✏️  Modificar PC", e -> mostrarPanel(crearPanelModificarPc())));
 
         // ── Sección OTROS: visible para todos ─────────────────────────────
         panel.add(Box.createVerticalStrut(6));
@@ -863,7 +861,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         // Los valores deben coincidir exactamente con el enum Estados: OPERATIVO, REPARACION, OBSOLETO
         // 🎨 Cambia "Todos" por otro texto si prefieres otro nombre para la opción por defecto
-        String[] estados = {"Todos", "OPERATIVO", "REPARACION", "OBSOLETO"};
+        String[] estados = {"Todos", "OPERATIVO", "REPARACION", "OBSOLETO","AVERIADO"};
         JComboBox<String> comboEstado = new JComboBox<>(estados);
         comboEstado.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         filtros.add(comboEstado, gbc);
@@ -889,7 +887,7 @@ public class InventarioApp extends JFrame {
         JComboBox<String> comboUbicacion = new JComboBox<>();
         comboUbicacion.addItem("Todas");
         // Cargar ubicaciones desde la BD
-        for (String ubi : ubiDao.listarUbicaciones()) {
+        for (String ubi : dao.listarUbicaciones()) {
             comboUbicacion.addItem(ubi);
         }
 
@@ -1020,7 +1018,7 @@ public class InventarioApp extends JFrame {
         }
 
         // Combo de estado: solo se habilita cuando se selecciona "Filtrado por estado"
-        String[] estadosInforme = {"OPERATIVO", "REPARACION", "OBSOLETO"};
+        String[] estadosInforme = {"OPERATIVO", "REPARACION", "OBSOLETO","AVERIADO"};
         JComboBox<String> comboEstadoInforme = new JComboBox<>(estadosInforme);
         comboEstadoInforme.setEnabled(false); // deshabilitado al inicio
         opciones.add(comboEstadoInforme);
@@ -1153,7 +1151,7 @@ public class InventarioApp extends JFrame {
         JPanel panelFormulario = new JPanel(new BorderLayout());
         panelFormulario.setOpaque(false);
         // Cargamos el formulario base de MaterialInventario al abrir el panel
-        panelFormulario.add(crearFormularioPorTipo("MaterialInventario", panelFormulario));
+        panelFormulario.add(crearFormularioPorTipo("Periférico", panelFormulario));
 
         // Al cambiar el combo, reconstruimos el formulario con los campos del nuevo tipo
         comboTipo.addActionListener(e -> {
@@ -1239,7 +1237,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         // JComboBox con los valores del enum Estados (deben ser exactamente iguales al enum)
-        JComboBox<String> comboEstado = new JComboBox<>(new String[]{"OPERATIVO", "REPARACION", "OBSOLETO","AVERIADO"});
+        JComboBox<String> comboEstado = new JComboBox<>(new String[]{"OPERATIVO", "REPARACION", "OBSOLETO", "AVERIADO"});
         comboEstado.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         form.add(comboEstado, gbc);
 
@@ -1412,8 +1410,7 @@ public class InventarioApp extends JFrame {
             String desc = txtDesc.getText().trim();
             String estado = ((String) comboEstado.getSelectedItem()).trim();
             String cant = txtCantidad.getText().trim();
-//            String ubi = txtUbi.getText().trim();
-            String ubi = (String) comboUbi.getSelectedItem();
+             String ubi = (String) comboUbi.getSelectedItem();
             String balda = txtBalda.getText().trim();
             String fecha = txtFecha.getText().trim();
             String obs = txtObs.getText().trim();
@@ -1428,11 +1425,34 @@ public class InventarioApp extends JFrame {
                 // y el catch correspondiente la captura.
                 switch (tipo) {
                     case "Periférico" ->
+//                        int a = Integer.parseInt(txtIdPcPeri.getText());
+//                        
+//                        JTextField[] pcs = new JTextField[a];
+//               ArrayList<Integer> pcsL = new ArrayList<>();   
+//               JButton btnCargar = crearBotonAccion("Cargar datos");
+//               btnCargar.addActionListener(e -> {
+//             for(int i = 0; i<a;i++){
+//            gbc.gridx = 0;
+//            gbc.gridy = 9+i;
+//            gbc.weightx = 0;
+////            form.add(etiqueta(etiquetas[i]), gbc);
+//            gbc.gridx = 1;
+//            gbc.weightx = 1;
+//            pcs[i] = new JTextField(20);
+//            pcs[i].setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
+//            pcs[i].setEnabled(false); // deshabilitados hasta que se cargue un material
+//            form.add(pcs[i], gbc);
+//            
+//            pcsL.add((int) Integer.parseInt(pcs[i].getText()));
+//                        }});
+                        
                         material = new Perifericos(
                                 nombre, desc, estado, cant, ubi, balda, fecha, obs,
-                                txtIdPcPeri.getText().trim(),
-                                (String) comboConexion.getSelectedItem()
+                                (String) comboConexion.getSelectedItem(),
+                                txtIdPcPeri.getText().trim()
+//                                 pcsL
                         );
+                        
                     case "Cableado" ->
                         material = new Cableado(
                                 nombre, desc, estado, cant, ubi, balda, fecha, obs,
@@ -1862,7 +1882,7 @@ public class InventarioApp extends JFrame {
             "Estación"
         };
 
-        java.util.List<Pc> lista = pcDao.listarPc();
+        java.util.List<Pc> lista = dao.listarPc();
 
         Object[][] datos = new Object[lista.size()][cols.length];
 
@@ -1898,7 +1918,9 @@ public class InventarioApp extends JFrame {
                         new String[]{
                             "OPERATIVO",
                             "REPARACION",
-                            "OBSOLETO"
+                            "OBSOLETO",
+                            "AVERIADO"
+                                
                         }
                 );
 
@@ -1913,7 +1935,7 @@ public class InventarioApp extends JFrame {
         JComboBox<String> comboEstacion
                 = new JComboBox<>();
 
-        for (String est : ubiDao.listarEstaciones()) {
+        for (String est : dao.listarEstaciones()) {
             comboEstacion.addItem(est);
         }
 
@@ -2014,7 +2036,7 @@ public class InventarioApp extends JFrame {
                         txtObs.getText()
                 );
 
-                pcDao.guardarPc(pc);
+                dao.guardarPc(pc);
 
             } catch (CategoriaInvalidaException | DescripcionInvalidaException | EstadoInvalidoException | FechaInvalidaException | IdInvalidoException | NombreInvalidoException ex) {
                 LoggerApp.log(
@@ -2024,6 +2046,170 @@ public class InventarioApp extends JFrame {
             }
         });
 
+        return panel;
+    }
+    
+    
+    // ============================================================
+    // PANEL MODIFICAR PC
+    //=============================================================
+    
+        private JPanel crearPanelModificarPc() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(COLOR_TRABAJO_BG);
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panel.add(crearTituloPanel("Modificar Pc"), BorderLayout.NORTH);
+
+        // ── Barra para introducir el ID ───────────────────────────────────
+        JPanel barraId = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        barraId.setOpaque(false);
+        barraId.add(etiqueta("ID a modificar:"));
+        JTextField txtId = new JTextField(8);
+        txtId.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
+        txtId.setPreferredSize(new Dimension(100, 30));
+        JButton btnCargar = crearBotonAccion("Cargar datos");
+        barraId.add(txtId);
+        barraId.add(btnCargar);
+
+        // ── Formulario de edición (deshabilitado hasta cargar un material) ─
+        JPanel form = new JPanel(new GridBagLayout());
+        form.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(7, 8, 7, 8);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Etiquetas de los campos del formulario de edición
+        // 🎨 Cambia estos textos para mostrarlos diferente en la interfaz
+        String[] etiquetas = {
+            "Nombre:", "Descripción:", "Estado:", "Categoría:",
+            "ID Estación:", "Fecha alta:", "Observaciones:"
+        };
+        // Array de campos de texto, uno por cada etiqueta
+        JTextField[] campos = new JTextField[etiquetas.length];
+        for (int i = 0; i < etiquetas.length; i++) {
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            gbc.weightx = 0;
+            form.add(etiqueta(etiquetas[i]), gbc);
+            gbc.gridx = 1;
+            gbc.weightx = 1;
+            campos[i] = new JTextField(20);
+            campos[i].setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
+            campos[i].setEnabled(false); // deshabilitados hasta que se cargue un material
+            form.add(campos[i], gbc);
+        }
+
+        // Etiqueta para mensajes de error/éxito
+        JLabel lblMsg = new JLabel(" ");
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
+
+        // ── Lógica del botón "Cargar datos" ───────────────────────────────
+        btnCargar.addActionListener(e -> {
+            String idTexto = txtId.getText().trim();
+            if (idTexto.isEmpty()) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Introduce un ID.");
+                return;
+            }
+            int id;
+            try {
+                id = Integer.parseInt(idTexto);
+            } catch (NumberFormatException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ El ID debe ser un número.");
+                return;
+            }
+
+            // Buscamos el material en la lista 
+            Pc encontrado = dao.porIdPc(id);
+
+            if (encontrado == null) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("❌ No se encontró el ID " + id);
+                return;
+            }
+
+            // Rellenamos los campos del formulario con los datos actuales del material
+            // Los índices [0]..[7] corresponden al orden del array etiquetas[]
+            campos[0].setText(encontrado.getNombre());
+            campos[1].setText(encontrado.getDescripcion());
+            campos[2].setText(encontrado.getEstado().toString());
+            campos[3].setText(String.valueOf(encontrado.getCategoria()));
+            campos[4].setText(encontrado.getId_estacion());
+            campos[5].setText(encontrado.getFecha_alta().format(FMT_FECHA));
+            campos[6].setText(encontrado.getObservaciones());
+
+            // Habilitamos todos los campos para que el usuario pueda editarlos
+            for (JTextField c : campos) {
+                c.setEnabled(true);
+            }
+            lblMsg.setForeground(COLOR_OK);
+            lblMsg.setText("✅ Pc cargado. Edita los campos y pulsa Guardar.");
+        });
+
+        // ── Lógica del botón "Guardar cambios" ────────────────────────────
+        JButton btnGuardar = crearBotonAccion("💾 Guardar cambios");
+        btnGuardar.addActionListener(e -> {
+            // Comprobamos que hay un material cargado (campos habilitados)
+            String idTexto = txtId.getText().trim();
+            if (idTexto.isEmpty() || !campos[0].isEnabled()) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Primero carga un Pc.");
+                return;
+            }
+
+            try {
+                Pc p = new Pc(
+                        idTexto, // id_pc
+                        campos[0].getText(), // nombre
+                        campos[1].getText(), // descripcion
+                        campos[2].getText(), // estado
+                        campos[3].getText(), // categoria
+                        campos[4].getText(), // id_estacion
+                        campos[5].getText(), // fecha_alta
+                        campos[6].getText() // observaciones
+                         
+                );
+                dao.actualizarPcPorID(p);
+                lblMsg.setForeground(COLOR_OK);
+                lblMsg.setText("✅ Pc modificado correctamente.");
+            } catch (IdInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ ID inválido: " + ex.getMessage());
+            } catch (NombreInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Nombre inválido: " + ex.getMessage());
+            } catch (DescripcionInvalidaException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Descripción inválida: " + ex.getMessage());
+            } catch (EstadoInvalidoException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Estado inválido: " + ex.getMessage());
+            } catch (FechaInvalidaException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Fecha inválida: " + ex.getMessage());
+            } catch (CategoriaInvalidaException ex) {
+                Logger.getLogger(InventarioApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        // ── Montaje del panel ──────────────────────────────────────────────
+        JPanel norte = new JPanel(new BorderLayout(0, 8));
+        norte.setOpaque(false);
+        norte.add(barraId, BorderLayout.SOUTH); // barra de ID debajo del aviso
+
+        JPanel sur = new JPanel(new BorderLayout());
+        sur.setOpaque(false);
+        sur.add(lblMsg, BorderLayout.WEST); // mensaje de estado a la izquierda
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        btnPanel.setOpaque(false);
+        btnPanel.add(btnGuardar);
+        sur.add(btnPanel, BorderLayout.EAST); // botón a la derecha
+
+        panel.add(norte, BorderLayout.NORTH);
+        panel.add(new JScrollPane(form), BorderLayout.CENTER); // formulario con scroll
+        panel.add(sur, BorderLayout.SOUTH);
         return panel;
     }
 
