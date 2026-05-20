@@ -796,6 +796,19 @@ public class InventarioApp extends JFrame {
                     + "  Fecha alta   : " + m.getFecha_alta().format(FMT_FECHA) + "\n"
                     + "  Observaciones: " + m.getObservaciones() + "\n"
             );
+            switch(m){
+                case Perifericos pe -> area.append(" Conexion: "+pe.getConexion().toString()+"\n");              
+                case Cableado ca ->
+                        area.append(" Longitud: "+ca.getLongitud()+"\n"
+                                + " Conector1: "+ca.getConector1()+"\n"
+                                + " Conector2: "+ca.getConector2()); 
+                    case Componentes co -> area.append(" ID pc: "+co.getId_pc()+"\n");
+                    case Herramientas he -> area.append(" Tipo: "+he.getTipo().toString()+"\n");
+                    case Material_Fungible mf -> area.append(" Estado: "+mf.getEstadoFungible().toString()+"\n");
+                    case Equipos_en_red er -> area.append(" Nº Puertos: "+er.getNumPuertos()+"\n");
+                default ->LoggerApp.log("Ha ocurrido un error.");
+            }
+            
         });
 
         // Atajo de teclado: pulsar Enter en el campo de texto hace lo mismo que el botón
