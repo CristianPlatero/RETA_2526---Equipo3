@@ -15,6 +15,7 @@ import Objetos.Herramientas;           // Subclase: herramienta (soldador...)
 import Objetos.Material_Fungible;      // Subclase: material fungible (pasta térmica...)
 import Objetos.Equipos_en_red;         // Subclase: equipo de red (switch, router...)
 import Excepciones.*;                  // Todas las excepciones personalizadas del Validador
+import Main.App;
 import Objetos.Pc;
 import Utilidades.LoggerApp;
 
@@ -328,19 +329,17 @@ public class InventarioApp extends JFrame {
      * nuevo el LoginDialog 3. Si dice NO: no hace nada
      */
     private void cerrarSesion() {
-        // showConfirmDialog devuelve JOptionPane.YES_OPTION o NO_OPTION según lo que pulse el usuario
-        int conf = JOptionPane.showConfirmDialog(this,
-                "¿Deseas cerrar la sesión actual?", // mensaje
-                "Cerrar sesión", // título del diálogo
-                JOptionPane.YES_NO_OPTION);         // botones: Sí / No
+    int conf = JOptionPane.showConfirmDialog(this,
+            "¿Deseas cerrar la sesión actual?",
+            "Cerrar sesión",
+            JOptionPane.YES_NO_OPTION);
 
-        if (conf == JOptionPane.YES_OPTION) {
-            dispose();  // Cierra ESTA ventana (libera la memoria que ocupa)
-            // Abre de nuevo la pantalla de login. "null" = sin ventana padre
-            LoginDialog login = new LoginDialog(null);
-            login.setVisible(true);
-        }
+    if (conf == JOptionPane.YES_OPTION) {
+        dispose();
+        // En vez de crear el LoginDialog aquí, delegamos al App
+        SwingUtilities.invokeLater(App::mostrarLogin);
     }
+}
 
     // ══════════════════════════════════════════════════════════════════════
     //  MENÚ LATERAL
