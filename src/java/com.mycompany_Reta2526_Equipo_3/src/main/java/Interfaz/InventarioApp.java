@@ -399,7 +399,7 @@ public class InventarioApp extends JFrame {
         panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
         panel.add(crearBotonMenu("✏️  Modificar PC", e -> mostrarPanel(crearPanelModificarPc())));
         panel.add(crearBotonMenu("🗑️  Eliminar PC", e -> mostrarPanel(crearPanelEliminarPC())));
-        
+
         // ── Sección OTROS: visible para todos ─────────────────────────────
         panel.add(Box.createVerticalStrut(6));
         panel.add(crearSeparador());
@@ -2023,13 +2023,18 @@ public class InventarioApp extends JFrame {
                 = crearBotonAccion(
                         "💾 Guardar PC"
                 );
-
+        JLabel lblMsg = new JLabel(" "); // mensaje de éxito o error (empieza vacío)
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
         y++;
 
         gbc.gridx = 1;
         gbc.gridy = y;
 
         panel.add(btnGuardar, gbc);
+        y++;
+        gbc.gridx = 1;
+        gbc.gridy = y;
+        panel.add(lblMsg, gbc);
 
         btnGuardar.addActionListener(e -> {
             try {
@@ -2050,12 +2055,12 @@ public class InventarioApp extends JFrame {
                 );
 
                 dao.guardarPc(pc);
-
+                lblMsg.setForeground(COLOR_OK);
+                lblMsg.setText("✅ Pc \"" + txtNombre.getText() + "\" guardado correctamente.");
             } catch (CategoriaInvalidaException | DescripcionInvalidaException | EstadoInvalidoException | FechaInvalidaException | IdInvalidoException | NombreInvalidoException ex) {
-                LoggerApp.log(
-                        "❌ Error creando PC: "
-                        + ex.getMessage()
-                );
+                LoggerApp.log("❌ Error creando PC: " + ex.getMessage());
+                lblMsg.setForeground(COLOR_ERROR);         // ← el usuario ve qué falló
+                lblMsg.setText("⚠ " + ex.getMessage());
             }
         });
 
@@ -2224,8 +2229,8 @@ public class InventarioApp extends JFrame {
         return panel;
     }
 
-        private JPanel crearPanelEliminarPC() {
-            
+    private JPanel crearPanelEliminarPC() {
+
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(COLOR_TRABAJO_BG);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -2309,8 +2314,7 @@ public class InventarioApp extends JFrame {
                 lblMsg.setText("✅ Material con ID " + id + " eliminado.");
                 txtId.setText(""); // limpiamos el campo
             }
-            
-            
+
         });
 
         // Atajo: pulsar Enter en el campo dispara el botón
@@ -2321,11 +2325,7 @@ public class InventarioApp extends JFrame {
         panel.add(centro, BorderLayout.CENTER);
         return panel;
     }
-        
-        
-        
-        
-        
+
     // ══════════════════════════════════════════════════════════════════════
     //  PANEL WEB
     //  Abre la web local del proyecto en el navegador predeterminado del sistema.
