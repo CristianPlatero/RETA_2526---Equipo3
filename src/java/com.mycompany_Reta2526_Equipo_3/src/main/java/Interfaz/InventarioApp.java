@@ -397,7 +397,8 @@ public class InventarioApp extends JFrame {
         panel.add(crearBotonMenu("🖥️  Listar PCs", e -> mostrarPanel(crearPanelListarPCs())));
         panel.add(crearBotonMenu("➕  Añadir PC", e -> mostrarPanel(crearPanelAnadirPC())));
         panel.add(crearBotonMenu("✏️  Modificar PC", e -> mostrarPanel(crearPanelModificarPc())));
-
+        panel.add(crearBotonMenu("🗑️  Eliminar PC", e -> mostrarPanel(crearPanelEliminarPC())));
+        
         // ── Sección OTROS: visible para todos ─────────────────────────────
         panel.add(Box.createVerticalStrut(6));
         panel.add(crearSeparador());
@@ -2212,6 +2213,108 @@ public class InventarioApp extends JFrame {
         return panel;
     }
 
+        private JPanel crearPanelEliminarPC() {
+            
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(COLOR_TRABAJO_BG);
+        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panel.add(crearTituloPanel("Eliminar PC"), BorderLayout.NORTH);
+
+        // GridBagLayout para centrar todo en el panel
+        JPanel centro = new JPanel(new GridBagLayout());
+        centro.setOpaque(false);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        // Aviso de acción irreversible (fila 0, ocupa 2 columnas)
+        JLabel lblAviso = new JLabel("⚠️  Esta acción elimina el registro de forma permanente.");
+        lblAviso.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
+        lblAviso.setForeground(COLOR_ERROR); // 🎨 Color del texto de aviso de eliminación
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        centro.add(lblAviso, gbc);
+
+        // Campo de texto para el ID (fila 1, 2 columnas)
+        gbc.gridwidth = 1;
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        centro.add(etiqueta("ID del PC a eliminar:"), gbc);
+        gbc.gridx = 1;
+        JTextField txtId = new JTextField(12);
+        txtId.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
+        txtId.setPreferredSize(new Dimension(140, 30));
+        centro.add(txtId, gbc);
+
+        // Etiqueta de mensaje de estado (fila 2)
+        JLabel lblMsg = new JLabel(" ");
+        lblMsg.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        centro.add(lblMsg, gbc);
+
+        // Botón de eliminar con estilo rojo llamativo
+        // 🎨 Cambia el color de este botón: new Color(200, 60, 60) = rojo
+        JButton btnEliminar = new JButton("🗑️  Eliminar definitivamente");
+        btnEliminar.setFont(new Font("Segoe UI Emoji", Font.BOLD, 13));
+        btnEliminar.setBackground(new Color(200, 60, 60)); // 🎨 Fondo rojo del botón eliminar
+        btnEliminar.setForeground(Color.WHITE);
+        btnEliminar.setFocusPainted(false);
+        btnEliminar.setBorderPainted(false);
+        btnEliminar.setOpaque(true);
+        btnEliminar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnEliminar.setPreferredSize(new Dimension(240, 36)); // 🎨 Tamaño del botón eliminar
+
+        // ── Lógica del botón Eliminar ─────────────────────────────────────
+        btnEliminar.addActionListener(e -> {
+            String idTexto = txtId.getText().trim();
+            if (idTexto.isEmpty()) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ Introduce un ID válido.");
+                return;
+            }
+            int id;
+            try {
+                id = Integer.parseInt(idTexto);
+            } catch (NumberFormatException ex) {
+                lblMsg.setForeground(COLOR_ERROR);
+                lblMsg.setText("⚠ El ID debe ser un número entero.");
+                return;
+            }
+
+            // Pedimos confirmación antes de una acción irreversible
+            // showConfirmDialog devuelve YES_OPTION o NO_OPTION
+            int conf = JOptionPane.showConfirmDialog(this,
+                    "¿Eliminar el material con ID " + id + "?\nEsta acción no se puede deshacer.",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE); // icono de advertencia ⚠️
+
+            if (conf == JOptionPane.YES_OPTION) {
+                dao.eliminarPc(id); // eliminación real en la BD
+                lblMsg.setForeground(COLOR_OK);
+                lblMsg.setText("✅ Material con ID " + id + " eliminado.");
+                txtId.setText(""); // limpiamos el campo
+            }
+            
+            
+        });
+
+        // Atajo: pulsar Enter en el campo dispara el botón
+        txtId.addActionListener(e -> btnEliminar.doClick());
+
+        gbc.gridy = 3;
+        centro.add(btnEliminar, gbc);
+        panel.add(centro, BorderLayout.CENTER);
+        return panel;
+    }
+        
+        
+        
+        
+        
     // ══════════════════════════════════════════════════════════════════════
     //  PANEL WEB
     //  Abre la web local del proyecto en el navegador predeterminado del sistema.
