@@ -249,29 +249,25 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      * configuracion de la BD
      *
      * @param id
+     * @return int 
      */
     @Override
-    public void eliminarMaterial(int id) {
-        String sql = "DELETE FROM materialesTaller WHERE id_matTa = ?";
-
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-
-            int filas = ps.executeUpdate();
-
-            if (filas == 0) {
-                LoggerApp.log("No se ha eliminado ningun registro en materialesTaller");
-            } else if (filas > 1) {
-                LoggerApp.log("Se han eliminado inesperadamente mas de un registro");
-            }
-        } catch (SQLException ex) {
-            LoggerApp.log(
-                    "❌ Error en la Base de Datos: "
-                    + ex.getMessage());
+   public int eliminarMaterial(int id) {
+    String sql = "DELETE FROM materialesTaller WHERE id_matTa = ?";
+    try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        ps.setInt(1, id);
+        int filas = ps.executeUpdate();
+        if (filas == 0) {
+            LoggerApp.log("No se ha eliminado ningun registro en materialesTaller");
+        } else if (filas > 1) {
+            LoggerApp.log("Se han eliminado inesperadamente mas de un registro");
         }
-
+        return filas; // ← devuelve 0 si no existía, 1 si se eliminó
+    } catch (SQLException ex) {
+        LoggerApp.log("❌ Error en la Base de Datos: " + ex.getMessage());
+        return -1; // ← indica error de BD
     }
+}
 
     @Override
     public void actualizarPorID(MaterialInventario t) {

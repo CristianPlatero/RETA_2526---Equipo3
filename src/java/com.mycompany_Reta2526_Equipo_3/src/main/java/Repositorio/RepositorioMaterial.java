@@ -48,7 +48,7 @@ public interface RepositorioMaterial<T> {
      * nos permite borrar un registro de la base de datos por clave primaria
      * 
      */
-    public void eliminarMaterial( int  id);
+    public int eliminarMaterial( int  id);
     
     
     

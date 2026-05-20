@@ -37,7 +37,7 @@ public class AccesoBaseDatos {
                 return;
             }
             config.load(input);
-
+            LoggerApp.log("Properties cargadas correctamente.");
         } catch (IOException ex) {
             LoggerApp.log("Error al leer el archivo de configuración.");
             LoggerApp.log("Mensaje: " + ex.getMessage());
