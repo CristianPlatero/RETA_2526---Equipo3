@@ -97,16 +97,18 @@ public class InventarioApp extends JFrame {
     private static final Color COLOR_OK = new Color(40, 140, 80);  // 🎨 Texto de éxito (verde)
 
     // PALETA COLORES PARA PROFESOR
-    private static final Color COLOR_BANNER_PROF = new Color(45, 48, 72);
-    private static final Color COLOR_MENU_BG_PROF = new Color(58, 62, 90);
-    private static final Color COLOR_MENU_BTN_PROF = new Color(78, 84, 120);
-    private static final Color COLOR_MENU_HOVER_PROF = new Color(108, 116, 165);
-    private static final Color COLOR_MENU_ACTIVO_PROF = new Color(132, 108, 220);
-    private Color colorBannerActual;
-    private Color colorMenuBgActual;
-    private Color colorMenuBtnActual;
-    private Color colorMenuHoverActual;
-    private Color colorMenuActivoActual;
+    private static final Color COLOR_BANNER_PROF = new Color(20, 38, 30);      // Verde pino muy oscuro (Gran contraste con el original)
+    private static final Color COLOR_MENU_BG_PROF = new Color(32, 54, 44);     // Verde oliva oscuro para el fondo del menú
+    private static final Color COLOR_MENU_BTN_PROF = new Color(48, 80, 66);    // Separadores en tono verde apagado
+    private static final Color COLOR_MENU_HOVER_PROF = new Color(64, 110, 90); // Al pasar el ratón se ilumina en verde medio
+    private static final Color COLOR_MENU_ACTIVO_PROF = new Color(50, 140, 100); // Selección activa: Verde Esmeralda vibrante (igual que tu BADGE)
+    
+    // variables para metodo cargarTema();
+    private static Color colorBannerActual;
+    private static Color colorMenuBgActual;
+    private static Color colorMenuBtnActual;
+    private static Color colorMenuHoverActual;
+    private static Color colorMenuActivoActual;
 
     // ══════════════════════════════════════════════════════════════════════
     //  ATRIBUTOS DE ESTADO
@@ -159,7 +161,7 @@ public class InventarioApp extends JFrame {
     public InventarioApp(Rol rol) {
 
         this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
-        cargarTema();
+        cargarTema();                   // carga el tema según el rol asignado
         configurarVentana();            // Paso 1: tamaño, título, comportamiento al cerrar
 
         // Paso 2: añadimos las tres zonas principales de la ventana.
@@ -478,7 +480,7 @@ public class InventarioApp extends JFrame {
      */
     private JSeparator crearSeparador() {
         JSeparator sep = new JSeparator();
-        sep.setForeground(COLOR_MENU_BTN); // 🎨 Color de la línea separadora
+        sep.setForeground(colorMenuBtnActual); // 🎨 Color de la línea separadora
         // La línea ocupa el ancho del menú menos 20px de margen a cada lado
         sep.setMaximumSize(new Dimension(ANCHO_MENU - 20, 1)); // 🎨 Grosor: cambia el 1 por 2 para más visible
         sep.setAlignmentX(Component.LEFT_ALIGNMENT);
