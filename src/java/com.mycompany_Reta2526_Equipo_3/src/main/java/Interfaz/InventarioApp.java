@@ -1371,7 +1371,7 @@ public class InventarioApp extends JFrame {
         form.add(etiqueta("ID Ubicación:"), gbc);
         gbc.gridx = 1;
         gbc.weightx = 1;
-        JComboBox<String> comboUbi = new JComboBox<>(new String[]{"ARM01", "ARM02", "ARM03", "ARM04", "ARM05",
+        JComboBox<String> comboUbi = new JComboBox<>(new String[]{"ARM01", "ARM02", "ARM03", "ARM04", "ARM05","ARM06",
             "EST01", "EST02", "EST03", "EST04", "EST05", "EST06", "EST07", "EST08",});
         comboUbi.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(comboUbi, gbc);
