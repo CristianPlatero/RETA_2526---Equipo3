@@ -17,6 +17,7 @@ import Objetos.Equipos_en_red;         // Subclase: equipo de red (switch, route
 import Excepciones.*;                  // Todas las excepciones personalizadas del Validador
 import Main.App;
 import Objetos.Pc;
+import Utilidades.ExportadorCSV;
 import Utilidades.LoggerApp;
 
 import javax.swing.*;                  // Todo lo visual de Swing: JFrame, JPanel, JButton...
@@ -124,7 +125,7 @@ public class InventarioApp extends JFrame {
     //  Todos los métodos que guardan, listan o eliminan de la BD pasan por aquí.
     // ══════════════════════════════════════════════════════════════════════
     private final AdministradorDAO dao = new AdministradorDAO();
-    
+
     // ══════════════════════════════════════════════════════════════════════
     //  FORMATO DE FECHA
     //  Compartido por todos los paneles para mostrar/parsear fechas igual
@@ -144,8 +145,8 @@ public class InventarioApp extends JFrame {
      * determina qué botones aparecen en el menú.
      */
     public InventarioApp(Rol rol) {
-        
-       this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
+
+        this.rolActual = rol;           // Guardamos el rol para usarlo en otros métodos
 
         configurarVentana();            // Paso 1: tamaño, título, comportamiento al cerrar
 
@@ -250,10 +251,10 @@ public class InventarioApp extends JFrame {
         //   lblImagen.setPreferredSize(new Dimension(110, ALTO_BANNER));
         //
         // 🎨 Cambia 90, 90 por el tamaño en píxeles que quieras para tu logo.
-        JLabel lblImagen = new JLabel("[TU IMAGEN]", SwingConstants.CENTER);
-        lblImagen.setForeground(COLOR_TEXTO_GRIS);
-        lblImagen.setFont(new Font("Segoe UI Emoji", Font.ITALIC, 11));
-        lblImagen.setPreferredSize(new Dimension(110, ALTO_BANNER)); // 🎨 Ancho del hueco para imagen
+        ImageIcon icono = new ImageIcon(getClass().getResource("/icon.png")); // ruta de tu imagen
+        Image imgEscalada = icono.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+        JLabel lblImagen = new JLabel(new ImageIcon(imgEscalada));
+        lblImagen.setPreferredSize(new Dimension(110, ALTO_BANNER));
         // Borde punteado decorativo alrededor del placeholder
         lblImagen.setBorder(BorderFactory.createDashedBorder(COLOR_MENU_HOVER, 2, 4));
 
@@ -329,17 +330,17 @@ public class InventarioApp extends JFrame {
      * nuevo el LoginDialog 3. Si dice NO: no hace nada
      */
     private void cerrarSesion() {
-    int conf = JOptionPane.showConfirmDialog(this,
-            "¿Deseas cerrar la sesión actual?",
-            "Cerrar sesión",
-            JOptionPane.YES_NO_OPTION);
+        int conf = JOptionPane.showConfirmDialog(this,
+                "¿Deseas cerrar la sesión actual?",
+                "Cerrar sesión",
+                JOptionPane.YES_NO_OPTION);
 
-    if (conf == JOptionPane.YES_OPTION) {
-        dispose();
-        // En vez de crear el LoginDialog aquí, delegamos al App
-        SwingUtilities.invokeLater(App::mostrarLogin);
+        if (conf == JOptionPane.YES_OPTION) {
+            dispose();
+            // En vez de crear el LoginDialog aquí, delegamos al App
+            SwingUtilities.invokeLater(App::mostrarLogin);
+        }
     }
-}
 
     // ══════════════════════════════════════════════════════════════════════
     //  MENÚ LATERAL
@@ -454,10 +455,10 @@ public class InventarioApp extends JFrame {
      * nuevo
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los botones del
-     * menú: - Fuente: new Font("Segoe UI Emoji", Font.PLAIN, 13) → tamaño, negrita...
-     * - Alto de cada botón: setMaximumSize y setPreferredSize (actualmente
-     * 42px) - Sangría del texto: new EmptyBorder(0, 16, 0, 0) → los 16px del
-     * lado izquierdo
+     * menú: - Fuente: new Font("Segoe UI Emoji", Font.PLAIN, 13) → tamaño,
+     * negrita... - Alto de cada botón: setMaximumSize y setPreferredSize
+     * (actualmente 42px) - Sangría del texto: new EmptyBorder(0, 16, 0, 0) →
+     * los 16px del lado izquierdo
      *
      * @param texto Texto del botón (puede incluir emoji)
      * @param accion Qué hacer al pulsar el botón (una expresión lambda)
@@ -861,7 +862,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         // Los valores deben coincidir exactamente con el enum Estados: OPERATIVO, REPARACION, OBSOLETO
         // 🎨 Cambia "Todos" por otro texto si prefieres otro nombre para la opción por defecto
-        String[] estados = {"Todos", "OPERATIVO", "REPARACION", "OBSOLETO","AVERIADO"};
+        String[] estados = {"Todos", "OPERATIVO", "REPARACION", "OBSOLETO", "AVERIADO"};
         JComboBox<String> comboEstado = new JComboBox<>(estados);
         comboEstado.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
         filtros.add(comboEstado, gbc);
@@ -1018,7 +1019,7 @@ public class InventarioApp extends JFrame {
         }
 
         // Combo de estado: solo se habilita cuando se selecciona "Filtrado por estado"
-        String[] estadosInforme = {"OPERATIVO", "REPARACION", "OBSOLETO","AVERIADO"};
+        String[] estadosInforme = {"OPERATIVO", "REPARACION", "OBSOLETO", "AVERIADO"};
         JComboBox<String> comboEstadoInforme = new JComboBox<>(estadosInforme);
         comboEstadoInforme.setEnabled(false); // deshabilitado al inicio
         opciones.add(comboEstadoInforme);
@@ -1141,7 +1142,7 @@ public class InventarioApp extends JFrame {
 
         // 🎨 Cambia los textos del combo para que aparezcan con otro nombre en la interfaz
         // ⚠️ No cambies el orden sin actualizar el switch en crearFormularioPorTipo()
-        String[] tipos = { "Periférico", "Cableado", "Componente",
+        String[] tipos = {"Periférico", "Cableado", "Componente",
             "Herramienta", "Material Fungible", "Equipo en red"};
         JComboBox<String> comboTipo = new JComboBox<>(tipos);
         comboTipo.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 13));
@@ -1258,7 +1259,7 @@ public class InventarioApp extends JFrame {
         gbc.gridx = 1;
         gbc.weightx = 1;
         JComboBox<String> comboUbi = new JComboBox<>(new String[]{"ARM01", "ARM02", "ARM03", "ARM04", "ARM05",
-                                                                   "EST01","EST02","EST03","EST04","EST05","EST06","EST07","EST08",});
+            "EST01", "EST02", "EST03", "EST04", "EST05", "EST06", "EST07", "EST08",});
         comboUbi.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         form.add(comboUbi, gbc);
 
@@ -1410,7 +1411,7 @@ public class InventarioApp extends JFrame {
             String desc = txtDesc.getText().trim();
             String estado = ((String) comboEstado.getSelectedItem()).trim();
             String cant = txtCantidad.getText().trim();
-             String ubi = (String) comboUbi.getSelectedItem();
+            String ubi = (String) comboUbi.getSelectedItem();
             String balda = txtBalda.getText().trim();
             String fecha = txtFecha.getText().trim();
             String obs = txtObs.getText().trim();
@@ -1435,7 +1436,7 @@ public class InventarioApp extends JFrame {
 //            gbc.gridx = 0;
 //            gbc.gridy = 9+i;
 //            gbc.weightx = 0;
-////            form.add(etiqueta(etiquetas[i]), gbc);
+                        ////            form.add(etiqueta(etiquetas[i]), gbc);
 //            gbc.gridx = 1;
 //            gbc.weightx = 1;
 //            pcs[i] = new JTextField(20);
@@ -1450,9 +1451,9 @@ public class InventarioApp extends JFrame {
                                 nombre, desc, estado, cant, ubi, balda, fecha, obs,
                                 (String) comboConexion.getSelectedItem(),
                                 txtIdPcPeri.getText().trim()
-//                                 pcsL
+                        //                                 pcsL
                         );
-                        
+
                     case "Cableado" ->
                         material = new Cableado(
                                 nombre, desc, estado, cant, ubi, balda, fecha, obs,
@@ -1704,6 +1705,7 @@ public class InventarioApp extends JFrame {
                 dao.actualizarPorID(m);
                 lblMsg.setForeground(COLOR_OK);
                 lblMsg.setText("✅ Material modificado correctamente.");
+                ExportadorCSV.exportarTodo(); // Se actualiza el csv con la modificación del inventario
             } catch (IdInvalidoException ex) {
                 lblMsg.setForeground(COLOR_ERROR);
                 lblMsg.setText("⚠ ID inválido: " + ex.getMessage());
@@ -1843,10 +1845,21 @@ public class InventarioApp extends JFrame {
                     JOptionPane.WARNING_MESSAGE); // icono de advertencia ⚠️
 
             if (conf == JOptionPane.YES_OPTION) {
-                dao.eliminarMaterial(id); // eliminación real en la BD
-                lblMsg.setForeground(COLOR_OK);
-                lblMsg.setText("✅ Material con ID " + id + " eliminado.");
-                txtId.setText(""); // limpiamos el campo
+                int filas = dao.eliminarMaterial(id); // eliminación real en la BD
+
+                if (filas == 1) {
+                    lblMsg.setForeground(COLOR_OK);
+                    lblMsg.setText("✅ Material con ID " + id + " eliminado con éxito.");
+                    txtId.setText("");
+                    ExportadorCSV.exportarTodo(); // Se actualiza el csv al eliminar de la base
+                } else if (filas == 0) {
+                    lblMsg.setForeground(COLOR_ERROR);
+                    lblMsg.setText("⚠ No existe ningún material con ID " + id + ".");
+                } else {
+                    // filas == -1: hubo excepción en la BD
+                    lblMsg.setForeground(COLOR_ERROR);
+                    lblMsg.setText("❌ Error al conectar con la base de datos.");
+                }
             }
         });
 
@@ -1920,7 +1933,7 @@ public class InventarioApp extends JFrame {
                             "REPARACION",
                             "OBSOLETO",
                             "AVERIADO"
-                                
+
                         }
                 );
 
@@ -2048,13 +2061,11 @@ public class InventarioApp extends JFrame {
 
         return panel;
     }
-    
-    
+
     // ============================================================
     // PANEL MODIFICAR PC
     //=============================================================
-    
-        private JPanel crearPanelModificarPc() {
+    private JPanel crearPanelModificarPc() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(COLOR_TRABAJO_BG);
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -2169,7 +2180,7 @@ public class InventarioApp extends JFrame {
                         campos[4].getText(), // id_estacion
                         campos[5].getText(), // fecha_alta
                         campos[6].getText() // observaciones
-                         
+
                 );
                 dao.actualizarPcPorID(p);
                 lblMsg.setForeground(COLOR_OK);
@@ -2472,9 +2483,9 @@ public class InventarioApp extends JFrame {
      * Se usa al inicio de cada panel de trabajo para identificarlo.
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODOS los títulos de
-     * panel: - Fuente: new Font("Segoe UI Emoji", Font.BOLD, 18) - Color del texto:
-     * new Color(50, 50, 70) - Color de la línea: new Color(200, 190, 230) -
-     * Separación inferior: new EmptyBorder(0, 0, 14, 0)
+     * panel: - Fuente: new Font("Segoe UI Emoji", Font.BOLD, 18) - Color del
+     * texto: new Color(50, 50, 70) - Color de la línea: new Color(200, 190,
+     * 230) - Separación inferior: new EmptyBorder(0, 0, 14, 0)
      *
      * @param texto El texto del título a mostrar
      */
@@ -2559,8 +2570,8 @@ public class InventarioApp extends JFrame {
      *
      * 🎨 DISEÑO: Cambia aquí para modificar el aspecto de TODAS las tablas: -
      * Altura de fila: setRowHeight(28) → sube para filas más altas - Fuente del
-     * cuerpo: new Font("Segoe UI Emoji", Font.PLAIN, 13) - Fuente de la cabecera: new
-     * Font("Segoe UI Emoji", Font.BOLD, 13) - Color de selección:
+     * cuerpo: new Font("Segoe UI Emoji", Font.PLAIN, 13) - Fuente de la
+     * cabecera: new Font("Segoe UI Emoji", Font.BOLD, 13) - Color de selección:
      * setSelectionBackground(new Color(200, 190, 240)) - Color de las líneas de
      * la cuadrícula: setGridColor(new Color(220, 220, 230))
      *
