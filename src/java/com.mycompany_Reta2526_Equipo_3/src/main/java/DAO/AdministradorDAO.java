@@ -13,6 +13,8 @@ import Excepciones.NombreInvalidoException;
 import AccesoBD.AccesoBaseDatos;
 import Enum.Estados;
 import Excepciones.CategoriaInvalidaException;
+import Excepciones.ConectorInvalidoException;
+import Excepciones.LongitudInvalidaException;
 import Objetos.Cableado;
 import Objetos.Componentes;
 import Objetos.Equipos_en_red;
@@ -83,6 +85,68 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return materiales;
     }
 
+    
+        public List<Perifericos> listarPerifericos() throws CategoriaInvalidaException {
+        List<Perifericos> perifericos = new ArrayList<>();
+
+        String sql = "SELECT m.id_matTa,m.nombre,m.descripcion,m.estado,m.cantidad,m.id_ubi,m.id_balda,m.fecha_alta,m.observaciones,p.conexion FROM materialesTaller m JOIN perifericos p ON p.id_matTa = m.id_matTa";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                perifericos.add(crearPerifericosBD(rs));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            System.out.println("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            System.out.println("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            System.out.println("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            System.out.println("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            System.out.println("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            System.out.println("Error con la fecha " + ex.getMessage());
+        }
+
+        return perifericos;
+    }
+                     
+          public List<Componentes> listarComponentes() throws CategoriaInvalidaException {
+        List<Componentes> componentes = new ArrayList<>();
+
+        String sql = "SELECT m.id_matTa,m.nombre,m.descripcion,m.estado,m.cantidad,m.id_ubi,m.id_balda,m.fecha_alta,m.observaciones,p.id_pc FROM materialesTaller m JOIN componentes p ON p.id_matTa = m.id_matTa";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                componentes.add(crearComponenteBD(rs));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            System.out.println("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            System.out.println("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            System.out.println("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            System.out.println("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            System.out.println("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            System.out.println("Error con la fecha " + ex.getMessage());
+        }
+
+        return componentes;
+    }                
+                         
+                         
     /**
      *
      * @param id
@@ -120,6 +184,201 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
         return m;
     }
+    
+    public Cableado porIdMaterialCable(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Cableado m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,longitud,conector1,conector2 FROM materialestaller m JOIN cableado c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearCableadoBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    public Equipos_en_red porIdEquiposRed(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Equipos_en_red m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,num_puertos FROM materialestaller m JOIN equipos_red c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearEquipoRedBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    public Herramientas porIdHerramientas(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Herramientas m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,tipo FROM materialestaller m JOIN herramientas c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearHerramientaBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    public Material_Fungible porIdMaterialF(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Material_Fungible m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,m.estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,c.estado as estadof FROM materialestaller m JOIN material_fungible c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearMaterialFBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    public Componentes porIdComponentes(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Componentes m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,id_pc FROM materialestaller m JOIN componentes c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearComponenteBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    public Perifericos porIdPerifericos(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+
+        Perifericos m = null;
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,conexion FROM materialestaller m JOIN perifericos c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                m = crearPerifericosBD(rs);
+            }
+
+        } catch (SQLException ex) {
+            LoggerApp.log("Error al listar materiales" + ex.getMessage());
+        } catch (IdInvalidoException ex) {
+            LoggerApp.log("Error con el id " + ex.getMessage());
+        } catch (NombreInvalidoException ex) {
+            LoggerApp.log("Error con el nombre " + ex.getMessage());
+        } catch (CantidadInvalidaException ex) {
+            LoggerApp.log("Error con la cantidad " + ex.getMessage());
+        } catch (DescripcionInvalidaException ex) {
+            LoggerApp.log("Error con la descripcion " + ex.getMessage());
+        } catch (EstadoInvalidoException ex) {
+            LoggerApp.log("Error con el estado " + ex.getMessage());
+        } catch (FechaInvalidaException ex) {
+            LoggerApp.log("Error con la fecha " + ex.getMessage());
+        }
+
+        return m;
+    }
+    
+    
+    
 
     /**
      * Metodo que inserta un objeto en la tabla materialesTaller y en la tabla
@@ -334,6 +593,108 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                 rs.getString("observaciones")
         );
     }
+    
+     private Perifericos crearPerifericosBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Perifericos(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("conexion").toUpperCase(),
+                null
+           
+        );
+    }
+    
+        private Componentes crearComponenteBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Componentes(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("id_pc")
+        );
+    }
+    
+     private Cableado crearCableadoBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Cableado(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("longitud"),
+                rs.getString("conector1"),
+                rs.getString("conector2")
+        );
+    }
+    
+     private Equipos_en_red crearEquipoRedBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Equipos_en_red(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("num_puertos")
+        );
+    }
+    
+     private Herramientas crearHerramientaBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Herramientas(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("tipo").toUpperCase()
+        );
+    }
+     
+     private Material_Fungible crearMaterialFBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+//        Estados estado = Estados.valueOf(rs.getString("estado"));
+
+        return new Material_Fungible(rs.getString("id_matTa"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("estado").toUpperCase(),
+                rs.getString("cantidad"),
+                rs.getString("id_ubi"),
+                rs.getString("id_balda"),
+                rs.getString("fecha_alta"),
+                rs.getString("observaciones"),
+                rs.getString("estadof").toUpperCase()
+        );
+    }
+     
+    
 //=====================================================================
     //METODOS DE GUARDADO ENCAPSULADOS
 

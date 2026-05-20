@@ -768,6 +768,7 @@ public class InventarioApp extends JFrame {
 
             // Buscamos en la lista completa (alternativa a porIdMaterial no implementado)
             List<MaterialInventario> lista = dao.listarMaterial();
+            
             MaterialInventario encontrado = null;
             for (MaterialInventario m : lista) {
                 if (m.getId_matTa() == id) {
@@ -783,6 +784,10 @@ public class InventarioApp extends JFrame {
 
             // Mostramos los datos formateados en el área de texto
             // 🎨 Cambia el formato de esta cadena para que los datos se muestren diferente
+         
+            
+            
+            
             MaterialInventario m = encontrado;
             area.setText(
                     "══════════════════════════════════════\n"
@@ -797,16 +802,68 @@ public class InventarioApp extends JFrame {
                     + "  Fecha alta   : " + m.getFecha_alta().format(FMT_FECHA) + "\n"
                     + "  Observaciones: " + m.getObservaciones() + "\n"
             );
+//             area.setText(area.getText()+"Conexion: ");
+//            try{
+//                List<Perifericos> listaP = dao.listarPerifericos();
+//                Perifericos encontradoP = null;
+//                for (Perifericos mp : listaP) {
+//                    
+//                    if (mp.getId_matTa() == id) {
+//                    encontradoP = mp;
+//                     m = encontradoP; 
+////                     area.append(" Conexion: "+ mp.getConexion().toString()+"\n");
+//                    
+//                    break; // encontramos el que buscamos, salimos del bucle
+//                }
+//                 
+//                }
+//            }catch (CategoriaInvalidaException ex){
+//                LoggerApp.log("Error:"+ex.getMessage());
+//            }
+//            
+            try {
+                if(dao.porIdMaterialCable(id) != null){
+                    m = (Cableado) dao.porIdMaterialCable(id);
+                }
+                if(dao.porIdHerramientas(id) != null){
+                    m = (Herramientas) dao.porIdHerramientas(id);
+                }
+                if(dao.porIdEquiposRed(id) != null){
+                    m = (Equipos_en_red) dao.porIdEquiposRed(id);
+                }
+                if(dao.porIdMaterialF(id) != null){
+                    m = (Material_Fungible) dao.porIdMaterialF(id);
+                }
+                if(dao.porIdComponentes(id) != null){
+                    m = (Componentes) dao.porIdComponentes(id);
+                }
+                if(dao.porIdPerifericos(id) != null){
+                    m = (Perifericos) dao.porIdPerifericos(id);
+                }
+                
+                
+            } catch (CategoriaInvalidaException ex) {
+                Logger.getLogger(InventarioApp.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (LongitudInvalidaException ex) {
+                Logger.getLogger(InventarioApp.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ConectorInvalidoException ex) {
+                Logger.getLogger(InventarioApp.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
+            
+            
             switch(m){
-                case Perifericos pe -> area.append(" Conexion: "+pe.getConexion().toString()+"\n");              
+                case Perifericos pe -> area.append("  Conexion: "+pe.getConexion().toString()+"\n");              
                 case Cableado ca ->
-                        area.append(" Longitud: "+ca.getLongitud()+"\n"
-                                + " Conector1: "+ca.getConector1()+"\n"
-                                + " Conector2: "+ca.getConector2()); 
-                    case Componentes co -> area.append(" ID pc: "+co.getId_pc()+"\n");
-                    case Herramientas he -> area.append(" Tipo: "+he.getTipo().toString()+"\n");
-                    case Material_Fungible mf -> area.append(" Estado: "+mf.getEstadoFungible().toString()+"\n");
-                    case Equipos_en_red er -> area.append(" Nº Puertos: "+er.getNumPuertos()+"\n");
+                        area.append("  Longitud: "+ca.getLongitud()+"\n"
+                                + "  Conector1: "+ca.getConector1()+"\n"
+                                + "  Conector2: "+ca.getConector2()); 
+                    case Componentes co -> area.append("  ID pc: "+co.getId_pc()+"\n");
+                    case Herramientas he -> area.append("  Tipo: "+he.getTipo().toString()+"\n");
+                    case Material_Fungible mf -> area.append("  Estado: "+mf.getEstadoFungible().toString()+"\n");
+                    case Equipos_en_red er -> area.append("  Nº Puertos: "+er.getNumPuertos()+"\n");
                 default ->LoggerApp.log("Ha ocurrido un error.");
             }
             

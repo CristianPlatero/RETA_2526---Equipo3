@@ -90,6 +90,12 @@ public class Perifericos extends MaterialInventario {
         setId_pc(id_pc);
     }
 
+    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,String id_pc) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
+        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+         setConexion(conexion);
+        setId_pc(id_pc);
+    }
+
     
     
     
@@ -132,10 +138,15 @@ public class Perifericos extends MaterialInventario {
 
     public void setId_pc(String id_pc) throws IdInvalidoException {
         Validador.validaPcPerifericos(id_pc);
-        if(id_pc != null && id_pc.isBlank()){
+        if(id_pc == null){
             this.id_pc = null;
         }else{
-           this.id_pc =  Integer.parseInt(id_pc); 
+            if(id_pc.isBlank()){
+                this.id_pc = null;
+            }else{
+              this.id_pc =  Integer.parseInt(id_pc);   
+            }
+           
         }
         
         

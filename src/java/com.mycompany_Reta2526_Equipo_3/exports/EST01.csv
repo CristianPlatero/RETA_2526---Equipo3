@@ -1,1 +1,7 @@
 id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+3,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,material
+4,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,material
+5,nombre,descripcion,reparacion,3,EST01,,2010-12-12,observaciones,material
+6,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,material
+7,nombre,descripcion,reparacion,2,EST01,,2010-12-12,observaciones,material
+22,cable,una,operativo,1,EST01,,2026-05-19,er,cableado
