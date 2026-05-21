@@ -17,10 +17,7 @@ import Excepciones.NombreInvalidoException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author DAW120
- */
+
 public class Pc {
 
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -91,10 +88,7 @@ public class Pc {
     
     
     
-    /**
-     *
-     * @return
-     */
+    
     public int getId_pc() {
         return id_pc;
     }
@@ -109,10 +103,7 @@ public class Pc {
         this.id_pc = Integer.parseInt(id_pc);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getNombre() {
         return nombre;
     }
@@ -127,10 +118,7 @@ public class Pc {
         this.nombre = nombre;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -145,10 +133,7 @@ public class Pc {
         this.descripcion = descripcion;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public Estados getEstado() {
         return estado;
     }
@@ -164,10 +149,7 @@ public class Pc {
         this.estado = Estados.valueOf(estado.toUpperCase().trim());
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public Categorias getCategoria() {
         return categoria;
     }
@@ -183,10 +165,7 @@ public class Pc {
        this.categoria = Categorias.valueOf(categoria.toUpperCase().trim());
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getId_estacion() {
         return id_estacion;
     }
@@ -201,10 +180,7 @@ public class Pc {
         this.id_estacion = id_estacion;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public LocalDate getFecha_alta() {
         return fecha_alta;
     }
@@ -219,10 +195,7 @@ public class Pc {
         this.fecha_alta = LocalDate.parse(fecha_alta, formato);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getObservaciones() {
         return observaciones;
     }

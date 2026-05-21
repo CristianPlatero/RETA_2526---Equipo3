@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *TIPOS DE ARMARIOS
  * @author DAW127
  */
 public enum Movilidades {

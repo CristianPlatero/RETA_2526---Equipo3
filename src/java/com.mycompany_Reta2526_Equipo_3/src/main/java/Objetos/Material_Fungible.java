@@ -13,10 +13,7 @@ import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 
-/**
- *
- * @author DAW120
- */
+
 public class Material_Fungible extends MaterialInventario {
 
     private EstadosFungible estadoFungible;
@@ -68,10 +65,7 @@ public class Material_Fungible extends MaterialInventario {
         setEstadoFungible(estadoFungible);
     }
     
-    /**
-     *
-     * @return
-     */
+    
     public EstadosFungible getEstadoFungible() {
         return estadoFungible;
     }

@@ -20,10 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- *
- * @author DAW120
- */
+
 public class Validador {
 
     /**
@@ -31,15 +28,15 @@ public class Validador {
      * @param inventario
      * Es el id como un String
      * @throws IdInvalidoException
+     * @see 
+     * <br>Si el inventario no existe o esta en blanco
+     * <br>*Lanza una excepcion
      * 
-     * Si el inventario no existe o esta en blanco
-     * *Lanza una excepcion
-     * 
-     * Se crea un try
-     * Se crea un int llamado valor que es el inventario convertido en int
-     * Si valor es negativo o supera a 99
-     * *Lanza una excepcion
-     * Si hay un problema con el parseo lanza una excepcion
+     * <br>Se crea un try
+     * <br>Se crea un int llamado valor que es el inventario convertido en int
+     * <br>Si valor es negativo
+     * <br>*Lanza una excepcion
+     * <br>Si hay un problema con el parseo lanza una excepcion
      */
     public static void validaInventario(String inventario) throws IdInvalidoException {
         if (inventario == null || inventario.isBlank()) {
@@ -56,9 +53,15 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO PARA VALIDAR EL FORMATO DEL NOMBRE
      * @param nombre
+     * Es el nombre a validar
      * @throws NombreInvalidoException
+     * @see 
+     * <br>Comprueba que:
+     * <br>-Exista y que no este vacio
+     * <br>-Tenga entre 2 y 50 caracteres
+     * <br>-Solo contenga letras, espacios, digitos y guiones
      */
     public static void validaNombre(String nombre) throws NombreInvalidoException {
         if (nombre == null || nombre.isBlank()) {
@@ -73,9 +76,14 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO PARA VALIDAR EL FORMATO DE LA DESCRIPCION
      * @param descripcion
+     * La descripcion a validar
      * @throws DescripcionInvalidaException
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>*Tenga entre 2 y 50 caracteres
      */
     public static void validaDescripcion(String descripcion) throws DescripcionInvalidaException {
         if (descripcion == null || descripcion.isBlank()) {
@@ -89,6 +97,15 @@ public class Validador {
 
     }
     
+    /**
+     *METODO ESTATICO PARA VALIDAR EL FORMATO DE LA OBSERVACION
+     * @param descripcion
+     * La observacion a validar
+     * @throws DescripcionInvalidaException
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Si exista no tenga mas de 50 caracteres
+     */
     public static void validaObservacion(String descripcion) throws DescripcionInvalidaException {
         
         if (descripcion != null && descripcion.length() > 50) {
@@ -110,15 +127,15 @@ public class Validador {
      * Cadena de texto(String)
      * @throws EstadoInvalidoException
      * @throws DescripcionInvalidaException
+     * @see 
+     * <br>Si estado no existe o esta en blanco
+     * <br>*Se lanza una excepcion
      * 
-     * Si estado no existe o esta en blanco
-     * *Se lanza una excepcion
+     * <br>Se le quitan los espacios en al inicio y final(trim) a estado
+     * <br>Se pone estado en mayuscula(UpperCase)
      * 
-     * Se le quitan los espacios en al inicio y final(trim) a estado
-     * Se pone estado en mayuscula(UpperCase)
-     * 
-     * Si estado no coincide con una de las posibilidades
-     * *Lanza una excepcion
+     * <br>Si estado no coincide con una de las posibilidades
+     * <br>*Lanza una excepcion
      */
     public static void validaEstado(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         
@@ -149,10 +166,16 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO tipo
      * @param tipo
+     * Es el tipo que debe validar
      * @throws TipoInvalidoException
      * @throws DescripcionInvalidaException
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaTipo(String tipo) throws TipoInvalidoException, DescripcionInvalidaException {
         
@@ -181,10 +204,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO categoria
      * @param categoria
+     * Es la categoria que debe validar
      * @throws CategoriaInvalidaException
      * @throws DescripcionInvalidaException
+     * 
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaCategoria(String categoria) throws CategoriaInvalidaException, DescripcionInvalidaException {
         
@@ -211,10 +241,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO movilidad
      * @param movilidad
+     * Es la movilidad que debe validar
      * @throws MovilidadInvalidaException
      * @throws DescripcionInvalidaException
+     * 
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaMovilidad(String movilidad) throws MovilidadInvalidaException, DescripcionInvalidaException {
         movilidad = movilidad.toUpperCase().trim();
@@ -238,10 +275,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO estado
      * @param estado
+     * Es el estado que debe validar
      * @throws EstadoInvalidoException
      * @throws DescripcionInvalidaException
+     * 
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaEstadoFungible(String estado) throws EstadoInvalidoException, DescripcionInvalidaException {
         estado = estado.toUpperCase().trim();
@@ -267,10 +311,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO tipo de Herramientas
      * @param tipoHerramienta
+     * Es el tipo que debe validar
      * @throws CategoriaInvalidaException
      * @throws DescripcionInvalidaException
+     * 
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaTipoHerramienta(String tipoHerramienta) throws CategoriaInvalidaException, DescripcionInvalidaException {
         tipoHerramienta = tipoHerramienta.toUpperCase().trim();
@@ -294,10 +345,17 @@ public class Validador {
     }
 
     /**
-     *
+     *METODO ESTATICO QUE VALIDA EL ATRIBUTO conexion
      * @param conexion
+     * Es la conexion que debe validar
      * @throws CategoriaInvalidaException
      * @throws DescripcionInvalidaException
+     * 
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y que no este vacio
+     * <br>**Lo pone en mayusculas
+     *<br> *Sea una de las opciones
      */
     public static void validaTipoConexion(String conexion) throws CategoriaInvalidaException, DescripcionInvalidaException {
         conexion = conexion.toUpperCase().trim();
@@ -322,7 +380,7 @@ public class Validador {
 //==========================================
     
     /**
-     *
+     *METODO ESTATICO QUE VALIDA LA CANTIDAD
      * @param cantidad
      * @throws CantidadInvalidaException
      */
@@ -366,13 +424,13 @@ public class Validador {
      * @param estacion
      * Es el id de estacion que debe validar
      * @throws IdInvalidoException
+     * @see 
+     * <br>estacion no puede ser NULL ni estar en blanco(isBlank)
      * 
-     * estacion no puede ser NULL ni estar en blanco(isBlank)
+     * <br>estacion debe cumplir el formato
+     * <br>*Empezar por (EST0) seguido de un numero entre [1-8]
      * 
-     * estacion debe cumplir el formato
-     * *Empezar por (EST0) seguido de un numero entre [1-8]
-     * 
-     * En caso de que pase lo contrario lanza excepciones personalizadas
+     * <br>En caso de que pase lo contrario lanza excepciones personalizadas
      */
     public static void validaEstacion(String estacion) throws IdInvalidoException {
         if (estacion == null || estacion.isBlank()) {
@@ -389,13 +447,13 @@ public class Validador {
      * @param armario
      * Es el id de armario que debe validar
      * @throws IdInvalidoException
+     * @see 
+     * <br>armario no puede ser NULL ni estar en blanco(isBlank)
      * 
-     * armario no puede ser NULL ni estar en blanco(isBlank)
+     * <br>armario debe cumplir el formato
+     * <br>*Empezar por (ARM0) seguido de un numero entre [1-6]
      * 
-     * armario debe cumplir el formato
-     * *Empezar por (ARM0) seguido de un numero entre [1-6]
-     * 
-     * En caso de que pase lo contrario lanza excepciones personalizadas
+     * <br>En caso de que pase lo contrario lanza excepciones personalizadas
      */
     public static void validaArmario(String armario) throws IdInvalidoException {
         if (armario == null || armario.isBlank()) {
@@ -414,15 +472,15 @@ public class Validador {
      * @param balda
      * Es el id de la balda que debe validar
      * @throws IdInvalidoException
+     * @see 
+     * <br>Si ubi cumple el formato de armario
+     * <br>*Empezar por (ARM0) seguido de un numero entre [1-6]
+     * <br>balda no puede ser NULL
+     * <br>Y debe ser un numero entre [1-6]
      * 
-     * Si ubi cumple el formato de armario
-     * *Empezar por (ARM0) seguido de un numero entre [1-6]
-     * balda no puede ser NULL
-     * Y debe ser un numero entre [1-6]
-     * 
-     * Si ubi cumple el formato de estacion
-     * *Empezar por (EST0) seguido de un numero entre [1-8]
-     * balda debe ser NULL
+     * <br>Si ubi cumple el formato de estacion
+     * <br>*Empezar por (EST0) seguido de un numero entre [1-8]
+     * <br>balda debe ser NULL
      */
     public static void validaBalda(String ubi, String balda) throws IdInvalidoException {
         
@@ -447,12 +505,12 @@ public class Validador {
      * @param ubi
      * Es el id de la ubicacion que debe validar
      * @throws IdInvalidoException
+     * @see 
+     * <br>ubi no puede ser NULL ni estar vacio
      * 
-     * ubi no puede ser NULL ni estar vacio
-     * 
-     * ubi debe cumplir el formato de armario o estacion
-     * *Empezar por (ARM0) seguido de un numero entre [1-6]
-     * *Empezar por (EST0) seguido de un numero entre [1-8]
+     * <br>ubi debe cumplir el formato de armario o estacion
+     * <br>*Empezar por (ARM0) seguido de un numero entre [1-6]
+     * <br>*Empezar por (EST0) seguido de un numero entre [1-8]
      */
     public static void validaUbi(String ubi) throws IdInvalidoException {
         if (ubi == null || ubi.isBlank()) {
@@ -466,9 +524,14 @@ public class Validador {
 //=====================================================================
 
     /**
-     *
+     *METODO PARA VALIDAR EL ID_PC
      * @param pc
+     * El id que debe validar
      * @throws IdInvalidoException
+     * @see 
+     * <br>Comprueba que:
+     * <br>*Exista y no este vacio
+     * <br>*Se pueda convertir a un numero positivo
      */
     public static void validaPc(String pc) throws IdInvalidoException {
         if (pc == null || pc.isBlank()) {
@@ -484,6 +547,15 @@ public class Validador {
         }
     }
     
+    /**
+     *METODO PARA VALIDAR EL ID_PC DE UN PERIFERICO
+     * @param pc
+     * El id que debe validar
+     * @throws IdInvalidoException
+     * @see 
+     * <br>Comprueba que:
+     *<br> *Si existe y no esta vacio se pueda convertir a un numero positivo
+     */
     public static void validaPcPerifericos(String pc) throws IdInvalidoException {
         
         

@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO EN ESTADO
  * @author DAW120
  */
 public class EstadoInvalidoException extends Exception{
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public EstadoInvalidoException(String message) {
         super(message);

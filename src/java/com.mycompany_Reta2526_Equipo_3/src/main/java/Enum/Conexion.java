@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *TIPO DE CONEXION DE UN PERIFERICO
  * @author DAW127
  */
 public enum Conexion {

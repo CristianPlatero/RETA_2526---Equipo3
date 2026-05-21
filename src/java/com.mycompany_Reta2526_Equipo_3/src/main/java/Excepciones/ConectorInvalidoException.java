@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO DE CONECTOR
  * @author DAW120
  */
 public class ConectorInvalidoException extends Exception{
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public ConectorInvalidoException(String message) {
         super(message);

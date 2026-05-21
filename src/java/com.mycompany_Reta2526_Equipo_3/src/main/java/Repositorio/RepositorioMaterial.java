@@ -6,10 +6,7 @@ package Repositorio;
 
 import java.util.List;
 
-/**
- *
- * @author DAW120
- */
+
 public interface RepositorioMaterial<T> {
      
 
@@ -34,7 +31,7 @@ public interface RepositorioMaterial<T> {
      *método para realizar la inserción o modificación de un objeto
      * @param t
      * 
-     * 
+     * @see 
      * aunque también se pueden crear un método para añadir un objeto y otro para modificar
      * inserta un registro en la tabla o bien lo modifica
      */
@@ -44,7 +41,7 @@ public interface RepositorioMaterial<T> {
     /**
      *método para borrar un objeto por su ID
      * @param id
-     * 
+     * @see 
      * nos permite borrar un registro de la base de datos por clave primaria
      * 
      */
@@ -54,8 +51,8 @@ public interface RepositorioMaterial<T> {
     
     /**
      *método para actualizar un objeto por su ID
-     * @param id
-     * 
+     * @param t
+     * @see 
      * nos permite actualizar un registro de la base de datos por clave primaria
      * 
      */

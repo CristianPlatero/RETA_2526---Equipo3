@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *TIPOS DE PC
  * @author DAW120
  */
 public enum Categorias {

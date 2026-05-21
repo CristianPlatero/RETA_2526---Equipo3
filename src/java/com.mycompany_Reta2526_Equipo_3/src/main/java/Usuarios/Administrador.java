@@ -5,13 +5,13 @@
 package Usuarios;
 
 /**
- *
- * @author DAW120
+ *TIPO DE USUARIO
+ * @author DAW126
  */
 public class Administrador extends Usuario {
 
     /**
-     *
+     *CONSTRUCTOR DE ADMINISTRADOR
      * @param nombre
      * @param contrasena
      */

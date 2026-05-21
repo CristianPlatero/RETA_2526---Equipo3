@@ -12,10 +12,7 @@ import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 
-/**
- *
- * @author DAW120
- */
+
 public class Equipos_en_red extends MaterialInventario{
     
     private  int numPuertos;
@@ -67,10 +64,7 @@ public class Equipos_en_red extends MaterialInventario{
         setNumPuertos(numPuertos);
     }
     
-    /**
-     *
-     * @return
-     */
+    
     public int getNumPuertos() {
         return numPuertos;
     }

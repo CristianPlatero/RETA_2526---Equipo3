@@ -4,15 +4,12 @@
  */
 package Excepciones;
 
-/**
- *
- * @author DAW120
- */
+
 public class TipoInvalidoException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public TipoInvalidoException(String message) {
         super(message);

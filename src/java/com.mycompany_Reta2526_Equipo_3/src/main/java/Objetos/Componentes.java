@@ -14,10 +14,7 @@ import Excepciones.NombreInvalidoException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author DAW120
- */
+
 public class Componentes extends MaterialInventario {
 
     private int id_pc;
@@ -69,10 +66,7 @@ public class Componentes extends MaterialInventario {
         setId_pc(id_pc);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public int getId_pc() {
         return id_pc;
     }

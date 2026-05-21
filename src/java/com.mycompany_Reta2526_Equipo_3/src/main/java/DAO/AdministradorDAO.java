@@ -38,7 +38,7 @@ import java.util.List;
 import Utilidades.LoggerApp;
 
 /**
- *
+ *CLASE CON LAS FUNCIONES DE MANIPULACION EN LA BD
  * @author DAW120
  */
 public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>, RepositorioPc<Pc> {
@@ -51,8 +51,24 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     // MATERIALES
     //====================================================
     /**
-     *
-     * @return
+     *METODO PARA CREAR UNA LISTA CON LOS MATERIALES DE LA BD
+     * 
+     * 
+     * @return Una lista de Objetos 'MaterialInventario' llamada (materiales).
+     * 
+     * @see 
+     * <p>
+     * <br>Crea una lista de Objetos 'MaterialInventario' llamada (materiales)
+     * <br>Crea una sentencia SQL para crear una consulta con todos los campos de la tabla materialesTaller
+     * <br>
+     * <br>Se conecta a la BD (getConnection) y se prepara para ejecutar la sentencia
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>*Empezando desde la primera fila de (rs) añade a (materiales) un Objeto creado con el METODO crearMaterialBD(rs)
+     * <br>*Se repite mientras (rs) tenga una fila despues
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (materiales)
+     * </p>
      */
     @Override
     public List<MaterialInventario> listarMaterial() {
@@ -60,7 +76,8 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
         String sql = "SELECT id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones FROM materialesTaller";
 
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = getConnection().prepareStatement(sql); 
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 materiales.add(crearMaterialBD(rs));
@@ -86,7 +103,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     
-        public List<Perifericos> listarPerifericos() throws CategoriaInvalidaException {
+    public List<Perifericos> listarPerifericos() throws CategoriaInvalidaException {
         List<Perifericos> perifericos = new ArrayList<>();
 
         String sql = "SELECT m.id_matTa,m.nombre,m.descripcion,m.estado,m.cantidad,m.id_ubi,m.id_balda,m.fecha_alta,m.observaciones,p.conexion FROM materialesTaller m JOIN perifericos p ON p.id_matTa = m.id_matTa";
@@ -116,7 +133,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return perifericos;
     }
                      
-          public List<Componentes> listarComponentes() throws CategoriaInvalidaException {
+    public List<Componentes> listarComponentes() throws CategoriaInvalidaException {
         List<Componentes> componentes = new ArrayList<>();
 
         String sql = "SELECT m.id_matTa,m.nombre,m.descripcion,m.estado,m.cantidad,m.id_ubi,m.id_balda,m.fecha_alta,m.observaciones,p.id_pc FROM materialesTaller m JOIN componentes p ON p.id_matTa = m.id_matTa";
@@ -148,15 +165,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
                          
                          
     /**
-     *
+     *METODO QUE BUSCA UN MATERIAL POR SU ID EN LA BD
      * @param id
+     * El id que busca
      * @return
+     * Un Objeto 'MaterialInventario'
+     * @see 
+     * <br>Instancia un Objeto 'MaterialInventario'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Donde el campo id_matTa sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearMaterialBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
      */
     @Override
     public MaterialInventario porIdMaterial(int id) {
 
         MaterialInventario m = null;
-        String sql = "SELECT id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones FROM materialesTaller WHERE id_matTa = ?";
+        String sql = "SELECT id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones "
+                     + " FROM materialesTaller WHERE id_matTa = ?";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
 
@@ -185,10 +217,36 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UN CABLE POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Cableado'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Cableado'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla cableado menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de cableado sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearCableadoBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Cableado porIdMaterialCable(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Cableado m = null;
-        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,longitud,conector1,conector2 FROM materialestaller m JOIN cableado c ON m.id_matTa = c.id_matTa WHERE c.id_matTa = ?";
+        String sql = "SELECT m.id_matTa,nombre,descripcion,estado,cantidad,id_ubi,id_balda,fecha_alta,observaciones,longitud,conector1,conector2 "
+                     + "FROM materialestaller m JOIN cableado c ON m.id_matTa = c.id_matTa "
+                     + "WHERE c.id_matTa = ?";
 
         try (PreparedStatement stmt = getConnection().prepareStatement(sql)) {
 
@@ -217,6 +275,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UN EQUIPO DE RED POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Equipos_en_red'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Equipos_en_red'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla equipos_red menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de equipos_red sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     *<br> *Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearEquipoRedBD(rs) 
+     *<br> En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Equipos_en_red porIdEquiposRed(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Equipos_en_red m = null;
@@ -249,6 +331,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UNA HERRAMIENTA POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Herramientas'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Herramientas'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla herramientas menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de herramientas sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearHerramientaBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Herramientas porIdHerramientas(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Herramientas m = null;
@@ -281,6 +387,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UN MATERIAL FUNGIBLE POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Material_Fungible'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Material_Fungible'(m) como NULL
+     *<br> Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla material_fungible menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de material_fungible sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearMaterialFBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Material_Fungible porIdMaterialF(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Material_Fungible m = null;
@@ -313,6 +443,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UN COMPONENTE POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Componentes'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Componentes'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla componentes menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de componentes sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearComponenteBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Componentes porIdComponentes(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Componentes m = null;
@@ -345,6 +499,30 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return m;
     }
     
+    /**
+     *METODO QUE BUSCA LOS DATOS DE UN PERIFERICO POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Perifericos'
+     * @throws CategoriaInvalidaException
+     * @throws LongitudInvalidaException
+     * @throws ConectorInvalidoException
+     * @see 
+     * <br>Instancia un Objeto 'Perifericos'(m) como NULL
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla materialesTaller
+     * <br>*Y todos los campos de la tabla perifericos menos el id_matTa, mediante una Subconsulta
+     * <br>*Donde el campo de id_matTa de las dos tablas coincida
+     * <br>*Donde el campo id_matTa de perifericos sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila le da a (m) el RETURN del METODO crearPerifericoBD(rs) 
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Devuelve (m)
+     */
     public Perifericos porIdPerifericos(int id) throws CategoriaInvalidaException, LongitudInvalidaException, ConectorInvalidoException {
 
         Perifericos m = null;
@@ -384,16 +562,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      * Metodo que inserta un objeto en la tabla materialesTaller y en la tabla
      * hija correspondiente
      *
-     * Tiene de atributo un Objeto de la clase MaterialInventario Emplea una
-     * sentencia Mysql para insertar sin valores Se conecta a la base y prepara
-     * la sentencia *Junto a la sentencia se escribe un statement para que
-     * genere la clave AI Se le colocan los valores a insertar desde el objeto
-     * *Se crea un result set que devuelve la clave AI *Al crearse se crea un
-     * int que guarde la clave Mediante un Switch se comprueba a que clase hija
-     * pertenece el objeto Y en funcion de la clase se ejecuta otra insercion a
-     * traves de otro metodo
+     * 
      *
      * @param t
+     * 
+     * Tiene de atributo un Objeto de la clase MaterialInventario 
+     * @see 
+     * <br>Emplea una
+     * sentencia Mysql para insertar sin valores <br>Se conecta a la base y prepara
+     * la sentencia <br>*Junto a la sentencia se escribe un statement para que
+     * genere la clave AI <br>Se le colocan los valores a insertar desde el objeto
+     * <br>*Se crea un result set que devuelve la clave AI <br>*Al crearse se crea un
+     * int que guarde la clave <br>Mediante un Switch se comprueba a que clase hija
+     * pertenece el objeto <br>Y en funcion de la clase se ejecuta otra insercion a
+     * traves de otro metodo
      */
     @Override
 
@@ -500,15 +682,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     /**
      * Metodo para eliminar un objeto de la tabla materialesTaller por la id
      *
-     * Tiene el atributo id Emplea una sentencia Mysql para eliminar un objeto
-     * por el id Se conecta a la BD y prepara la sentencia Sustituye el simbolo
-     * designado por defecto por el id Ejecuta la sentencia
-     *
-     * Se eliminan el resto de entradas del objeto con ese id por la
-     * configuracion de la BD
+     * 
      *
      * @param id
+     * El id que busca
      * @return int 
+     * Devuelve -1 / 0 / 1 dependiendo de como resulto el DELETE
+     * @see 
+     * <br>Tiene el atributo id Emplea una sentencia Mysql para eliminar un objeto
+     * por el id <br>Se conecta a la BD y prepara la sentencia <br>Sustituye el simbolo
+     * designado por defecto por el id <br>Ejecuta la sentencia
+     *
+     *<br> Se eliminan el resto de entradas del objeto con ese id por la
+     * configuracion de la BD
+     * 
      */
     @Override
    public int eliminarMaterial(int id) {
@@ -528,6 +715,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 }
 
+    /**
+     *METODO QUE MODIFICA LOS VALORES DE LOS CAMPOS DE UN MATERIAL
+     * @param t
+     * Un Objeto 'MaterialInventario' de donde saca los datos
+     * @see 
+     * <br>Crea una sentencia SQL incompleta que actualiza los datos de la tabla materialesTaller
+     * <br>*Los datos se convertiran en (?) x8
+     * <br>*Donde el id_matTa sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y prepara la sentencia
+     * <br>*Sustituye los primeros 8 (?) por el atributo correspondiente de t
+     * <br>*Sustituye el ultimo (?) por el id_matTa de t
+     */
     @Override
     public void actualizarPorID(MaterialInventario t) {
         String sql = "UPDATE  materialesTaller SET "
@@ -569,10 +769,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     // =========================================================================
-    private MaterialInventario crearMaterialBD(ResultSet rs)
-            throws SQLException, IdInvalidoException, NombreInvalidoException,
-            CantidadInvalidaException, DescripcionInvalidaException,
-            EstadoInvalidoException, FechaInvalidaException {
+    private MaterialInventario crearMaterialBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException,CantidadInvalidaException, DescripcionInvalidaException,EstadoInvalidoException, FechaInvalidaException {
         // Estados estado = Estados.valueOf(rs.getString("estado"));
         //Estados estado = Estados.valueOf(rs.getString("estado").toUpperCase().trim();
         Estados estado = Estados.valueOf(
@@ -612,7 +809,7 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         );
     }
     
-        private Componentes crearComponenteBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
+     private Componentes crearComponenteBD(ResultSet rs) throws SQLException, IdInvalidoException, NombreInvalidoException, CantidadInvalidaException, DescripcionInvalidaException, CategoriaInvalidaException, EstadoInvalidoException, FechaInvalidaException {
 //        Estados estado = Estados.valueOf(rs.getString("estado"));
 
         return new Componentes(rs.getString("id_matTa"),
@@ -704,18 +901,18 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      * @param t Es el Objeto Periferico
      * @param id Es un Int que es el id que tendra asignado en la tabla
      * @throws SQLException
-     *
-     * Emplea una sentencia de Mysql para insertar en la tabla perifericos Se
-     * conecta a la BD y prepara la sentencia Los valores a insertar no estan
-     * introducidos(?) Se inserta como un numero entero(int) en el primer (?) el
-     * id En el segundo (?) se inserta el atributo Conexion que es un Enum *como
-     * una cadena de texto(String) en minusculas(lowerCase) Se ejecuta la
+     * @see 
+     * <br>Emplea una sentencia de Mysql para insertar en la tabla perifericos<br> Se
+     * conecta a la BD y prepara la sentencia <br>Los valores a insertar no estan
+     * introducidos(?) <br>Se inserta como un numero entero(int) en el primer (?) el
+     * id <br>En el segundo (?) se inserta el atributo Conexion que es un Enum <br>*como
+     * una cadena de texto(String) en minusculas(lowerCase) <br>Se ejecuta la
      * sentencia
      *
-     * Se crea una segunda sentencia SQL para insertar en la tabla
-     * perifericos_pcs *Una tabla intermedia Se conecta a la BD y prepara la
-     * segunda sentencia Los valores a insertar no estan introducidos(?) El
-     * primer (?) es el id El segundo (?) es el id_pc de t Se ejecuta la
+     * <br>Se crea una segunda sentencia SQL para insertar en la tabla
+     * perifericos_pcs (Una tabla intermedia) <br>Se conecta a la BD y prepara la
+     * segunda sentencia <br>Los valores a insertar no estan introducidos(?) <br>El
+     * primer (?) es el id <br>El segundo (?) es el id_pc de t <br>Se ejecuta la
      * sentencia
      */
     public void guardarPeriferico(Perifericos t, int id) throws SQLException {
@@ -747,16 +944,9 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
             } catch (SQLException ex) {
                 LoggerApp.log("ERROR: " + ex.getMessage());
             }  
-                    
-                    
-//                }
-//            }  
+                
             }
-//            
-            
-        
-
-            
+//           
         } catch (SQLException ex) {
             LoggerApp.log("ERROR: " + ex.getMessage());
         }
@@ -769,15 +959,15 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      *
      * @param t Es el Objeto Componente que se va a insertar
      * @param id Es el id con el que va a ser insertado
-     *
-     * Se crea una sentencia SQL para insertar como cadena de texto(String)
-     * *INSERT INTO componentes (id_matTa, id_pc) VALUES (?,?) **(?) es un
-     * simbolo que puede ser cambiado por datos Se conecta a la BD y prepara la
-     * sentencia para manipularla Al primer (?) se le sustituye por id Al
-     * segundo (?) se le sustituye por el atributo id_pc de t *Ambos son valores
+     *@see 
+     * <br>Se crea una sentencia SQL para insertar como cadena de texto(String)
+     * <br>*INSERT INTO componentes (id_matTa, id_pc) VALUES (?,?) **(?) es un
+     * simbolo que puede ser cambiado por datos <br>Se conecta a la BD y prepara la
+     * sentencia para manipularla <br>Al primer (?) se le sustituye por id <br>Al
+     * segundo (?) se le sustituye por el atributo id_pc de t <br>*Ambos son valores
      * enteros (int)
      *
-     * Se crea un entero(int) que recoge el numero de filas afectadas al
+     * <br>Se crea un entero(int) que recoge el numero de filas afectadas al
      * ejecutarse la sentencia
      *
      */
@@ -803,15 +993,15 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
      *
      * @param t Es el Objeto Equipos_en_red
      * @param id Es el id con el que va a ser insertado
-     *
-     * Se crea una sentencia SQL para insertar como cadena de texto(String)
-     * *INSERT INTO equipos_red (id_matTa, num_puertos) VALUES (?,?) **(?) es un
+     *@see 
+     * <br>Se crea una sentencia SQL para insertar como cadena de texto(String)
+     * <br>*INSERT INTO equipos_red (id_matTa, num_puertos) VALUES (?,?) **(?) es un
      * simbolo que puede ser cambiado por datos Se conecta a la BD y prepara la
-     * sentencia para manipularla Al primer (?) se le sustituye por id Al
-     * segundo (?) se le sustituye por el atributo numPuertos de t *Ambos son
+     * sentencia para manipularla <br>Al primer (?) se le sustituye por id <br>Al
+     * segundo (?) se le sustituye por el atributo numPuertos de t <br>*Ambos son
      * valores enteros (int)
      *
-     * Se crea un entero(int) que recoge el numero de filas afectadas al
+     * <br>Se crea un entero(int) que recoge el numero de filas afectadas al
      * ejecutarse la sentencia
      *
      */
@@ -832,9 +1022,17 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO ESTATICO PARA INSERTAR UN CABLE EN LA BD
      * @param t
+     * Es el Objeto Cableado del que sacar los datos
      * @param id
+     * Es el id con el que se va a insertar
+     * @see 
+     * <br>Se crea una sentencia SQL incompleta para insertar en la tabla cableado los datos (?)x4
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>Sustituye el primer (?) por el id y el resto por el atributo de t correspondiente
+     * <br>Ejecuta la sentencia
+     * 
      */
     public void guardarCableado(Cableado t, int id) {
         String sql = "INSERT INTO cableado (id_matTa, longitud, conector1, conector2) VALUES (?,?,?,?)";
@@ -855,9 +1053,17 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO ESTATICO PARA INSERTAR UNA HERRAMIENTA EN LA BD
      * @param t
+     * Es el Objeto Herramientas del que sacar los datos
      * @param id
+     * Es el id con el que se va a insertar
+     * @see 
+     * <br>Se crea una sentencia SQL incompleta para insertar en la tabla herramientas los datos (?)x4
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>Sustituye el primer (?) por el id y el resto por el atributo de t correspondiente
+     * <br>Ejecuta la sentencia
+     * 
      */
     public void guardarHerramienta(Herramientas t, int id) {
         String sql = "INSERT INTO herramientas (id_matTa, tipo) VALUES (?,?)";
@@ -876,9 +1082,17 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     }
 
     /**
-     *
+     *METODO ESTATICO PARA INSERTAR UN MATERIAL FUNGIBLE EN LA BD
      * @param t
+     * Es el Objeto Material_Fungible del que sacar los datos
      * @param id
+     * Es el id con el que se va a insertar
+     * @see 
+     * <br>Se crea una sentencia SQL incompleta para insertar en la tabla material_fungible los datos (?)x4
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>Sustituye el primer (?) por el id y el resto por el atributo de t correspondiente
+     * <br>Ejecuta la sentencia
+     * 
      */
     public void guardarMaterialFungible(Material_Fungible t, int id) {
         String sql = "INSERT INTO material_fungible (id_matTa, estado) VALUES (?,?)";
@@ -900,6 +1114,23 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     //====================================================
     // PCS
     //====================================================
+
+    /**
+     *METODO QUE CREA UNA LISTA DE PC CON LOS DATOS DE LA BD
+     * @return
+     * Una lista de Objetos 'Pc'
+     * @see 
+     * <br>Crea una lista de Objetos 'Pc' llamada (lista)
+     * <br>Crea una sentencia SQL para crear una consulta con todos los campos de la tabla pcs
+     * 
+     * <br>Se conecta a la BD (getConnection) y se prepara para ejecutar la sentencia
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>*Empezando desde la primera fila de (rs) añade a (materiales) un Objeto creado con el METODO crearMaterialBD(rs)
+     * <br>*Se repite mientras (rs) tenga una fila despues
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     *<br> Devuelve (lista)
+     */
     @Override
     public List<Pc> listarPc() {
 
@@ -936,6 +1167,26 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         return lista;
     }
 
+    /**
+     *METODO QUE BUSCA UN PC POR SU ID EN LA BD
+     * @param id
+     * El id que busca
+     * @return
+     * Un Objeto 'Pc'
+     * @see 
+     * 
+     * <br>Crea una sentencia SQL incompleta para crear una consulta que muestre todos los campos de la tabla pcs
+     * <br>*Donde el campo id_pc sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>*Sustituye el primer (?) por el id
+     * <br>*Crea un ResultSet(rs) que almacena el resultado de ejecutar la sentencia
+     * <br>Si (rs) tiene una fila crea un Objeto 'Pc'(pc) con id_pc como id, y el resto de atributos obtenidos del (rs) 
+     * <br>Devuelve (pc)
+     * <br>En caso de fallo lanza la excepcion correspondiente
+     * 
+     * <br>Y devuelve NULL
+     */
     @Override
     public Pc porIdPc(int id) {
 
@@ -981,6 +1232,19 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     }
 
+     /**
+     *METODO QUE MODIFICA LOS VALORES DE LOS CAMPOS DE UN PC
+     * @param t
+     * Un Objeto 'Pc' de donde saca los datos
+     * @see 
+     * <br>Crea una sentencia SQL incompleta que actualiza los datos de la tabla pcs
+     * <br>*Los datos se convertiran en (?) x6
+     * <br>*Donde el id_matTa sea igual a (?)
+     * 
+     * <br>Se conecta a la BD y prepara la sentencia
+     * <br>*Sustituye los primeros 6 (?) por el atributo correspondiente de t
+     * <br>*Sustituye el ultimo (?) por el id_pc de t
+     */
     public void actualizarPcPorID(Pc t) {
         String sql = "UPDATE  pcs SET "
                 + "nombre = ?,"
@@ -1016,6 +1280,17 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
 
     }
 
+    /**
+     *METODO PARA GUARDAR UN PC EN LA BD
+     * @param pc
+     * Un Objeto 'Pc' de donde se obtienen los datos
+     * @see 
+     * <br>Se crea una sentencia SQL incompleta para insertar los datos (?)x7 en la tabla pcs
+     * <br>*En todos los campos de una fila menos id_pc 
+     * <br>Se conecta a la BD y se prepara para ejecutar la sentencia
+     * <br>Sustituye (?) por los atributos de pc
+     * <br>Ejecuta la sentencia
+     */
     @Override
     public void guardarPc(Pc pc) {
 
@@ -1057,6 +1332,16 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
     }
 
+    /**
+     *METODO PARA ELIMINAR UN PC EN LA BD
+     * @param id
+     * El id del pc a eliminar
+     * @see 
+     * <br>Crea una sentencia SQL incompleta para eliminar de la tabla pcs donde el id_pc sea (?)
+     * <br>Se conecta a la BD y prepara la sentencia
+     * <br>Sustituye (?) por id
+     * <br>Ejecuta la sentencia
+     */
     @Override
     public void eliminarPc(int id) {
         String sql = "DELETE FROM pcs WHERE id_pc = ?";
@@ -1084,6 +1369,20 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
     //====================================================
     // UBICACIONES 
     //====================================================
+
+    /**
+     *METODO PARA CREAR UNA LISTA DE UBICACIONES
+     * @return
+     * Una lista de String con el id_ubi
+     * @see 
+     * <br>Crea un ArrayList de String(lista)
+     * <br>Crea una sentencia SQL que crea una consulta que muestra los id_ubi de la tabla ubicacion ordenados
+     * <br>Se conecta a la BD, prepara la sentencia y la ejecuta guardandola en un ResultSet(rs)
+     * <br>Mientras (rs) tenga filas, las va añadiendo a (lista)
+     * 
+     * <br>Devuelve (lista)
+     */
+    
     public List<String> listarUbicaciones() {
 
         List<String> lista = new ArrayList<>();
@@ -1109,7 +1408,18 @@ public class AdministradorDAO implements RepositorioMaterial<MaterialInventario>
         }
         return lista;
     }
-
+    /**
+     *METODO PARA CREAR UNA LISTA DE ESTACIONES
+     * @return
+     * Una lista de String con el id_ubi
+     * @see 
+     * <br>Crea un ArrayList de String(lista)
+     * <br>Crea una sentencia SQL que crea una consulta que muestra los id_ubi de la tabla estacion ordenados
+     * <br>Se conecta a la BD, prepara la sentencia y la ejecuta guardandola en un ResultSet(rs)
+     * <br>Mientras (rs) tenga filas, las va añadiendo a (lista)
+     * 
+     * <br>Devuelve (lista)
+     */
     public List<String> listarEstaciones() {
 
         List<String> lista = new ArrayList<>();

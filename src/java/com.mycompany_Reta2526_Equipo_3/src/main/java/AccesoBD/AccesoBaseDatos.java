@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- *
+ *CLASE PARA EL ACCESO A LA BD
  * @author DAW126
  */
 public class AccesoBaseDatos {
@@ -75,8 +75,8 @@ public class AccesoBaseDatos {
     }
 
     /**
-     *
-     * @return
+     *METODO ESTATICO PARA PONE LA CONEXION BD
+     * @return Devuelve una conexion a la BD
      */
     public static AccesoBaseDatos getInstance() {
         return AccesoBaseDatosHolder.INSTANCE;
@@ -88,8 +88,8 @@ public class AccesoBaseDatos {
     }
 
     /**
-     *
-     * @return
+     *METODO QUE DEVUELVE LA CONEXION
+     * @return Una conexion
      */
     public Connection getConn() {
         try {
@@ -104,8 +104,8 @@ public class AccesoBaseDatos {
     }
 
     /**
-     *
-     * @return
+     *METODO QUE COMPRUEBA LA CONEXION A LA BD
+     * @return Un booleano
      */
     public boolean cerrar() {
         if (conn == null) {

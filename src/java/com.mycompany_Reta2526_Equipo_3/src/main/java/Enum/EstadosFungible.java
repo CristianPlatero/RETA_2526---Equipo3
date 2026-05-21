@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *ESTADOS DE UN MATERIAL FUNGIBLE
  * @author DAW127
  */
 public enum EstadosFungible {

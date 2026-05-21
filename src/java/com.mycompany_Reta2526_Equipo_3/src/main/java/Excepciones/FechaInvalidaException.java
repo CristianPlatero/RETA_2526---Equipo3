@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO EN FECHA
  * @author DAW120
  */
 public class FechaInvalidaException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public FechaInvalidaException(String message) {
         super(message);

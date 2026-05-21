@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO EN LA CANTIDAD
  * @author DAW120
  */
 public class CantidadInvalidaException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public CantidadInvalidaException(String message) {
         super(message);

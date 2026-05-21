@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *Estado del material o pc
  * @author DAW120
  */
 public enum Estados {

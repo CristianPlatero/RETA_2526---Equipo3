@@ -20,7 +20,7 @@ import java.sql.SQLException;
 
 /**
  * Exportador del inventario a ficheros CSV.
- *
+ *@see 
  * Genera un fichero .csv por cada ubicación (armario y estación)
  * dentro de la carpeta {@code exports/}, que puede ser leída directamente
  * desde una web con JavaScript.
@@ -55,6 +55,7 @@ public class ExportadorCSV {
 
     /**
      * Carpeta donde se guardan los ficheros CSV generados.
+     * @see 
      * La ruta es relativa al directorio de ejecución del programa.
      * Si quieres que la web la lea directamente, cámbiala por la ruta
      * absoluta de tu servidor: p.ej. "C:/xampp/htdocs/inventario/exports"
@@ -63,6 +64,7 @@ public class ExportadorCSV {
 
     /**
      * Codificación usada para escribir los CSV.
+     * @see 
      * UTF-8 asegura que los caracteres especiales (tildes, ñ) se escriban bien.
      */
     private static final String CODIFICACION = "UTF-8";
@@ -79,7 +81,7 @@ public class ExportadorCSV {
 
     /**
      * Ejecuta la exportación completa del inventario a CSV.
-     *
+     *@see 
      * El programa espera a que termine antes de continuar, por lo que
      * la ventana principal se abrirá justo después de que todos los ficheros
      * estén generados. Con un inventario normal (decenas o pocos cientos de
@@ -123,6 +125,7 @@ public class ExportadorCSV {
 
     /**
      * Crea la carpeta {@code exports/} si todavía no existe.
+     * @see 
      * Si no se puede crear, registra el error en el log y continúa
      * (los intentos de escritura posteriores fallarán con su propio mensaje).
      */
@@ -142,7 +145,7 @@ public class ExportadorCSV {
     /**
      * Obtiene todos los IDs de una tabla de ubicación (armario o estacion)
      * y genera un CSV por cada uno.
-     *
+     *@see 
      * a consulta es genérica y funciona igual para las dos tablas porque
      * ambas tienen la columna {@code id_ubi}.
      *
@@ -189,7 +192,7 @@ public class ExportadorCSV {
 
     /**
      * Genera el fichero CSV para una ubicación concreta.
-     *
+     *@see 
      * Realiza un SELECT sobre {@code materialesTaller} con LEFT JOINs a todas
      * las tablas hijas para determinar el tipo de cada material (cableado,
      * componente, equipo de red, herramienta, fungible o periférico).
@@ -291,7 +294,7 @@ public class ExportadorCSV {
 
     /**
      * Construye la línea CSV correspondiente a la fila actual del ResultSet.
-     *
+     *@see 
      * Cada campo pasa por {@link #escaparCSV(String)} antes de unirse
      * con comas, para garantizar que los valores que contengan comas,
      * comillas o saltos de línea no rompan el formato del fichero.
@@ -315,7 +318,7 @@ public class ExportadorCSV {
 
     /**
      * Escapa un valor para que sea seguro dentro de un fichero CSV.
-     *
+     *@see 
      * Reglas aplicadas (estándar RFC 4180):
      * <ul>
      *   <li>Si el valor es {@code null} → devuelve cadena vacía.</li>

@@ -4,15 +4,12 @@
  */
 package Excepciones;
 
-/**
- *
- * @author DAW127
- */
+
 public class MovilidadInvalidaException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public MovilidadInvalidaException(String message) {
         super(message);

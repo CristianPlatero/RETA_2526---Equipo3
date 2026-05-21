@@ -16,16 +16,13 @@ import java.util.ArrayList;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-/**
- *
- * @author DAW126
- */
+
 public class GestionUsuarios {
 
     private static final String ARCHIVO_DAT = "usuarios.dat";
 
     /**
-     *
+     *METODO QUE REGISTRA UN NUEVO USUARIO
      * @param nuevoUsuario
      */
     public void registrarUsuario(Usuario nuevoUsuario) {
@@ -38,7 +35,7 @@ public class GestionUsuarios {
 
     /**
      * NOTA IMPORTANTE PARA EL EQUIPO (Desarrollo del Main / Interfaz Swing):
-     *
+     *@see 
      * Para que el sistema de login funcione correctamente, las contraseñas
      * DEBEN encriptarse en la interfaz/controlador ANTES de crear el objeto
      * Usuario.Ejemplo de uso en tu formulario Swing (Botón Registrar):
@@ -53,12 +50,13 @@ public class GestionUsuarios {
      * -------------------------------------------------------------------------
    
    
-     * Al hacer el LOGIN, pasa la contraseña en TEXTO PLANO.
-     *
-     * Este gestor se encarga de compararla automáticamente con el Hash del
+     * Al hacer el LOGIN, pasa la contraseña en TEXTO PLANO.Este gestor se encarga de compararla automáticamente con el Hash del
      * archivo .dat.
      *
+     *
      * @param nombre
+     * @param contrasenaPlana
+     * @return 
      */
     public Usuario login(String nombre, String contrasenaPlana) {
         ArrayList<Usuario> usuarios = leerUsuarios();
@@ -76,7 +74,7 @@ public class GestionUsuarios {
     }
 
     /**
-     *
+     *METODO QUE LEE LOS USUARIOS EXISTENTES
      * @return
      */
     public ArrayList<Usuario> leerUsuarios() {

@@ -16,17 +16,32 @@ import Excepciones.NombreInvalidoException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author DAW120
- */
+
 public class Perifericos extends MaterialInventario {
 // Tal vez se deberia quitar la herencia paracrear un array de id_pc
     
     private Conexion conexion;
     private ArrayList<Integer> pcs;
     private Integer id_pc;
-    /**
+    
+//    public Perifericos(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion, ArrayList<Integer> pcs) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
+//        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+//        setConexion(conexion);
+//        setPcs(pcs);
+//    }
+
+    
+//    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,ArrayList<Integer> pcs) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
+//        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+//        setConexion(conexion);
+//        setPcs(pcs);
+//    }
+
+    public Perifericos( String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, CategoriaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+        setConexion(conexion);
+    }
+/**
      *CONSTRUCTOR SIN ID PARA INSERCION
      * @param nombre
      * @param descripcion
@@ -46,13 +61,12 @@ public class Perifericos extends MaterialInventario {
      * @throws FechaInvalidaException
      * @throws CategoriaInvalidaException
      */
-//    public Perifericos(String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion, ArrayList<Integer> pcs) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
-//        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
-//        setConexion(conexion);
-//        setPcs(pcs);
-//    }
-
-    /**
+    public Perifericos( String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,String id_pc) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, CategoriaInvalidaException {
+        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
+       setConexion(conexion);
+        setId_pc(id_pc);
+    }
+/**
      *CONSTRUCTOR CON ID PARA LECTURA
      * @param id_matTa
      * @param nombre
@@ -73,23 +87,6 @@ public class Perifericos extends MaterialInventario {
      * @throws FechaInvalidaException
      * @throws CategoriaInvalidaException
      */
-//    public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,ArrayList<Integer> pcs) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
-//        super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
-//        setConexion(conexion);
-//        setPcs(pcs);
-//    }
-
-    public Perifericos( String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, CategoriaInvalidaException {
-        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
-        setConexion(conexion);
-    }
-
-    public Perifericos( String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,String id_pc) throws NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, IdInvalidoException, FechaInvalidaException, CategoriaInvalidaException {
-        super(nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
-       setConexion(conexion);
-        setId_pc(id_pc);
-    }
-
     public Perifericos(String id_matTa, String nombre, String descripcion, String estado, String cantidad, String id_ubi, String id_balda, String fecha_alta, String observaciones, String conexion,String id_pc) throws IdInvalidoException, NombreInvalidoException, DescripcionInvalidaException, EstadoInvalidoException, CantidadInvalidaException, FechaInvalidaException, CategoriaInvalidaException {
         super(id_matTa, nombre, descripcion, estado, cantidad, id_ubi, id_balda, fecha_alta, observaciones);
          setConexion(conexion);
@@ -100,10 +97,7 @@ public class Perifericos extends MaterialInventario {
     
     
     
-    /**
-     *
-     * @return
-     */
+   
     public Conexion getConexion() {
         return conexion;
     }
@@ -136,6 +130,18 @@ public class Perifericos extends MaterialInventario {
         return id_pc;
     }
 
+    /**
+     *METODO QUE VALIDA, PARSEA Y ASIGNA EL ATRIBUTO id_pc
+     * @param id_pc id a validar
+     * 
+     * @throws IdInvalidoException
+     * 
+     * @see 
+     * <br>Utiliza el METODO validaPcPerifericos(id_pc) para comprobar el formato
+     * <br>Si id_pc es NULL, asigna al atributo id_pc el valor null
+     * <br>Si no, comprueba si esta en blanco, asignando null al atributo id_pc si lo esta
+     * <br>En caso contrario, le asigna el id_pc parseado a Integer
+     */
     public void setId_pc(String id_pc) throws IdInvalidoException {
         Validador.validaPcPerifericos(id_pc);
         if(id_pc == null){

@@ -7,23 +7,14 @@ package Objetos;
 import Validador.Validador;
 import Excepciones.IdInvalidoException;
 
-/**
- *
- * @author DAW120
- */
+
 public abstract class Ubicacion {
 
     private String id_ubi;
     private String nombre;
     private String descripcion;
 
-    /**
-     *
-     * @param id_ubi
-     * @param nombre
-     * @param descripcion
-     * @throws IdInvalidoException
-     */
+    
     public Ubicacion(String id_ubi, String nombre, String descripcion) throws IdInvalidoException {
         setId_ubi(id_ubi);
         setNombre(nombre);
@@ -31,61 +22,39 @@ public abstract class Ubicacion {
 
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getId_ubi() {
 
         return id_ubi;
     }
 
-    /**
-     *
-     * @param id_ubi
-     * @throws IdInvalidoException
-     */
+    
     public void setId_ubi(String id_ubi) throws IdInvalidoException {
         Validador.validaUbi(id_ubi);
         this.id_ubi = id_ubi;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     *
-     * @param nombre
-     */
+   
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /**
-     *
-     * @return
-     */
+   
     public String getDescripcion() {
         return descripcion;
     }
 
-    /**
-     *
-     * @param descripcion
-     */
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

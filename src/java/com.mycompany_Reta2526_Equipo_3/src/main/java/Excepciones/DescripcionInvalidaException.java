@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO EN DESCRIPCION
  * @author DAW120
  */
 public class DescripcionInvalidaException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public DescripcionInvalidaException(String message) {
         super(message);

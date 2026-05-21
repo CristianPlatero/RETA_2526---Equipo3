@@ -5,14 +5,14 @@
 package Excepciones;
 
 /**
- *
+ *FALLO EN CATEGORIA
  * @author DAW120
  */
 public class CategoriaInvalidaException extends Exception {
 
-    /**
-     *
-     * @param message
+   /**
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public CategoriaInvalidaException(String message) {
         super(message);

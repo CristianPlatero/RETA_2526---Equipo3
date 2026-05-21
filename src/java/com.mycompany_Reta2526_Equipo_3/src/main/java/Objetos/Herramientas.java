@@ -14,10 +14,7 @@ import Excepciones.FechaInvalidaException;
 import Excepciones.IdInvalidoException;
 import Excepciones.NombreInvalidoException;
 
-/**
- *
- * @author DAW120
- */
+
 public class Herramientas extends MaterialInventario{
     
    private TiposHerramienta tipo;
@@ -71,10 +68,7 @@ public class Herramientas extends MaterialInventario{
         setTipoH(tipo);
     }
     
-    /**
-     *
-     * @return
-     */
+    
     public TiposHerramienta getTipo() {
         return tipo;
     }

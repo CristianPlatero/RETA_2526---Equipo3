@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *TIPOS DE HERRAMIENTAS
  * @author DAW127
  */
 public enum TiposHerramienta {

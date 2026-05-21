@@ -15,10 +15,7 @@ import Excepciones.NombreInvalidoException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author DAW120
- */
+
 public class MaterialInventario {
 
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -97,10 +94,6 @@ public class MaterialInventario {
 
     //Sobrecarga
 
-    /**
-     *
-     * @return
-     */
     
     public int getId_matTa() {
         return id_matTa;
@@ -116,10 +109,7 @@ public class MaterialInventario {
         this.id_matTa = Integer.parseInt(id_matTa);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getNombre() {
         return nombre;
     }
@@ -134,10 +124,7 @@ public class MaterialInventario {
         this.nombre = nombre;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -152,10 +139,7 @@ public class MaterialInventario {
         this.descripcion = descripcion;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public Estados getEstado() {
         return estado;
     }
@@ -171,10 +155,7 @@ public class MaterialInventario {
         this.estado = Estados.valueOf(estado.toUpperCase().trim());
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public int getCantidad() {
         return cantidad;
     }
@@ -189,10 +170,7 @@ public class MaterialInventario {
         this.cantidad = Integer.parseInt(cantidad);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getId_ubi() {
         return id_ubi;
     }
@@ -207,10 +185,7 @@ public class MaterialInventario {
         this.id_ubi = id_ubi;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public Integer getId_balda() {
         return id_balda;
     }
@@ -222,15 +197,16 @@ public class MaterialInventario {
      * @param id_balda
      * Es el id de la balda que debe validar
      * @throws IdInvalidoException
+     * @see 
      * 
-     * Si el id_balda existe(!null) pero esta en blanco(isBlank)
-     * *Lo vuelve NULL
+     * <br>Si el id_balda existe(!null) pero esta en blanco(isBlank)
+     * <br>*Lo vuelve NULL
      * 
-     * Llama al metodo validaBalda de la clase Validador
-     * *Para que valide el id_balda dependiendo de ubi
+     * <br>Llama al metodo validaBalda de la clase Validador
+     * <br>*Para que valide el id_balda dependiendo de ubi
      * 
-     * Si id_balda es null el valor asignado al id_balda es null
-     * Si no, es el id_balda convertido en numero
+     * <br>Si id_balda es null el valor asignado al id_balda es null
+     * <br>Si no, es el id_balda convertido en numero
      * 
      */
     public void setId_balda(String ubi, String id_balda) throws IdInvalidoException {
@@ -253,10 +229,7 @@ public class MaterialInventario {
 
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public LocalDate getFecha_alta() {
         return fecha_alta;
     }
@@ -281,10 +254,7 @@ public class MaterialInventario {
     }
 }
 
-    /**
-     *
-     * @return
-     */
+    
     public String getObservaciones() {
         return observaciones;
     }
@@ -299,10 +269,7 @@ public class MaterialInventario {
         this.observaciones = observaciones;
     }
 
-    /**
-     *
-     * @return
-     */
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

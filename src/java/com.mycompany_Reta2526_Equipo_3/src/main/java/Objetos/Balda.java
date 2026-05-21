@@ -7,32 +7,18 @@ package Objetos;
 import Validador.Validador;
 import Excepciones.IdInvalidoException;
 
-/**
- *
- * @author DAW120
- */
+
 public class Balda extends Armario {
 
     private Integer id_balda;
 
-    /**
-     *
-     * @param id_ubi
-     * @param nombre
-     * @param descripcion
-     * @param movilidad
-     * @param id_balda
-     * @throws IdInvalidoException
-     */
+    
     public Balda(String id_ubi, String nombre, String descripcion, String movilidad, String id_balda) throws IdInvalidoException {
         super(id_ubi, nombre, descripcion, movilidad);
         setId_balda(id_ubi,id_balda);
     }
 
-    /**
-     *
-     * @return
-     */
+    
     public Integer getId_balda() {
         return id_balda;
     }

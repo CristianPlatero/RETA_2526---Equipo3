@@ -4,15 +4,12 @@
  */
 package Excepciones;
 
-/**
- *
- * @author DAW120
- */
+
 public class NombreInvalidoException extends Exception {
 
     /**
-     *
-     * @param message
+     *CONSTRUCTOR CON MENSAJE EDITABLE 
+     * @param message El mensaje que muestra
      */
     public NombreInvalidoException(String message) {
         super(message);

@@ -5,7 +5,7 @@
 package Enum;
 
 /**
- *
+ *TIPO DE ESTACIONES
  * @author DAW120
  */
 public enum Tipos {

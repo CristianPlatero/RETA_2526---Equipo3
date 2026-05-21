@@ -6,10 +6,7 @@ package Repositorio;
 
 import java.util.List;
 
-/**
- *
- * @author DAW127
- */
+
 public interface RepositorioPc<T> {
     // 
     // 
@@ -40,7 +37,7 @@ public interface RepositorioPc<T> {
      *método en este caso puede ser tanto para realizar la inserción o modificación de un objeto
      * @param t
      * 
-     * 
+     * @see 
      * aunque también se pueden crear un método para añadir un objeto y otro para modificar
      inserta un registro en la tabla o bien lo modifica
      * 
@@ -52,7 +49,7 @@ public interface RepositorioPc<T> {
     /**
      * método para borrar un objeto por su ID  
      * @param id
-     * 
+     * @see 
      * nos permite borrar un registro de la base de datos por clave primaria
      */
     public void eliminarPc(int id);
