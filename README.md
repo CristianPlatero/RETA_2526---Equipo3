@@ -133,6 +133,28 @@ Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 > 📚 Para una guía completa por perfil, consulta el [Manual de usuario](docs/manual-usuario.pdf).
 
 ---
+## 📊 Diagramas del Proyecto
+
+A continuación se presentan los diagramas que describen la estructura y el comportamiento del sistema.
+
+---
+
+### 1. Diagrama de Casos de Uso 
+
+**¿Qué es?**  
+Un diagrama de casos de Uso describe las interacciones entre los usuarios (actores) y el sistema. Ayuda a definir el alcance del proyecto y a entender qué acciones puede realizar cada tipo de usuario de una manera visual y sencilla.
+
+![Diagrama de Casos de Uso](docs/DiagramaCasoUsos/DiagramaCasoUso_01.png)
+
+---
+
+### 2. Diagrama de Clases
+
+**¿Qué es?**  
+Un diagrama de clases es un modelo estructural que muestra las clases del sistema, sus atributos, sus métodos y cómo se relacionan entre sí (por ejemplo, por herencia o asociación). Es la pieza fundamental para entender la arquitectura y el diseño orientado a objetos del código.
+
+![Diagrama de Clases]( docs/DiagramaClases/Diagrama%20de%20clases01.png )
+---
 
 ## 🌳 Estructura del proyecto
 
