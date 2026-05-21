@@ -23,13 +23,14 @@
    - [✨ Características principales](#-características-principales)
 2. [⚙️ Instalación](#️-instalación)
 3. [🛠️ Uso](#️-uso)
-4. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
-5. [🗺️ Roadmap](#️-roadmap)
-6. [🆘 Soporte](#-soporte)
-7. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
-8. [📄 Licencia](#-licencia)
-9. [📚 Referencias](#-referencias)
-10. [📊 Estado del proyecto](#-estado-del-proyecto)
+4. [📊 Diagramas del Proyecto](#-diagrama-del-proyecto)
+5. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
+6. [🗺️ Roadmap](#️-roadmap)
+7. [🆘 Soporte](#-soporte)
+8. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
+9. [📄 Licencia](#-licencia)
+10. [📚 Referencias](#-referencias)
+11. [📊 Estado del proyecto](#-estado-del-proyecto)
 
 
 ---
