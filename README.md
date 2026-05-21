@@ -175,12 +175,45 @@ Un diagrama de clases es un modelo estructural que muestra las clases del sistem
 │   ├── 📂 DiagramaCasoUsos
 │   ├── 📂 DiagramaClases
 │   ├── 📂 Documentación MV
+│   ├── 📄 equipoTRES.pptx
 │   ├── 📄 informe_revision_BBDD.md
 │   ├── 📄 Licencias.md
 │   ├── 📄 Licencias.pdf
 │   ├── 📄 Metodologia.md
-│   ├── 📄 presentacion_reto_inventario.pptx
 │   └── 📄 prueba_gitignore.txt
+├── 📂 JavaDoc
+│   ├── 📂 AccesoBD
+│   ├── 📂 DAO
+│   ├── 📂 Enum
+│   ├── 📂 Excepciones
+│   ├── 📂 Interfaz
+│   ├── 📂 legal
+│   ├── 📂 Main
+│   ├── 📂 Objetos
+│   ├── 📂 Repositorio
+│   ├── 📂 resource-files
+│   ├── 📂 script-files
+│   ├── 📂 Usuarios
+│   ├── 📂 Utilidades
+│   ├── 📂 Validador
+│   ├── 📄 allclasses-index.html
+│   ├── 📄 allpackages-index.html
+│   ├── 📄 element-list
+│   ├── 📄 help-doc.html
+│   ├── 📄 index-all.html
+│   ├── 📄 index.html
+│   ├── 📄 javadoc.bat
+│   ├── 📄 member-search-index.js
+│   ├── 📄 module-search-index.js
+│   ├── 📄 options
+│   ├── 📄 overview-summary.html
+│   ├── 📄 overview-tree.html
+│   ├── 📄 package-search-index.js
+│   ├── 📄 packages
+│   ├── 📄 search.html
+│   ├── 📄 serialized-form.html
+│   ├── 📄 tag-search-index.js
+│   └── 📄 type-search-index.js
 ├── 📂 sql
 │   ├── 📂 Diagramas
 │   ├── 📄 Insercion_Cable_Prueba.sql
