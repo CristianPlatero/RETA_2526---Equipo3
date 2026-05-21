@@ -23,7 +23,7 @@
    - [✨ Características principales](#-características-principales)
 2. [⚙️ Instalación](#️-instalación)
 3. [🛠️ Uso](#️-uso)
-4. [📊 Diagramas del Proyecto](#-diagrama-del-proyecto)
+4. [📊 Diagramas del Proyecto](#-diagramas-del-proyecto)
 5. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
 6. [🗺️ Roadmap](#️-roadmap)
 7. [🆘 Soporte](#-soporte)
