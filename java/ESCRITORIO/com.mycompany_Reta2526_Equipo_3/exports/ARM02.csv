@@ -1,0 +1,4 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+7,Raton,Es un raton inalambrico,operativo,4,ARM02,5,2026-05-21,Es un raton,periferico
+9,Microfono de pie,Es un microfono,reparacion,1,ARM02,4,2026-05-21,Esta en reparacion,periferico
+27,Placa base,Es una placa base,reparacion,14,ARM02,3,2026-05-21,Estan en reparacion,componente

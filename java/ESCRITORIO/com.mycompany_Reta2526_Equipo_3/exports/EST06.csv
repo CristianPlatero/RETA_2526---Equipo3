@@ -1,0 +1,3 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+21,Cable STP,Es un cable STP,obsoleto,4,EST06,,2026-05-21,Es del año 1993,cableado
+22,Cable S FTP,Es un cable S/FTP,averiado,1,EST06,,2026-05-21,Esta roto,cableado

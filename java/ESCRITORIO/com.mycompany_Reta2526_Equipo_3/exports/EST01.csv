@@ -1,0 +1,3 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+16,Impresora,Es una impresora,operativo,2,EST01,,2026-05-21,Es una impresora,periferico
+33,Fuente de alimentacion,Es una fuente de alimentacion,averiado,1,EST01,,2026-05-21,ESta roto,componente

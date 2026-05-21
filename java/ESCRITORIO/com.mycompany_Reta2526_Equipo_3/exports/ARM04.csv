@@ -1,0 +1,4 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+8,Microfono de pie,Es un microfono,reparacion,1,ARM04,5,2026-05-21,Esta en reparacion,periferico
+29,RAM,Es una memoria RAM,averiado,1,ARM04,1,2026-05-21,Esta roto,componente
+31,Tarjeta grafica,Es una tarjeta grafica,reparacion,1,ARM04,4,2026-05-21,Esta en reparación,componente
