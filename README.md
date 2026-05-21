@@ -164,24 +164,128 @@ Un diagrama de clases es un modelo estructural que muestra las clases del sistem
 > Capturas del árbol de carpetas del repositorio.
 
 ```
+
+├── 📂 .github
+│   └── 📂 ISSUE_TEMPLATE
+├── 📂 binaries
+│   ├── 📄 appV1_desktop.jar
+│   └── 📄 appV2.jar
 ├── 📂 docs
 │   ├── 📂 assets
-│   │   ├── 📂 img
-│   │   └── 📂 taller_fotos
 │   ├── 📂 DiagramaCasoUsos
-│   │   ├── 📄 DiagramaCasoUso_01.png
-│   │   └── 📄 DiagramaCasoUsos_01.drawio
+│   ├── 📂 DiagramaClases
+│   ├── 📂 Documentación MV
 │   ├── 📄 informe_revision_BBDD.md
 │   ├── 📄 Licencias.md
 │   ├── 📄 Licencias.pdf
 │   ├── 📄 Metodologia.md
-│   └── 📄 presentacion_reto_inventario.pptx
+│   ├── 📄 presentacion_reto_inventario.pptx
+│   └── 📄 prueba_gitignore.txt
+├── 📂 sql
+│   ├── 📂 Diagramas
+│   ├── 📄 Insercion_Cable_Prueba.sql
+│   ├── 📄 Inserciones_Prueba.sql
+│   ├── 📄 Inserciones_Ubicaciones.sql
+│   ├── 📄 inventario_taller_v2.sql
+│   └── 📄 inventario_taller.sql
+├── 📂 src
+│   ├── 📂 java
+│   └── 📄 app_v1.0.0.jar
+├── 📂 web
+│   ├── 📂 assets
+│   ├── 📂 css
+│   ├── 📂 js
+│   ├── 📂 pages
+│   └── 📄 index.html
+├── 📄 .gitattributes
+├── 📄 .gitignore
 ├── 📄 LICENSE.md
 └── 📄 README.md
-
-<<En desarrollo>>
 ```
+> Capturas del árbol del proyecto Java
 
+```
+└──│
+   │   📄dependency-reduced-pom.xml
+   │   📄nbactions.xml
+   │   📄pom.xml
+   │   📄usuarios.dat
+   │
+   └───📂src
+       └───📂main
+           ├───📂java
+           │   ├───📂AccesoBD
+           │   │       📄AccesoBaseDatos.java
+           │   │
+           │   ├───📂DAO
+           │   │       📄AdministradorDAO.java
+           │   │
+           │   ├───📂Enum
+           │   │       📄Categorias.java
+           │   │       📄Conexion.java
+           │   │       📄Estados.java
+           │   │       📄EstadosFungible.java
+           │   │       📄Movilidades.java
+           │   │       📄Tipos.java
+           │   │       📄TiposHerramienta.java
+           │   │
+           │   ├───📂Excepciones
+           │   │       📄CantidadInvalidaException.java
+           │   │       📄CategoriaInvalidaException.java
+           │   │       📄ConectorInvalidoException.java
+           │   │       📄DescripcionInvalidaException.java
+           │   │       📄EstadoInvalidoException.java
+           │   │       📄FechaInvalidaException.java
+           │   │       📄IdInvalidoException.java
+           │   │       📄LongitudInvalidaException.java
+           │   │       📄MovilidadInvalidaException.java
+           │   │       📄NombreInvalidoException.java
+           │   │       📄TipoInvalidoException.java
+           │   │
+           │   ├───📂Interfaz
+           │   │       📄InventarioApp.java
+           │   │       📄LoginDialog.java
+           │   │       📄Rol.java
+           │   │
+           │   ├───📂Main
+           │   │       📄App.java
+           │   │
+           │   ├───📂Objetos
+           │   │       📄Armario.java
+           │   │       📄Balda.java
+           │   │       📄Cableado.java
+           │   │       📄Componentes.java
+           │   │       📄Equipos_en_red.java
+           │   │       📄Estacion.java
+           │   │       📄Herramientas.java
+           │   │       📄MaterialInventario.java
+           │   │       📄Material_Fungible.java
+           │   │       📄Pc.java
+           │   │       📄Perifericos.java
+           │   │       📄Ubicacion.java
+           │   │
+           │   ├───📂Repositorio
+           │   │       📄RepositorioMaterial.java
+           │   │       📄RepositorioPc.java
+           │   │
+           │   ├───📂Usuarios
+           │   │       📄Administrador.java
+           │   │       📄GestionUsuarios.java
+           │   │       📄InicializadorUsuarios.java
+           │   │       📄Profesor.java
+           │   │       📄Usuario.java
+           │   │
+           │   ├───📂Utilidades
+           │   │       📄ExportadorCSV.java
+           │   │       📄LoggerApp.java
+           │   │
+           │   └───📂Validador
+           │           📄Validador.java
+           │
+           └───📂resources
+                   db.properties
+                   icon.png
+```
 ---
 
 ## 🗺️ Roadmap
@@ -197,24 +301,24 @@ Un diagrama de clases es un modelo estructural que muestra las clases del sistem
 - [x] Diagrama E/R y diagrama relacional de la base de datos (en repositorio y documentación). 
 - [x] Script SQL de creación de la base de datos con datos ficticios de prueba, en repositorio GitHub. 
 - [ ] Script con disparadores de la base de datos, en repositorio GitHub. 
-- [ ] Diagrama de clases completo (en repositorio y documentación). 
+- [x] Diagrama de clases completo (en repositorio y documentación). 
 - [x] Diagrama de casos de uso (en repositorio y documentación). 
 - [x] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
 - [x] Ejecutable de la aplicación de escritorio Java (.jar). 
 - [x] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
 - [ ] (Opcional) Código de las hojas de estilos XSLT en repositorio GitHub. 
-- [ ] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
+- [x] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
       diagrama de arquitectura de red, comparativa de tecnologías, configuración ufw, conexión SSH, 
       transferencia SFTP y webgrafía. Enlazada al repositorio GitHub. 
 - [x] MV1 exportada en formato .ova con el servidor de base de datos montado, configurado y con la BD 
       cargada. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
 - [x] MV2 exportada en formato .ova con el servidor web, SFTP y SSH montados, configurados y con el sitio 
       web desplegado. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
-- [ ] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
+- [x] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
    comparación de ≥ 3 licencias y archivo LICENSE en GitHub, guía de uso por perfil y webgrafía. Enlazado 
    al repositorio GitHub. 
 - [x] Tareas entregadas por Teams para el módulo de IPEI. 
-- [ ] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
+- [x] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
 
 ¿Tienes ideas? Abre un [issue](https://github.com/CristianPlatero/RETA_2526---Equipo3/issues) con la etiqueta `mejoras`.
 
