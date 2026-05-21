@@ -23,13 +23,14 @@
    - [✨ Características principales](#-características-principales)
 2. [⚙️ Instalación](#️-instalación)
 3. [🛠️ Uso](#️-uso)
-4. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
-5. [🗺️ Roadmap](#️-roadmap)
-6. [🆘 Soporte](#-soporte)
-7. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
-8. [📄 Licencia](#-licencia)
-9. [📚 Referencias](#-referencias)
-10. [📊 Estado del proyecto](#-estado-del-proyecto)
+4. [📊 Diagramas del Proyecto](#-diagramas-del-proyecto)
+5. [🌳 Estructura del proyecto](#-estructura-del-proyecto)
+6. [🗺️ Roadmap](#️-roadmap)
+7. [🆘 Soporte](#-soporte)
+8. [👥 Autores y agradecimientos](#-autores-y-agradecimientos)
+9. [📄 Licencia](#-licencia)
+10. [📚 Referencias](#-referencias)
+11. [📊 Estado del proyecto](#-estado-del-proyecto)
 
 
 ---
@@ -62,6 +63,8 @@ Muestra de forma gráfica la **distribución física del taller**, accesible des
 El sistema se despliega sobre dos máquinas virtuales con separación de responsabilidades:
 - **MV 1** — Aloja la base de datos MySQL. Solo accesible desde la MV 2.
 - **MV 2** — Aloja la aplicación web. Accesible desde los equipos del laboratorio.
+
+<img width="1063" height="337" alt="image" src="https://github.com/user-attachments/assets/95ed781c-d099-49e2-bb02-262113115a64" />
 
 > **Stack tecnológico:** `Java` · `MySQL` · `JDBC` · `Java Swing` · `HTML/CSS/JS`
 
@@ -133,30 +136,156 @@ Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 > 📚 Para una guía completa por perfil, consulta el [Manual de usuario](docs/manual-usuario.pdf).
 
 ---
+## 📊 Diagramas del Proyecto
+
+A continuación se presentan los diagramas que describen la estructura y el comportamiento del sistema.
+
+---
+
+### 1. Diagrama de Casos de Uso 
+
+**¿Qué es?**  
+Un diagrama de casos de Uso describe las interacciones entre los usuarios (actores) y el sistema. Ayuda a definir el alcance del proyecto y a entender qué acciones puede realizar cada tipo de usuario de una manera visual y sencilla.
+
+![Diagrama de Casos de Uso](docs/DiagramaCasoUsos/DiagramaCasoUso_01.png)
+
+---
+
+### 2. Diagrama de Clases
+
+**¿Qué es?**  
+Un diagrama de clases es un modelo estructural que muestra las clases del sistema, sus atributos, sus métodos y cómo se relacionan entre sí (por ejemplo, por herencia o asociación). Es la pieza fundamental para entender la arquitectura y el diseño orientado a objetos del código.
+
+![Diagrama de Clases]( docs/DiagramaClases/Diagrama%20de%20clases01.png )
+---
 
 ## 🌳 Estructura del proyecto
 
 > Capturas del árbol de carpetas del repositorio.
 
 ```
+
+├── 📂 .github
+│   └── 📂 ISSUE_TEMPLATE
+├── 📂 binaries
+│   ├── 📄 appV1_desktop.jar
+│   └── 📄 appV2.jar
 ├── 📂 docs
 │   ├── 📂 assets
-│   │   ├── 📂 img
-│   │   └── 📂 taller_fotos
 │   ├── 📂 DiagramaCasoUsos
-│   │   ├── 📄 DiagramaCasoUso_01.png
-│   │   └── 📄 DiagramaCasoUsos_01.drawio
+│   ├── 📂 DiagramaClases
+│   ├── 📂 Documentación MV
 │   ├── 📄 informe_revision_BBDD.md
 │   ├── 📄 Licencias.md
 │   ├── 📄 Licencias.pdf
 │   ├── 📄 Metodologia.md
-│   └── 📄 presentacion_reto_inventario.pptx
+│   ├── 📄 presentacion_reto_inventario.pptx
+│   └── 📄 prueba_gitignore.txt
+├── 📂 sql
+│   ├── 📂 Diagramas
+│   ├── 📄 Insercion_Cable_Prueba.sql
+│   ├── 📄 Inserciones_Prueba.sql
+│   ├── 📄 Inserciones_Ubicaciones.sql
+│   ├── 📄 inventario_taller_v2.sql
+│   └── 📄 inventario_taller.sql
+├── 📂 src
+│   ├── 📂 java
+│   └── 📄 app_v1.0.0.jar
+├── 📂 web
+│   ├── 📂 assets
+│   ├── 📂 css
+│   ├── 📂 js
+│   ├── 📂 pages
+│   └── 📄 index.html
+├── 📄 .gitattributes
+├── 📄 .gitignore
 ├── 📄 LICENSE.md
 └── 📄 README.md
-
-<<En desarrollo>>
 ```
+> Capturas del árbol del proyecto Java
 
+```
+└──│
+   │   📄dependency-reduced-pom.xml
+   │   📄nbactions.xml
+   │   📄pom.xml
+   │   📄usuarios.dat
+   │
+   └───📂src
+       └───📂main
+           ├───📂java
+           │   ├───📂AccesoBD
+           │   │       📄AccesoBaseDatos.java
+           │   │
+           │   ├───📂DAO
+           │   │       📄AdministradorDAO.java
+           │   │
+           │   ├───📂Enum
+           │   │       📄Categorias.java
+           │   │       📄Conexion.java
+           │   │       📄Estados.java
+           │   │       📄EstadosFungible.java
+           │   │       📄Movilidades.java
+           │   │       📄Tipos.java
+           │   │       📄TiposHerramienta.java
+           │   │
+           │   ├───📂Excepciones
+           │   │       📄CantidadInvalidaException.java
+           │   │       📄CategoriaInvalidaException.java
+           │   │       📄ConectorInvalidoException.java
+           │   │       📄DescripcionInvalidaException.java
+           │   │       📄EstadoInvalidoException.java
+           │   │       📄FechaInvalidaException.java
+           │   │       📄IdInvalidoException.java
+           │   │       📄LongitudInvalidaException.java
+           │   │       📄MovilidadInvalidaException.java
+           │   │       📄NombreInvalidoException.java
+           │   │       📄TipoInvalidoException.java
+           │   │
+           │   ├───📂Interfaz
+           │   │       📄InventarioApp.java
+           │   │       📄LoginDialog.java
+           │   │       📄Rol.java
+           │   │
+           │   ├───📂Main
+           │   │       📄App.java
+           │   │
+           │   ├───📂Objetos
+           │   │       📄Armario.java
+           │   │       📄Balda.java
+           │   │       📄Cableado.java
+           │   │       📄Componentes.java
+           │   │       📄Equipos_en_red.java
+           │   │       📄Estacion.java
+           │   │       📄Herramientas.java
+           │   │       📄MaterialInventario.java
+           │   │       📄Material_Fungible.java
+           │   │       📄Pc.java
+           │   │       📄Perifericos.java
+           │   │       📄Ubicacion.java
+           │   │
+           │   ├───📂Repositorio
+           │   │       📄RepositorioMaterial.java
+           │   │       📄RepositorioPc.java
+           │   │
+           │   ├───📂Usuarios
+           │   │       📄Administrador.java
+           │   │       📄GestionUsuarios.java
+           │   │       📄InicializadorUsuarios.java
+           │   │       📄Profesor.java
+           │   │       📄Usuario.java
+           │   │
+           │   ├───📂Utilidades
+           │   │       📄ExportadorCSV.java
+           │   │       📄LoggerApp.java
+           │   │
+           │   └───📂Validador
+           │           📄Validador.java
+           │
+           └───📂resources
+                   db.properties
+                   icon.png
+```
 ---
 
 ## 🗺️ Roadmap
@@ -172,24 +301,24 @@ Una vez en marcha, la aplicación presenta dos perfiles de acceso:
 - [x] Diagrama E/R y diagrama relacional de la base de datos (en repositorio y documentación). 
 - [x] Script SQL de creación de la base de datos con datos ficticios de prueba, en repositorio GitHub. 
 - [ ] Script con disparadores de la base de datos, en repositorio GitHub. 
-- [ ] Diagrama de clases completo (en repositorio y documentación). 
+- [x] Diagrama de clases completo (en repositorio y documentación). 
 - [x] Diagrama de casos de uso (en repositorio y documentación). 
 - [x] Código fuente de la aplicación de escritorio Java en repositorio GitHub, documentado con JavaDoc. 
 - [x] Ejecutable de la aplicación de escritorio Java (.jar). 
 - [x] Código HTML, CSS y JavaScript del sitio web en repositorio GitHub. 
 - [ ] (Opcional) Código de las hojas de estilos XSLT en repositorio GitHub. 
-- [ ] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
+- [x] Guía de despliegue de la aplicación en PDF: documentación del despliegue de MV1 y MV2 en VirtualBox, 
       diagrama de arquitectura de red, comparativa de tecnologías, configuración ufw, conexión SSH, 
       transferencia SFTP y webgrafía. Enlazada al repositorio GitHub. 
 - [x] MV1 exportada en formato .ova con el servidor de base de datos montado, configurado y con la BD 
       cargada. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
 - [x] MV2 exportada en formato .ova con el servidor web, SFTP y SSH montados, configurados y con el sitio 
       web desplegado. Subida al canal de Teams con enlace de descarga en el repositorio GitHub. 
-- [ ] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
+- [x] Manual de usuario de la aplicación de escritorio en PDF: requerimientos HW/SW, licencia justificada con 
    comparación de ≥ 3 licencias y archivo LICENSE en GitHub, guía de uso por perfil y webgrafía. Enlazado 
    al repositorio GitHub. 
 - [x] Tareas entregadas por Teams para el módulo de IPEI. 
-- [ ] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
+- [x] Presentación del proyecto final del equipo (con enlace desde el repositorio GitHub).
 
 ¿Tienes ideas? Abre un [issue](https://github.com/CristianPlatero/RETA_2526---Equipo3/issues) con la etiqueta `mejoras`.
 

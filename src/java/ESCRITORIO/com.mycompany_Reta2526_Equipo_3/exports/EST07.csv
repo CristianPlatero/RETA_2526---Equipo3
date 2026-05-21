@@ -1,0 +1,3 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+23,Cable Cat 6,Es un cable cat 6,operativo,4,EST07,,2026-05-21,,cableado
+24,Cable Cat 6a,Es un cable cat 6a,reparacion,2,EST07,,2026-05-21,,cableado

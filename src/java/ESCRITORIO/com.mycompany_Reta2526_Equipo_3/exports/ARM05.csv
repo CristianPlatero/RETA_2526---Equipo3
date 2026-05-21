@@ -1,0 +1,4 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+10,Escaner,Digitaliza documentos,obsoleto,1,ARM05,2,2026-05-21,Es de 1994,periferico
+30,Disco duro,Es un disco duro,operativo,1,ARM05,3,2026-05-21,,periferico
+32,Tarjeta gráfica,Es una tarjeta gráfica,obsoleto,1,ARM05,3,2026-05-21,Es del año 1999,componente

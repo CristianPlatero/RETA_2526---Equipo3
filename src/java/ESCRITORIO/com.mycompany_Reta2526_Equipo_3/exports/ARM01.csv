@@ -1,0 +1,3 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+6,Teclado,Es un teclado mecanico,operativo,5,ARM01,1,2026-05-21,Es un teclado,periferico
+26,Cable coaxial,Es un cable coaxial,operativo,2,ARM01,2,2026-05-21,,cableado

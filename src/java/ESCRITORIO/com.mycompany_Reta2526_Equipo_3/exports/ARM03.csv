@@ -1,0 +1,3 @@
+id,nombre,descripcion,estado,cantidad,ubicacion,balda,fecha_alta,observaciones,tipo
+11,Monitor,Es un monitor,averiado,4,ARM03,1,2026-05-21,Estan averiados,periferico
+28,CPU,Esuna CPU,obsoleto,1,ARM03,4,2026-05-21,Son del año 1989,componente
