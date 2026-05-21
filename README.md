@@ -63,6 +63,8 @@ El sistema se despliega sobre dos máquinas virtuales con separación de respons
 - **MV 1** — Aloja la base de datos MySQL. Solo accesible desde la MV 2.
 - **MV 2** — Aloja la aplicación web. Accesible desde los equipos del laboratorio.
 
+<img width="1063" height="337" alt="image" src="https://github.com/user-attachments/assets/95ed781c-d099-49e2-bb02-262113115a64" />
+
 > **Stack tecnológico:** `Java` · `MySQL` · `JDBC` · `Java Swing` · `HTML/CSS/JS`
 
 ---
